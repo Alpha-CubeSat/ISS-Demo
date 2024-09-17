@@ -2,6 +2,7 @@
 
 #include <IRremote.hpp>
 
+#include "sfr.hpp"
 #include "constants.hpp"
 
 IRControlTask::IRControlTask() {
@@ -32,6 +33,7 @@ void IRControlTask::parse_command() {
         break;
     case UPPER_RIGHT:
         Serial.println("Upper Right");
+        sfr::motor::spinning_up = true;
         break;
     case MUTE_BUTTON:
         Serial.println("Mute Button");

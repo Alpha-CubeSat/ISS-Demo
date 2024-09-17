@@ -1,7 +1,7 @@
 #ifndef MOTOR_CONTROL_TASK_HPP
 #define MOTOR_CONTROL_TASK_HPP
 
-#include <SAMD21turboPWM.h>
+#include <Servo.h>
 
 
 class MotorControlTask {
@@ -10,8 +10,10 @@ public:
     void execute();
 
 private:
-    TurboPWM pwm;
+    void spinup();
 
+    Servo esc;
+    unsigned long last_write;
 };
 
 #endif
