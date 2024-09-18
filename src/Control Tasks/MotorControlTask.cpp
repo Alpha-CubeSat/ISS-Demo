@@ -15,6 +15,12 @@ void MotorControlTask::execute() {
     if (sfr::motor::spinning_up) {
         spinup();
     }
+    if (sfr::motor::spin_down) {
+        esc.write(0);
+        
+        sfr::motor::spin_down = false;
+        sfr::motor::spinning_up = false;
+    }
 }
 
 void MotorControlTask::spinup() {

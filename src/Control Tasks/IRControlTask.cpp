@@ -30,6 +30,7 @@ void IRControlTask::parse_command() {
         break;
     case UPPER_LEFT:
         Serial.println("Upper Left");
+        sfr::motor::spin_down = true;
         break;
     case UPPER_RIGHT:
         Serial.println("Upper Right");
