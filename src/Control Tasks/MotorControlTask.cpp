@@ -10,7 +10,6 @@ MotorControlTask::MotorControlTask() {
     esc.write(0);
 }
 
-
 void MotorControlTask::execute() {
     if (sfr::motor::spinning_up) {
         spinup();
@@ -29,6 +28,7 @@ void MotorControlTask::spinup() {
         esc.write(val);
         sfr::motor::pulse_width++;
         last_write = millis();
+        Serial.println(sfr::motor::pulse_width);
     }
     
     if (sfr::motor::pulse_width == 1000) {

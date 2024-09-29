@@ -1,3 +1,6 @@
+#ifndef CONSTANTS_HPP
+#define CONSTANTS_HPP
+
 #define PWM_PIN 10
 #define IR_PIN 11
 
@@ -18,4 +21,10 @@ namespace constants {
     namespace motor {
         constexpr int spinup_increment = 150;
     }
+
+    namespace sd {
+        constexpr char const *filename = "data.csv";
+    }
 }
+
+#endif

@@ -4,6 +4,18 @@ namespace sfr {
     namespace motor {
         bool spinning_up = false;
         bool spin_down = false;
-        int pulse_width = 300;
+        int pulse_width = 100;
+    }
+    
+    namespace imu {
+        bool failed_init = false;
+
+        float accel_x = 0;
+        float accel_y = 0;
+        float accel_z = 0;
+
+        float gyro_x = 0;
+        float gyro_y = 0;
+        float gyro_z = 0;
     }
 }
