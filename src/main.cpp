@@ -6,16 +6,19 @@
 #include "Monitors/IMUMonitor.hpp"
 #include "Control Tasks/IRControlTask.hpp"
 #include "Control Tasks/MotorControlTask.hpp"
+#include "Control Tasks/SDControlTask.hpp"
 
 IMUMonitor imu_monitor;
 IRControlTask ir_control_task;
 MotorControlTask motor_control_task;
+SDControlTask sd_control_task;
 
 void setup() {
     Serial.begin(9600);
     imu_monitor.begin();
     ir_control_task.begin();
     motor_control_task.begin();
+    sd_control_task.begin();
 
     delay(5000);
 }
@@ -44,6 +47,7 @@ void loop() {
     imu_monitor.execute();
     ir_control_task.execute();
     motor_control_task.execute();
+    sd_control_task.execute();
 
-    Serial.println(F("-------------------- END LOOP --------------------"));
+    Serial.println(F("--------------------- END LOOP ---------------------"));
 }

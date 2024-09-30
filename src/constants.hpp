@@ -3,6 +3,7 @@
 
 #define PWM_PIN 10
 #define IR_PIN 11
+#define SD_PIN 4
 
 #define BUTTON_PIN 5
 
