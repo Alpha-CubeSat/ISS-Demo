@@ -11,6 +11,8 @@ public:
 private:
     void parse_command();
     void handle_overflow();
+
+    int button_selected = -1;
 };
 
 #endif

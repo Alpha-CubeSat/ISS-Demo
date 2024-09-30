@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
+// Pins
+
 #define PWM_PIN 10
 #define IR_PIN 11
 #define SD_PIN 4
@@ -10,6 +12,8 @@
 #define RED_LED_PIN 2
 #define GREEN_LED_PIN 8
 #define BLUE_LED_PIN 9
+
+// IR remote buttons
 
 #define UPPER_RIGHT 0xA
 #define LOWER_RIGHT 0xB
