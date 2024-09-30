@@ -5,7 +5,7 @@
 #include <Arduino.h>
 
 
-MotorControlTask::MotorControlTask() {
+void MotorControlTask::begin() {
     esc.attach(PWM_PIN, 1000, 2000);
     esc.write(0);
 }
@@ -24,7 +24,7 @@ void MotorControlTask::execute() {
 
 void MotorControlTask::spinup() {
     if (millis() - last_write > constants::motor::spinup_increment) {
-        int val = map(sfr::motor::pulse_width, 0, 1000, 0, 200);
+        int val = map(sfr::motor::pulse_width, 0, 1000, 0, 180);
         esc.write(val);
         sfr::motor::pulse_width++;
         last_write = millis();

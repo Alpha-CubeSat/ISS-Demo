@@ -6,7 +6,7 @@
 
 class MotorControlTask {
 public:
-    MotorControlTask();
+    void begin();
     void execute();
 
 private:

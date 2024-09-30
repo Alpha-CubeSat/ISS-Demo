@@ -5,7 +5,7 @@
 
 class IRControlTask {
 public:
-    IRControlTask();
+    void begin();
     void execute();
 
 private:

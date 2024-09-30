@@ -4,6 +4,8 @@
 #define PWM_PIN 10
 #define IR_PIN 11
 
+#define BUTTON_PIN 5
+
 #define RED_LED_PIN 2
 #define GREEN_LED_PIN 8
 #define BLUE_LED_PIN 9

@@ -14,6 +14,8 @@ MotorControlTask motor_control_task;
 void setup() {
     Serial.begin(9600);
     imu_monitor.begin();
+    ir_control_task.begin();
+    motor_control_task.begin();
 
     delay(5000);
 }

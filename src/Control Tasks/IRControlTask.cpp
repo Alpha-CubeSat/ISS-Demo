@@ -5,7 +5,7 @@
 #include "sfr.hpp"
 #include "constants.hpp"
 
-IRControlTask::IRControlTask() {
+void IRControlTask::begin() {
     IrReceiver.begin(IR_PIN, ENABLE_LED_FEEDBACK);
 }
 
