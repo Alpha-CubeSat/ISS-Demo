@@ -22,34 +22,23 @@ void IRControlTask::execute() {
 
 void IRControlTask::parse_command() {
     switch (IrReceiver.decodedIRData.command) {
-    case LOWER_LEFT:
-        Serial.println("Lower Left");
+    case ARM_BUTTON:
+        sfr::ir::is_armed = true;
+        vlogln("Lower Left");
         break;
-    case LOWER_RIGHT:
-        Serial.println("Lower Right");
-        break;
-    case UPPER_LEFT:
-        Serial.println("Upper Left");
-        sfr::motor::spin_down = true;
-        break;
-    case UPPER_RIGHT:
-        Serial.println("Upper Right");
+    case SPIN_BUTTON:
+        vlogln("Lower Right");
         sfr::motor::spinning_up = true;
         break;
-    case MUTE_BUTTON:
-        Serial.println("Mute Button");
+    case DEPLOY_BUTTON:
+        vlogln("Upper Left");
         break;
-    case POWER_BUTTON:
-        Serial.println("Power Button");
+    case DESPIN_BUTTON:
+        vlogln("Upper Right");
+        sfr::motor::spin_down = true;
         break;
-    case CC_BUTTON:
-        Serial.println("CC Button");
-        break;
-    case OK_BUTTON:
-        Serial.println("OK Button");
-        break; 
     default:
-        Serial.println(IrReceiver.decodedIRData.command);
+        vlogln(IrReceiver.decodedIRData.command);
         break;
     }
 }

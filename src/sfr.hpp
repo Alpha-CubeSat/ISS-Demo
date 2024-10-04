@@ -2,6 +2,9 @@
 #define SFR_HPP
 
 namespace sfr {
+    namespace ir {
+        extern bool is_armed;
+    }
     namespace motor {
         extern bool spinning_up;
         extern bool spin_down;

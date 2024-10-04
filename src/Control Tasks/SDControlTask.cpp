@@ -5,7 +5,7 @@
 
 void SDControlTask::begin() {
     if (!SD.begin(SD_PIN)) {
-        Serial.println("Error: SD interface failed to initialize");
+        vlogln("Error: SD interface failed to initialize");
     }
 }
 

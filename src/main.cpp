@@ -15,40 +15,42 @@ SDControlTask sd_control_task;
 
 void setup() {
     Serial.begin(9600);
+
+    pinMode(RED_LED_PIN, OUTPUT);
+    pinMode(GREEN_LED_PIN, OUTPUT);
+    pinMode(BLUE_LED_PIN, OUTPUT);
     
-    imu_monitor.begin();
+    // imu_monitor.begin();
     ir_control_task.begin();
     motor_control_task.begin();
     sd_control_task.begin();
-
-    delay(5000);
 }
 
 void loop() {
-    Serial.println(F("-------------------- START LOOP --------------------"));
+    vlogln(F("-------------------- START LOOP --------------------"));
 
-    Serial.print(F("Gyro X: "));
-    Serial.println(sfr::imu::gyro_x);
+    vlog(F("Gyro X: "));
+    vlogln(sfr::imu::gyro_x);
 
-    Serial.print(F("Gyro Y: "));
-    Serial.println(sfr::imu::gyro_y);
+    vlog(F("Gyro Y: "));
+    vlogln(sfr::imu::gyro_y);
 
-    Serial.print(F("Gyro Z: "));
-    Serial.println(sfr::imu::gyro_z);
+    vlog(F("Gyro Z: "));
+    vlogln(sfr::imu::gyro_z);
 
-    Serial.print(F("Accel X: "));
-    Serial.println(sfr::imu::accel_x);
+    vlog(F("Accel X: "));
+    vlogln(sfr::imu::accel_x);
 
-    Serial.print(F("Accel Y: "));
-    Serial.println(sfr::imu::accel_y);
+    vlog(F("Accel Y: "));
+    vlogln(sfr::imu::accel_y);
 
-    Serial.print(F("Accel Z: "));
-    Serial.println(sfr::imu::accel_z);
+    vlog(F("Accel Z: "));
+    vlogln(sfr::imu::accel_z);
 
     imu_monitor.execute();
     ir_control_task.execute();
     motor_control_task.execute();
     sd_control_task.execute();
 
-    Serial.println(F("--------------------- END LOOP ---------------------"));
+    vlogln(F("--------------------- END LOOP ---------------------"));
 }

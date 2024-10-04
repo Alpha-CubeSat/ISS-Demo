@@ -1,6 +1,7 @@
 #include "IMUMonitor.hpp"
 
 #include "sfr.hpp"
+#include "constants.hpp"
 
 void IMUMonitor::begin() {
     if (imu.begin_I2C()) {
@@ -10,7 +11,7 @@ void IMUMonitor::begin() {
         imu.setAccelRange(LSM6DS_ACCEL_RANGE_4_G);
     } else {
         sfr::imu::failed_init = true;
-        Serial.println("Error: IMU failed to initialize");
+        vlogln("Error: IMU failed to initialize");
     }
 }
 
@@ -24,7 +25,7 @@ void IMUMonitor::execute() {
         sfr::imu::gyro_y = gyro.gyro.y;
         sfr::imu::gyro_z = gyro.gyro.z;
     } else {
-        Serial.println("Error: IMU failed to read");
+        vlogln("Error: IMU failed to read");
         // TODO: Log this failure.
     }
 }

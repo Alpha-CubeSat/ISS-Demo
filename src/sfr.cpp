@@ -1,6 +1,9 @@
 #include "sfr.hpp"
 
 namespace sfr {
+    namespace ir {
+        bool is_armed = false;
+    }
     namespace motor {
         bool spinning_up = false;
         bool spin_down = false;
