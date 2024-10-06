@@ -19,9 +19,9 @@
 
 #define BUTTON_PIN 5
 
-#define RED_LED_PIN 2
-#define GREEN_LED_PIN 8
-#define BLUE_LED_PIN 9
+#define RED_LED_PIN A0
+#define GREEN_LED_PIN A1
+#define BLUE_LED_PIN A2
 
 // IR remote buttons
 
