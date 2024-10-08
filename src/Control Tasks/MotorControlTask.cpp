@@ -24,14 +24,13 @@ void MotorControlTask::execute() {
 
 void MotorControlTask::spinup() {
     if (millis() - last_write > constants::motor::spinup_increment) {
-        int val = map(sfr::motor::pulse_width, 0, 1000, 0, 180);
-        esc.write(val);
-        sfr::motor::pulse_width++;
+        esc.write(sfr::motor::pulse_width_angle);
+        sfr::motor::pulse_width_angle++;
         last_write = millis();
-        vlogln(sfr::motor::pulse_width);
+        vlogln(sfr::motor::pulse_width_angle);
     }
     
-    if (sfr::motor::pulse_width == 1000) {
+    if (sfr::motor::pulse_width_angle == 110) {
         sfr::motor::spinning_up = false;
     }
 }

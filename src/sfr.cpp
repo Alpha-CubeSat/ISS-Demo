@@ -7,7 +7,7 @@ namespace sfr {
     namespace motor {
         bool spinning_up = false;
         bool spin_down = false;
-        int pulse_width = 0;
+        int pulse_width_angle = 100;
     }
     
     namespace imu {

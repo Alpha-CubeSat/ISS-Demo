@@ -41,7 +41,7 @@
 
 namespace constants {
     namespace motor {
-        constexpr int spinup_increment = 150;
+        constexpr int spinup_increment = 500;
     }
 
     namespace sd {
