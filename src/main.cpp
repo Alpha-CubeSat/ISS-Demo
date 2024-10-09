@@ -39,20 +39,20 @@ void loop() {
     vlog(F("Gyro X: "));
     vlogln(sfr::imu::gyro_x);
 
-    vlog(F("Gyro Y: "));
-    vlogln(sfr::imu::gyro_y);
+    // vlog(F("Gyro Y: "));
+    // vlogln(sfr::imu::gyro_y);
 
-    vlog(F("Gyro Z: "));
-    vlogln(sfr::imu::gyro_z);
+    // vlog(F("Gyro Z: "));
+    // vlogln(sfr::imu::gyro_z);
 
-    vlog(F("Accel X: "));
-    vlogln(sfr::imu::accel_x);
+    // vlog(F("Accel X: "));
+    // vlogln(sfr::imu::accel_x);
 
-    vlog(F("Accel Y: "));
-    vlogln(sfr::imu::accel_y);
+    // vlog(F("Accel Y: "));
+    // vlogln(sfr::imu::accel_y);
 
-    vlog(F("Accel Z: "));
-    vlogln(sfr::imu::accel_z);
+    // vlog(F("Accel Z: "));
+    // vlogln(sfr::imu::accel_z);
 
     vlogln(F("--------------------- END LOOP ---------------------"));
 }

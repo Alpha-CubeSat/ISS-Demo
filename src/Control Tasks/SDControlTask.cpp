@@ -1,5 +1,4 @@
 #include "SDControlTask.hpp"
-
 #include "constants.hpp"
 #include "sfr.hpp"
 
@@ -8,39 +7,28 @@ void SDControlTask::begin() {
         vlogln("Error: SD interface failed to initialize");
         return;
     }
-    
-    File root = SD.open("/");
-
-    if (root) {
-        while (true) {
-            File entry = root.openNextFile();
-            if (entry) {
-                file_count++;
-                entry.close();
-            } else {
-                break;
-            }
-        }
-        root.close();
-    }
-
-    static char buffer[20];
-    sprintf(buffer, "data%d.csv", file_count + 1);
-    
-    sfr::sd::filename = buffer;
+    //remove old files
 }
 
 void SDControlTask::execute() {
-    file = SD.open(sfr::sd::filename, FILE_WRITE);
-
-    String data = String(millis()) + "," +
-                  String(sfr::motor::pulse_width_angle) + "," +
-                  String(sfr::imu::accel_x) + "," +
-                  String(sfr::imu::accel_y) + "," +
-                  String(sfr::imu::accel_z) + "," +
-                  String(sfr::imu::gyro_x) + "," +
-                  String(sfr::imu::gyro_y) + "," +
-                  String(sfr::imu::gyro_z);
+    file = SD.open(constants::sd::filename, FILE_WRITE);
+    //TODO: add recording of error, delta error, time, delta time, and anything else 
+    String data = String(millis()) + "," + 
+            //   String(sfr::motor::pulse_width) + "," + 
+            //   String(sfr::imu::accel_x) + "," + 
+            //   String(sfr::imu::accel_y) + "," + 
+            //   String(sfr::imu::accel_z) + "," + 
+            //   String(sfr::imu::gyro_x) + "," + 
+            //   String(sfr::imu::gyro_y) + "," + 
+            String(sfr::imu::gyro_z) + "," + 
+            String(sfr::controller::record_error) + "," + 
+            String(sfr::controller::record_delta_error) + "," +
+            String(sfr::controller::record_delta_time) + "," + 
+            String(sfr::controller::record_duty_cycle) + "," + 
+            String(sfr::controller::record_angle) + "," + 
+            String(sfr::controller::record_prop)+ "," + 
+            String(sfr::controller::record_derivative)+ "," + 
+            String(sfr::controller::record_integral);
 
     file.println(data);
 
