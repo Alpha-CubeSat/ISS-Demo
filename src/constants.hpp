@@ -78,7 +78,7 @@ namespace constants {
     }
 
     namespace sd {
-        constexpr char const *filename = "data2.csv";
+        constexpr char const *filename = "data.csv";
     }
 } // namespace constants
 

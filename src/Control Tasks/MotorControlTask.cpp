@@ -72,7 +72,19 @@ void MotorControlTask::control() {
 
     //write to esc
     esc.write(angle);
+    //store values to be recorded 
+    sfr::controller::record_error = error_curr;
+    sfr::controller::record_delta_error = error_curr - error_prev;
+    sfr::controller::record_delta_time = time_curr - time_prev;
+    sfr::controller::record_duty_cycle = duty_cycle;
+    sfr::controller::record_angle = angle;
+    sfr::controller::record_prop = proportional;
+    sfr::controller::record_derivative = derivative;
+    //integral should go here to but thats not in yet
 
+    //set current as previous for next loop
+    time_prev = time_curr;
+    error_prev = error_curr;
     vlogln("control done");
     
 }

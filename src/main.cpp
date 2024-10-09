@@ -14,6 +14,10 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void setup() {
+    if(SD.exists(constants::sd::filename)){
+        SD.remove(constants::sd::filename);
+    }
+    
     Serial.begin(9600);
 
     pinMode(RED_LED_PIN, OUTPUT);
@@ -43,7 +47,7 @@ void loop() {
     // vlogln(sfr::imu::gyro_y);
 
     // vlog(F("Gyro Z: "));
-    // vlogln(sfr::imu::gyro_z);
+     vlogln(sfr::imu::gyro_z);
 
     // vlog(F("Accel X: "));
     // vlogln(sfr::imu::accel_x);
