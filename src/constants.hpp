@@ -19,9 +19,9 @@
 
 #define BUTTON_PIN 5
 
-#define RED_LED_PIN A0
-#define GREEN_LED_PIN A1
-#define BLUE_LED_PIN A2
+#define RED_LED_PIN 2
+#define GREEN_LED_PIN 8
+#define BLUE_LED_PIN 9
 
 // IR remote buttons
 
@@ -39,13 +39,15 @@
 #define DEPLOY_BUTTON LOWER_LEFT
 #define DESPIN_BUTTON LOWER_RIGHT
 
+
+
 namespace constants {
     namespace motor {
-        constexpr int spinup_increment = 500;
+        constexpr int spinup_increment = 150;
     }
 
     namespace sd {
-        constexpr char const *filename = "data.csv";
+        constexpr char const *filename = "data2.csv";
     }
 }
 

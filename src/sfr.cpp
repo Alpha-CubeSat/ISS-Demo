@@ -7,7 +7,8 @@ namespace sfr {
     namespace motor {
         bool spinning_up = false;
         bool spin_down = false;
-        int pulse_width_angle = 100;
+        bool controller_on = false;
+        int pulse_width = 0;
     }
     
     namespace imu {
@@ -20,5 +21,16 @@ namespace sfr {
         float gyro_x = 0;
         float gyro_y = 0;
         float gyro_z = 0;
+    }
+
+    namespace controller{
+        float record_angle = 0; 
+        float record_duty_cycle = 0;
+        float record_error = 0;
+        float record_delta_error = 0;
+        float record_delta_time = 0;
+        float record_prop = 0;
+        float record_derivative = 0;
+        float record_integral = 0;
     }
 }
