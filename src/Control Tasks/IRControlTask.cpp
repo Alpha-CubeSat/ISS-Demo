@@ -10,10 +10,19 @@ void IRControlTask::begin() {
 }
 
 void IRControlTask::execute() {
+    // Deploy
+    if (sfr::ir::is_deploying && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
+        setWhite();
+        sfr::ir::is_deploying = false;
+        // TODO: Actuate filament
+        Serial.println("Deploy");
+    }
+
     // Handle arming timeout
     if (sfr::ir::is_armed && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
         setYellow();
         sfr::ir::is_armed = false;
+        Serial.println("arm timeout");
     }
 
     // Parse any commands sent
@@ -33,7 +42,7 @@ void IRControlTask::parse_command() {
         setGreen();
         sfr::ir::is_armed = true;
         sfr::ir::armed_start = millis();
-        vlogln("Lower Left");
+        vlogln("Upper Right");
         break;
     case SPIN_BUTTON:
         if (sfr::ir::is_armed) {
@@ -48,12 +57,16 @@ void IRControlTask::parse_command() {
     case DEPLOY_BUTTON:
         if (sfr::ir::is_armed) {
             setBlue();
-            // TODO
+
+            sfr::ir::is_armed = false;
+
+            sfr::ir::is_deploying = true;
+            sfr::ir::deploy_start = millis();
         } else {
             setYellow();
         }
 
-        vlogln("Upper Left");
+        vlogln("Lower Left");
         break;
     case DESPIN_BUTTON:
         if (sfr::ir::is_armed) {
@@ -63,7 +76,7 @@ void IRControlTask::parse_command() {
             setYellow();
         }
         
-        vlogln("Upper Right");
+        vlogln("Lower Right");
         break;
     default:
         vlogln(IrReceiver.decodedIRData.command);

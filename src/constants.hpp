@@ -70,6 +70,7 @@ inline void setYellow() {
 namespace constants {
     namespace ir {
         constexpr unsigned long arm_timeout = 2000;
+        constexpr unsigned long deploy_led_timeout = 3000;
     }
     namespace motor {
         constexpr int spinup_increment = 500;

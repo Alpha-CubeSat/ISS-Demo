@@ -14,9 +14,7 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void setup() {
-#ifdef VERBOSE
     Serial.begin(9600);
-#endif
 
     pinMode(RED_LED_PIN, OUTPUT);
     pinMode(GREEN_LED_PIN, OUTPUT);
