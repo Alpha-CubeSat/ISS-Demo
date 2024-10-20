@@ -10,6 +10,13 @@ void IRControlTask::begin() {
 }
 
 void IRControlTask::execute() {
+    // Handle arming timeout
+    if (sfr::ir::is_armed && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
+        setYellow();
+        sfr::ir::is_armed = false;
+    }
+
+    // Parse any commands sent
     if (IrReceiver.decode()) {
         if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_WAS_OVERFLOW) {
             handle_overflow();
@@ -25,20 +32,37 @@ void IRControlTask::parse_command() {
     case ARM_BUTTON:
         setGreen();
         sfr::ir::is_armed = true;
+        sfr::ir::armed_start = millis();
         vlogln("Lower Left");
         break;
     case SPIN_BUTTON:
-        setBlue();
-        sfr::motor::spinning_up = true;
+        if (sfr::ir::is_armed) {
+            setBlue();
+            sfr::motor::spinning_up = true;
+        } else {
+            setYellow();
+        }
+        
         vlogln("Lower Right");
         break;
     case DEPLOY_BUTTON:
-        setBlue();
+        if (sfr::ir::is_armed) {
+            setBlue();
+            // TODO
+        } else {
+            setYellow();
+        }
+
         vlogln("Upper Left");
         break;
     case DESPIN_BUTTON:
-        setBlue();
-        sfr::motor::spin_down = true;
+        if (sfr::ir::is_armed) {
+            setBlue();
+            sfr::motor::spin_down = true;
+        } else {
+            setYellow();
+        }
+        
         vlogln("Upper Right");
         break;
     default:

@@ -68,6 +68,9 @@ inline void setYellow() {
 }
 
 namespace constants {
+    namespace ir {
+        constexpr unsigned long arm_timeout = 2000;
+    }
     namespace motor {
         constexpr int spinup_increment = 500;
     }
