@@ -15,14 +15,12 @@ void IRControlTask::execute() {
         setWhite();
         sfr::ir::is_deploying = false;
         // TODO: Actuate filament
-        Serial.println("Deploy");
     }
 
     // Handle arming timeout
     if (sfr::ir::is_armed && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
         setYellow();
         sfr::ir::is_armed = false;
-        Serial.println("arm timeout");
     }
 
     // Parse any commands sent
@@ -42,6 +40,7 @@ void IRControlTask::parse_command() {
         setGreen();
         sfr::ir::is_armed = true;
         sfr::ir::armed_start = millis();
+        
         vlogln("Upper Right");
         break;
     case SPIN_BUTTON:
