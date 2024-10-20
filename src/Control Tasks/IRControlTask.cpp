@@ -23,19 +23,23 @@ void IRControlTask::execute() {
 void IRControlTask::parse_command() {
     switch (IrReceiver.decodedIRData.command) {
     case ARM_BUTTON:
+        setGreen();
         sfr::ir::is_armed = true;
         vlogln("Lower Left");
         break;
     case SPIN_BUTTON:
-        vlogln("Lower Right");
+        setBlue();
         sfr::motor::spinning_up = true;
+        vlogln("Lower Right");
         break;
     case DEPLOY_BUTTON:
+        setBlue();
         vlogln("Upper Left");
         break;
     case DESPIN_BUTTON:
-        vlogln("Upper Right");
+        setBlue();
         sfr::motor::spin_down = true;
+        vlogln("Upper Right");
         break;
     default:
         vlogln(IrReceiver.decodedIRData.command);

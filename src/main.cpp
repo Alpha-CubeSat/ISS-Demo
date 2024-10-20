@@ -14,11 +14,15 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void setup() {
+#ifdef VERBOSE
     Serial.begin(9600);
+#endif
 
     pinMode(RED_LED_PIN, OUTPUT);
     pinMode(GREEN_LED_PIN, OUTPUT);
     pinMode(BLUE_LED_PIN, OUTPUT);
+
+    setWhite();
     
     // imu_monitor.begin();
     ir_control_task.begin();
@@ -28,6 +32,11 @@ void setup() {
 
 void loop() {
     vlogln(F("-------------------- START LOOP --------------------"));
+
+    imu_monitor.execute();
+    ir_control_task.execute();
+    motor_control_task.execute();
+    sd_control_task.execute();
 
     vlog(F("Gyro X: "));
     vlogln(sfr::imu::gyro_x);
@@ -46,11 +55,6 @@ void loop() {
 
     vlog(F("Accel Z: "));
     vlogln(sfr::imu::accel_z);
-
-    imu_monitor.execute();
-    ir_control_task.execute();
-    motor_control_task.execute();
-    sd_control_task.execute();
 
     vlogln(F("--------------------- END LOOP ---------------------"));
 }

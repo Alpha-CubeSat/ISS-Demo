@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
+#include <Arduino.h>
+
 #ifdef VERBOSE
 #define vlogln(...) Serial.println(__VA_ARGS__)
 #define vlog(...) Serial.print(__VA_ARGS__)
@@ -38,6 +40,32 @@
 #define SPIN_BUTTON UPPER_LEFT
 #define DEPLOY_BUTTON LOWER_LEFT
 #define DESPIN_BUTTON LOWER_RIGHT
+
+// LED colors
+
+inline void setWhite() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+}
+
+inline void setBlue() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+}
+
+inline void setGreen() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+inline void setYellow() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
 
 namespace constants {
     namespace motor {
