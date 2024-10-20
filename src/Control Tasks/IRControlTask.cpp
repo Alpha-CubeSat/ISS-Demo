@@ -2,8 +2,8 @@
 
 #include <IRremote.hpp>
 
-#include "sfr.hpp"
 #include "constants.hpp"
+#include "sfr.hpp"
 
 void IRControlTask::begin() {
     IrReceiver.begin(IR_PIN, ENABLE_LED_FEEDBACK);
@@ -40,7 +40,7 @@ void IRControlTask::parse_command() {
         setGreen();
         sfr::ir::is_armed = true;
         sfr::ir::armed_start = millis();
-        
+
         vlogln("Upper Right");
         break;
     case SPIN_BUTTON:
@@ -50,7 +50,7 @@ void IRControlTask::parse_command() {
         } else {
             setYellow();
         }
-        
+
         vlogln("Lower Right");
         break;
     case DEPLOY_BUTTON:
@@ -74,7 +74,7 @@ void IRControlTask::parse_command() {
         } else {
             setYellow();
         }
-        
+
         vlogln("Lower Right");
         break;
     default:

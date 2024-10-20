@@ -7,13 +7,13 @@ namespace sfr {
 
         bool is_deploying = false;
         unsigned long deploy_start = 0;
-    }
+    } // namespace ir
     namespace motor {
         bool spinning_up = false;
         bool spin_down = false;
         int pulse_width_angle = 100;
-    }
-    
+    } // namespace motor
+
     namespace imu {
         bool failed_init = false;
 
@@ -24,5 +24,5 @@ namespace sfr {
         float gyro_x = 0;
         float gyro_y = 0;
         float gyro_z = 0;
-    }
-}
+    } // namespace imu
+} // namespace sfr

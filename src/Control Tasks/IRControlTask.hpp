@@ -1,8 +1,6 @@
 #ifndef IR_CONTROL_TASK_HPP
 #define IR_CONTROL_TASK_HPP
 
-
-
 class IRControlTask {
 public:
     void begin();

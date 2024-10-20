@@ -71,7 +71,7 @@ namespace constants {
     namespace ir {
         constexpr unsigned long arm_timeout = 2000;
         constexpr unsigned long deploy_led_timeout = 3000;
-    }
+    } // namespace ir
     namespace motor {
         constexpr int spinup_increment = 500;
     }
@@ -79,6 +79,6 @@ namespace constants {
     namespace sd {
         constexpr char const *filename = "data.csv";
     }
-}
+} // namespace constants
 
 #endif

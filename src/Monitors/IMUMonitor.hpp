@@ -3,10 +3,8 @@
 
 #include <Adafruit_LSM6DS3TRC.h>
 
-
 class IMUMonitor {
 public:
-
     void begin();
     void execute();
 

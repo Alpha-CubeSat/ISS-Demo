@@ -8,12 +8,12 @@ namespace sfr {
 
         extern bool is_deploying;
         extern unsigned long deploy_start;
-    }
+    } // namespace ir
     namespace motor {
         extern bool spinning_up;
         extern bool spin_down;
         extern int pulse_width_angle;
-    }
+    } // namespace motor
 
     namespace imu {
         extern bool failed_init;
@@ -25,8 +25,7 @@ namespace sfr {
         extern float gyro_x;
         extern float gyro_y;
         extern float gyro_z;
-    }
-}
-
+    } // namespace imu
+} // namespace sfr
 
 #endif

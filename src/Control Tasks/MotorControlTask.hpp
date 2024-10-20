@@ -3,7 +3,6 @@
 
 #include <Servo.h>
 
-
 class MotorControlTask {
 public:
     void begin();
