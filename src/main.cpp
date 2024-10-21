@@ -14,9 +14,7 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void setup() {
-    if(SD.exists(constants::sd::filename)){
-        SD.remove(constants::sd::filename);
-    }
+    
     
     Serial.begin(9600);
 
@@ -31,6 +29,7 @@ void setup() {
 }
 
 void loop() {
+    
     vlogln(F("-------------------- START LOOP --------------------"));
 
     // vlog(F("Gyro X: "));
@@ -40,7 +39,7 @@ void loop() {
     // vlogln(sfr::imu::gyro_y);
 
     // vlog(F("Gyro Z: "));
-     vlogln(sfr::imu::gyro_z);
+    // vlogln(sfr::imu::gyro_z);
 
     // vlog(F("Accel X: "));
     // vlogln(sfr::imu::accel_x);
@@ -54,7 +53,10 @@ void loop() {
     imu_monitor.execute();
     ir_control_task.execute();
     motor_control_task.execute();
+    //if(sfr::controller::recrod_data){
     sd_control_task.execute();
+    //}
+   
 
     //vlogln(F("--------------------- END LOOP ---------------------"));
 }
