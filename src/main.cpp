@@ -14,14 +14,14 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void setup() {
-    
-    
     Serial.begin(9600);
 
     pinMode(RED_LED_PIN, OUTPUT);
     pinMode(GREEN_LED_PIN, OUTPUT);
     pinMode(BLUE_LED_PIN, OUTPUT);
-    
+
+    setWhite();
+
     imu_monitor.begin();
     ir_control_task.begin();
     motor_control_task.begin();
@@ -29,34 +29,30 @@ void setup() {
 }
 
 void loop() {
-    
     vlogln(F("-------------------- START LOOP --------------------"));
-
-    // vlog(F("Gyro X: "));
-    //vlogln(sfr::imu::gyro_x);
-
-    // vlog(F("Gyro Y: "));
-    // vlogln(sfr::imu::gyro_y);
-
-    // vlog(F("Gyro Z: "));
-    // vlogln(sfr::imu::gyro_z);
-
-    // vlog(F("Accel X: "));
-    // vlogln(sfr::imu::accel_x);
-
-    // vlog(F("Accel Y: "));
-    // vlogln(sfr::imu::accel_y);
-
-    // vlog(F("Accel Z: "));
-    // vlogln(sfr::imu::accel_z);
 
     imu_monitor.execute();
     ir_control_task.execute();
     motor_control_task.execute();
-    //if(sfr::controller::recrod_data){
     sd_control_task.execute();
-    //}
-   
 
-    //vlogln(F("--------------------- END LOOP ---------------------"));
+    vlog(F("Gyro X: "));
+    vlogln(sfr::imu::gyro_x);
+
+    vlog(F("Gyro Y: "));
+    vlogln(sfr::imu::gyro_y);
+
+    vlog(F("Gyro Z: "));
+    vlogln(sfr::imu::gyro_z);
+
+    vlog(F("Accel X: "));
+    vlogln(sfr::imu::accel_x);
+
+    vlog(F("Accel Y: "));
+    vlogln(sfr::imu::accel_y);
+
+    vlog(F("Accel Z: "));
+    vlogln(sfr::imu::accel_z);
+
+    vlogln(F("--------------------- END LOOP ---------------------"));
 }

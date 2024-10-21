@@ -12,10 +12,10 @@ namespace sfr {
     namespace motor {
         extern bool spinning_up;
         extern bool spin_down;
-        extern bool controller_on; 
+        extern bool controller_on;
         extern int pulse_width;
-        
-    }
+
+    } // namespace motor
 
     namespace imu {
         extern bool failed_init;
@@ -27,10 +27,10 @@ namespace sfr {
         extern float gyro_x;
         extern float gyro_y;
         extern float gyro_z;
-    }
+    } // namespace imu
 
     namespace controller {
-        extern float record_angle; 
+        extern float record_angle;
         extern float record_duty_cycle;
         extern float record_error;
         extern float record_delta_error;
@@ -39,9 +39,8 @@ namespace sfr {
         extern float record_derivative;
         extern float record_integral;
 
-        extern bool recrod_data; 
-    }
-}
-
+        extern bool record_data;
+    } // namespace controller
+} // namespace sfr
 
 #endif
