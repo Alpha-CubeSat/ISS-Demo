@@ -4,7 +4,11 @@
 namespace sfr {
     namespace ir {
         extern bool is_armed;
-    }
+        extern unsigned long armed_start;
+
+        extern bool is_deploying;
+        extern unsigned long deploy_start;
+    } // namespace ir
     namespace motor {
         extern bool spinning_up;
         extern bool spin_down;

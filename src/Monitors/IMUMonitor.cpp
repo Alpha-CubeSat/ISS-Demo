@@ -1,7 +1,7 @@
 #include "IMUMonitor.hpp"
 
-#include "sfr.hpp"
 #include "constants.hpp"
+#include "sfr.hpp"
 
 void IMUMonitor::begin() {
     if (imu.begin_I2C()) {

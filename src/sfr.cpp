@@ -3,7 +3,11 @@
 namespace sfr {
     namespace ir {
         bool is_armed = false;
-    }
+        unsigned long armed_start = 0;
+
+        bool is_deploying = false;
+        unsigned long deploy_start = 0;
+    } // namespace ir
     namespace motor {
         bool spinning_up = false;
         bool spin_down = false;

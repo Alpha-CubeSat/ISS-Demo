@@ -2,11 +2,11 @@
 
 #include "constants.hpp"
 
-#include "sfr.hpp"
-#include "Monitors/IMUMonitor.hpp"
 #include "Control Tasks/IRControlTask.hpp"
 #include "Control Tasks/MotorControlTask.hpp"
 #include "Control Tasks/SDControlTask.hpp"
+#include "Monitors/IMUMonitor.hpp"
+#include "sfr.hpp"
 
 IMUMonitor imu_monitor;
 IRControlTask ir_control_task;

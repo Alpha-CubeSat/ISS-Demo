@@ -2,6 +2,7 @@
 #include "MotorControlTask.hpp"
 #include "sfr.hpp"
 #include "constants.hpp"
+#include "sfr.hpp"
 
 void SDControlTask::begin() {
     if (!SD.begin(SD_PIN)) {
@@ -40,7 +41,6 @@ void SDControlTask::execute() {
             //   String(sfr::imu::gyro_y) + "," +
 
     file.println(data);
-
 
     file.flush();
     file.close();
