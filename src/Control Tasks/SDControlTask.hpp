@@ -9,7 +9,7 @@ public:
     void execute();
 
 private:
-    String name; 
+    String name;
     File file;
     int file_count;
 };

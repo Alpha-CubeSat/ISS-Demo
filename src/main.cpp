@@ -14,8 +14,6 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void setup() {
-    
-    
     Serial.begin(9600);
 
     pinMode(RED_LED_PIN, OUTPUT);
@@ -31,7 +29,6 @@ void setup() {
 }
 
 void loop() {
-    
     vlogln(F("-------------------- START LOOP --------------------"));
 
     imu_monitor.execute();

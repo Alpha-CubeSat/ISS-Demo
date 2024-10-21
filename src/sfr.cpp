@@ -13,8 +13,8 @@ namespace sfr {
         bool spin_down = false;
         bool controller_on = false;
         int pulse_width = 0;
-    }
-    
+    } // namespace motor
+
     namespace imu {
         bool failed_init = false;
 
@@ -31,8 +31,8 @@ namespace sfr {
         char const *filename = "data_0.csv";
     }
 
-    namespace controller{
-        float record_angle = 0; 
+    namespace controller {
+        float record_angle = 0;
         float record_duty_cycle = 0;
         float record_error = 0;
         float record_delta_error = 0;
@@ -42,5 +42,5 @@ namespace sfr {
         float record_integral = 0;
 
         bool record_data = false;
-    }
-}
+    } // namespace controller
+} // namespace sfr
