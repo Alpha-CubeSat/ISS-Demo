@@ -40,5 +40,7 @@ namespace sfr {
         float record_prop = 0;
         float record_derivative = 0;
         float record_integral = 0;
+
+        bool record_data = false;
     }
 }

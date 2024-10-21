@@ -41,6 +41,8 @@ namespace sfr {
         extern float record_prop;
         extern float record_derivative;
         extern float record_integral;
+
+        extern bool recrod_data; 
     }
 }
 

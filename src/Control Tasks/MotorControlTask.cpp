@@ -17,15 +17,16 @@ void MotorControlTask::execute() {
     }
 
     if(sfr::motor::controller_on){
+       // sfr::controller::recrod_data = true;
         control();
     }
 
     if (sfr::motor::spin_down) {
         esc.write(0);
-
-        sfr::motor::pulse_width_angle = 100;
+        sfr::motor::controller_on = false;
         sfr::motor::spin_down = false;
         sfr::motor::spinning_up = false;
+        
     }
 }
 
@@ -42,16 +43,25 @@ void MotorControlTask::spinup() {
         
     }
     
-    if (sfr::motor::pulse_width == 400) {
+    if (sfr::motor::pulse_width == 1) {
+        esc.write(100);
         sfr::motor::spinning_up = false;
-        sfr::motor::controller_on = true;
+       sfr::motor::controller_on = true;
     }
 }
 
 void MotorControlTask::control() {
-
-    vlogln("Controls Called");
+    // //Test to find RPM vs ESC input relation
+    // vlogln("Start Test");
+    // for(int i = 1000; i <=2000; i += 20){
+    //     vlogln(i);
+    //     esc.write(map(i, 1000, 2000, 0, 180));
+    //     delay(10000);
+    //     vlogln("steady state");
+    //     delay(5000);
+    // }
     
+    vlogln("Controls called");
     //define current values
     error_curr = 4 - sfr::imu::gyro_z; 
     time_curr = millis();
@@ -61,17 +71,24 @@ void MotorControlTask::control() {
     derivative = Kd * (error_curr-error_prev)/(time_curr-time_prev);
 
     //send electic pulse based on PID (range from 0 to 1000)
-    duty_cycle = proportional + derivative;
-    if(duty_cycle < 600){
-        duty_cycle = 600;
-    }else if(duty_cycle>1000){
-        duty_cycle =1000;
+    vlogln(esc_prev);
+    T = proportional + derivative;
+    duty_cycle = (.043788*T) + esc_prev; 
+    vlogln("T: " + String(T));
+    vlogln("duty cycle: " + String(duty_cycle));
+   
+
+    if(duty_cycle < 1180.00){
+        duty_cycle = 1180.00;
+    }else if(duty_cycle > 1920.00){
+        duty_cycle = 1920.00;
     }
     //convert duty cycle to angle for esc
-    angle = map(duty_cycle, 0, 1000, 0, 180);
-
+    angle = map(duty_cycle, 1000, 2000, 0, 180);
+    vlogln("ANGLE: " + String(angle));
     //write to esc
     esc.write(angle);
+    
     //store values to be recorded 
     sfr::controller::record_error = error_curr;
     sfr::controller::record_delta_error = error_curr - error_prev;
@@ -82,9 +99,14 @@ void MotorControlTask::control() {
     sfr::controller::record_derivative = derivative;
     //integral should go here to but thats not in yet
 
+
+    esc_prev = duty_cycle;
+    vlogln(esc_prev);
     //set current as previous for next loop
     time_prev = time_curr;
     error_prev = error_curr;
+    
+    
     vlogln("control done");
     
 }
