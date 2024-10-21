@@ -35,7 +35,13 @@ void IRControlTask::execute() {
 }
 
 void IRControlTask::parse_command() {
-    switch (IrReceiver.decodedIRData.command) {
+    // Ignore repeat commands (except for Arm)
+    if (button_selected == IrReceiver.decodedIRData.command && button_selected != ARM_BUTTON) {
+        return;
+    }
+    button_selected = IrReceiver.decodedIRData.command;
+
+    switch (button_selected) {
     case ARM_BUTTON:
         setGreen();
         sfr::ir::is_armed = true;
