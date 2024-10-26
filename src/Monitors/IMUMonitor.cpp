@@ -6,12 +6,13 @@
 void IMUMonitor::begin() {
     if (imu.begin_I2C()) {
         imu.setGyroDataRate(LSM6DS_RATE_208_HZ);
-        imu.setGyroRange(LSM6DS_GYRO_RANGE_250_DPS);
+        imu.setGyroRange(LSM6DS_GYRO_RANGE_1000_DPS);
         imu.setAccelDataRate(LSM6DS_RATE_208_HZ);
         imu.setAccelRange(LSM6DS_ACCEL_RANGE_4_G);
     } else {
         sfr::imu::failed_init = true;
         vlogln("Error: IMU failed to initialize");
+        // TODO: Open loop
     }
 }
 

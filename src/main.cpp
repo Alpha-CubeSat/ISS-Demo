@@ -22,7 +22,7 @@ void setup() {
 
     setWhite();
 
-    // imu_monitor.begin();
+    imu_monitor.begin();
     ir_control_task.begin();
     motor_control_task.begin();
     sd_control_task.begin();
