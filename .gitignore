@@ -1,3 +1,11 @@
-.pio
+# PlatformIO build folder
+.pio/
+
+# VS Code config folder
 .vscode/
+
+# Data file from SD card
+**/data.csv
+
+# DS Store
 .DS_Store
