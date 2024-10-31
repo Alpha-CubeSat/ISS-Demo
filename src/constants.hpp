@@ -19,7 +19,8 @@
 #define IR_PIN 11
 #define SD_PIN 4
 
-#define BUTTON_PIN 5
+#define LATCH_PIN A4
+#define SWITCH_PIN 5
 
 #define RED_LED_PIN A0
 #define GREEN_LED_PIN A1
