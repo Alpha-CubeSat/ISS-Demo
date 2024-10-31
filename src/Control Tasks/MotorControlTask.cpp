@@ -16,6 +16,7 @@ void MotorControlTask::execute() {
     if (sfr::motor::spin_down) {
         esc.write(0);
 
+        sfr::motor::pulse_width_angle = 100;
         sfr::motor::spin_down = false;
         sfr::motor::spinning_up = false;
     }

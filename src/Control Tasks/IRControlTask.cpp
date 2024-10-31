@@ -39,6 +39,10 @@ void IRControlTask::parse_command() {
     if (button_selected == IrReceiver.decodedIRData.command && button_selected != ARM_BUTTON) {
         return;
     }
+    // Ignore >2 action commands after an Arm
+    if (sfr::ir::is_armed && button_selected != ARM_BUTTON && IrReceiver.decodedIRData.command != ARM_BUTTON) {
+        return;
+    }
     button_selected = IrReceiver.decodedIRData.command;
 
     switch (button_selected) {
