@@ -4,8 +4,8 @@
 
 #include <SPI.h>
 
-uint8_t buffer[512];
-const size_t bufferSize = 512;
+const size_t bufferSize = 1024;
+uint8_t buffer[bufferSize];
 
 volatile bool transfer_complete = false;
 
@@ -14,12 +14,12 @@ void dmaCallback(Adafruit_ZeroDMA *dma) {
 }
 
 void SDControlTask::begin() {
-    if (!SD.begin(SD_PIN, SD_SCK_MHZ(50))) {
+    if (!SD.begin(SD_PIN, SD_SCK_MHZ(12))) {
         vlogln("Error: SD interface failed to initialize");
     }
 
     for (size_t j = 0; j < bufferSize; j++) {
-        buffer[j] = (buffer[j] + 1) % 256;
+        buffer[j] = j % 256;
     }
 
     dma.allocate();
@@ -27,12 +27,10 @@ void SDControlTask::begin() {
     dma.setAction(DMA_TRIGGER_ACTON_BEAT);
     dma.setCallback(dmaCallback);
 
-    
-
     desc = dma.addDescriptor(
         buffer,
         (void*)(&SERCOM4->SPI.DATA.reg),
-        sizeof(buffer),
+        bufferSize,
         DMA_BEAT_SIZE_BYTE,
         true,
         false
@@ -44,18 +42,19 @@ void SDControlTask::execute() {
 
     file = SD.open(constants::sd::filename, O_CREAT | O_WRITE);
 
+    transfer_complete = false;
+    
     dma.startJob();
+
     while (!transfer_complete) {}
 
-    if (!file.write(buffer, bufferSize)) {
-        Serial.println("Failed to write data to SD card");
-    } else {
-        Serial.print("Write completed");
+    if (file.write(buffer, bufferSize) != bufferSize) {
+        Serial.println("Error: Failed to write data to SD card");
     }
 
     file.flush();
     file.close();
     uint32_t elapsed = millis() - start;
-    Serial.print("SD: ");
+    Serial.print("SD DMA: ");
     Serial.println(elapsed);
 }
