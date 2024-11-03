@@ -1,7 +1,8 @@
 #ifndef SD_CONTROL_TASK_HPP
 #define SD_CONTROL_TASK_HPP
 
-#include <SD.h>
+#include <Adafruit_ZeroDMA.h>
+#include <SdFat.h>
 
 class SDControlTask {
 public:
@@ -9,6 +10,9 @@ public:
     void execute();
 
 private:
+    Adafruit_ZeroDMA dma;
+    DmacDescriptor* desc;
+    SdFat SD;
     File file;
 };
 
