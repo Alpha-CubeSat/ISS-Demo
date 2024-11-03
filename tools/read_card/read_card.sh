@@ -1,7 +1,5 @@
 #!/bin/zsh
-#
-# Reads the contents of data.csv from the Adalogger and writes it out to a similar file in this directory.
-#
+# Reads the contents of data.csv from the Adalogger and writes it out to a similar file in this directory
 
 FQBN="adafruit:samd:adafruit_feather_m0"
 PORT=$(arduino-cli board list | grep "$FQBN" | awk '{print $1}')
