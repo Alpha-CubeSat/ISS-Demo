@@ -4,8 +4,8 @@
 
 #include <SPI.h>
 
-const size_t bufferSize = 1024;
-uint8_t buffer[bufferSize];
+const size_t bufferSize = 128;
+char buffer[bufferSize];
 
 volatile bool transfer_complete = false;
 
@@ -16,10 +16,6 @@ void dmaCallback(Adafruit_ZeroDMA *dma) {
 void SDControlTask::begin() {
     if (!SD.begin(SD_PIN, SD_SCK_MHZ(12))) {
         vlogln("Error: SD interface failed to initialize");
-    }
-
-    for (size_t j = 0; j < bufferSize; j++) {
-        buffer[j] = j % 256;
     }
 
     dma.allocate();
@@ -40,10 +36,16 @@ void SDControlTask::begin() {
 void SDControlTask::execute() {
     uint32_t start = millis();
 
-    file = SD.open(constants::sd::filename, O_CREAT | O_WRITE);
+    file = SD.open(constants::sd::filename, O_CREAT | O_WRITE | O_APPEND);
+    if (!file) {
+        Serial.println("Error: Could not open file");
+    }
+
+    snprintf(buffer, sizeof(buffer), "%lu,%d,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f\n", millis(), sfr::motor::pulse_width_angle, sfr::imu::accel_x, sfr::imu::accel_y, sfr::imu::accel_z, sfr::imu::gyro_x, sfr::imu::gyro_y, sfr::imu::gyro_z);
+
 
     transfer_complete = false;
-    
+
     dma.startJob();
 
     while (!transfer_complete) {}
