@@ -6,11 +6,32 @@
 void SDControlTask::begin() {
     if (!SD.begin(SD_PIN)) {
         vlogln("Error: SD interface failed to initialize");
+        return;
     }
+    
+    File root = SD.open("/");
+
+    if (root) {
+        while (true) {
+            File entry = root.openNextFile();
+            if (entry) {
+                file_count++;
+                entry.close();
+            } else {
+                break;
+            }
+        }
+        root.close();
+    }
+
+    static char buffer[20];
+    sprintf(buffer, "data%d.csv", file_count + 1);
+    
+    sfr::sd::filename = buffer;
 }
 
 void SDControlTask::execute() {
-    file = SD.open(constants::sd::filename, FILE_WRITE);
+    file = SD.open(sfr::sd::filename, FILE_WRITE);
 
     String data = String(millis()) + "," +
                   String(sfr::motor::pulse_width_angle) + "," +

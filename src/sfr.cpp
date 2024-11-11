@@ -25,4 +25,8 @@ namespace sfr {
         float gyro_y = 0;
         float gyro_z = 0;
     } // namespace imu
+
+    namespace sd {
+        char const *filename = "data_0.csv";
+    }
 } // namespace sfr

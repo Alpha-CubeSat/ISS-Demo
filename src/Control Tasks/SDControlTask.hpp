@@ -10,6 +10,7 @@ public:
 
 private:
     File file;
+    int file_count;
 };
 
 #endif
