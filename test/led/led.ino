@@ -5,33 +5,45 @@
 #define BLUE_LED_PIN A2
 
 inline void setWhite() {
-    digitalWrite(RED_LED_PIN, HIGH);
-    digitalWrite(GREEN_LED_PIN, HIGH);
-    digitalWrite(BLUE_LED_PIN, HIGH);
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, LOW);
 }
 
 inline void setRed() {
-    digitalWrite(RED_LED_PIN, HIGH);
-    digitalWrite(GREEN_LED_PIN, LOW);
-    digitalWrite(BLUE_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
 inline void setGreen() {
-    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+}
+
+inline void setBlue() {
+    digitalWrite(RED_LED_PIN, HIGH);
     digitalWrite(GREEN_LED_PIN, HIGH);
     digitalWrite(BLUE_LED_PIN, LOW);
 }
 
-inline void setBlue() {
+inline void setYellow() {
     digitalWrite(RED_LED_PIN, LOW);
     digitalWrite(GREEN_LED_PIN, LOW);
     digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
-inline void setYellow() {
-    digitalWrite(RED_LED_PIN, HIGH);
+inline void setPurple() {
+    digitalWrite(RED_LED_PIN, LOW);
     digitalWrite(GREEN_LED_PIN, HIGH);
     digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+inline void setOff() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
 void setup() {
@@ -55,6 +67,12 @@ void loop() {
     setYellow();
     delay(1000);
 
+    setPurple();
+    delay(1000);
+
     setWhite();
     delay(1000);
+    
+    setOff();
+    delay(5000);
 }
