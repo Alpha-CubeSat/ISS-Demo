@@ -11,10 +11,14 @@ void IRControlTask::begin() {
 
 void IRControlTask::execute() {
     // Deploy
-    if (sfr::ir::is_deploying && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
-        set_white();
+    if (sfr::ir::is_deploying && (millis() - sfr::ir::deploy_start > constants::ir::deploy_led_timeout)) {
         sfr::ir::is_deploying = false;
-        // TODO: Actuate filament
+
+        digitalWrite(GATE_PIN, HIGH);
+        delay(1);
+        digitalWrite(GATE_PIN, LOW);
+
+        set_white();
     }
 
     // Handle arming timeout
