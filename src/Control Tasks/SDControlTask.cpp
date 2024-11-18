@@ -8,7 +8,7 @@ void SDControlTask::begin() {
         vlogln("Error: SD interface failed to initialize");
         return;
     }
-    
+
     File root = SD.open("/");
 
     if (root) {
@@ -26,7 +26,7 @@ void SDControlTask::begin() {
 
     static char buffer[20];
     sprintf(buffer, "data%d.csv", file_count + 1);
-    
+
     sfr::sd::filename = buffer;
 }
 
