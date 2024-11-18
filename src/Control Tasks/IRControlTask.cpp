@@ -12,14 +12,14 @@ void IRControlTask::begin() {
 void IRControlTask::execute() {
     // Deploy
     if (sfr::ir::is_deploying && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
-        setWhite();
+        set_white();
         sfr::ir::is_deploying = false;
         // TODO: Actuate filament
     }
 
     // Handle arming timeout
     if (sfr::ir::is_armed && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
-        setYellow();
+        set_yellow();
         sfr::ir::is_armed = false;
     }
 
@@ -47,7 +47,7 @@ void IRControlTask::parse_command() {
 
     switch (button_selected) {
     case ARM_BUTTON:
-        setGreen();
+        set_green();
         sfr::ir::is_armed = true;
         sfr::ir::armed_start = millis();
 
@@ -55,34 +55,34 @@ void IRControlTask::parse_command() {
         break;
     case SPIN_BUTTON:
         if (sfr::ir::is_armed) {
-            setBlue();
+            set_blue();
             sfr::motor::spinning_up = true;
         } else {
-            setYellow();
+            set_yellow();
         }
 
         vlogln("Lower Right");
         break;
     case DEPLOY_BUTTON:
         if (sfr::ir::is_armed) {
-            setBlue();
+            set_blue();
 
             sfr::ir::is_armed = false;
 
             sfr::ir::is_deploying = true;
             sfr::ir::deploy_start = millis();
         } else {
-            setYellow();
+            set_yellow();
         }
 
         vlogln("Lower Left");
         break;
     case DESPIN_BUTTON:
         if (sfr::ir::is_armed) {
-            setBlue();
+            set_blue();
             sfr::motor::spin_down = true;
         } else {
-            setYellow();
+            set_yellow();
         }
 
         vlogln("Lower Right");

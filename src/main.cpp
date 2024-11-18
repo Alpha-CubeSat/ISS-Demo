@@ -20,7 +20,7 @@ void setup() {
     pinMode(GREEN_LED_PIN, OUTPUT);
     pinMode(BLUE_LED_PIN, OUTPUT);
 
-    setWhite();
+    set_white();
 
     imu_monitor.begin();
     ir_control_task.begin();
