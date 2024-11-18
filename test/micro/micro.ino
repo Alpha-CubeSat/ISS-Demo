@@ -24,6 +24,7 @@ void setup() {
 
 void loop() {
     File writeFile = SD.open("test.txt", FILE_WRITE);
+    writeFile.print("Line ");
     writeFile.println(counter);
     writeFile.flush();
     writeFile.close();
@@ -38,6 +39,8 @@ void loop() {
     } else {
         Serial.println("Error: Failed to read file");
     }
+
+    counter++;
 
     delay(3000);
 }
