@@ -20,7 +20,7 @@
 #define SD_PIN 4
 
 #define LATCH_PIN A4
-#define SWITCH_PIN 5
+#define BUTTON_PIN 5
 
 #define RED_LED_PIN A0
 #define GREEN_LED_PIN A1

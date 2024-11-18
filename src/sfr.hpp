@@ -2,6 +2,9 @@
 #define SFR_HPP
 
 namespace sfr {
+    namespace test {
+        extern volatile bool automated;
+    } // namespace test
     namespace ir {
         extern bool is_armed;
         extern unsigned long armed_start;

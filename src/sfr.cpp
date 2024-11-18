@@ -1,6 +1,9 @@
 #include "sfr.hpp"
 
 namespace sfr {
+    namespace test {
+        volatile bool automated = false;
+    } // namespace test
     namespace ir {
         bool is_armed = false;
         unsigned long armed_start = 0;
