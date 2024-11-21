@@ -84,7 +84,7 @@ namespace constants {
     }
 
     namespace sd {
-        constexpr char const *filename = "data.csv";
+        constexpr char const *boot_filename = "boot.txt";
     }
 } // namespace constants
 

@@ -9,7 +9,7 @@ void SDControlTask::begin() {
         return;
     }
 
-    File boot = SD.open("boot.txt", O_RDWR);
+    File boot = SD.open(constants::sd::boot_filename, O_RDWR);
     if (boot) {
         String read_out = boot.readStringUntil('\n');
         file_count = read_out.toInt();
@@ -17,16 +17,21 @@ void SDControlTask::begin() {
         file_count++;
         boot.println(file_count);
         boot.close();
+    } else {
+        boot = SD.open(constants::sd::boot_filename, FILE_WRITE);
+        boot.println(file_count);
+        boot.flush();
+        boot.close();
     }
 
     static char buffer[20];
     sprintf(buffer, "data_%d.csv", file_count);
 
-    sfr::sd::filename = buffer;
+    sfr::sd::log_filename = buffer;
 }
 
 void SDControlTask::execute() {
-    file = SD.open(sfr::sd::filename, FILE_WRITE);
+    file = SD.open(sfr::sd::log_filename, FILE_WRITE);
 
     String data = String(millis()) + "," +
                   String(sfr::motor::pulse_width_angle) + "," +

@@ -30,6 +30,6 @@ namespace sfr {
     } // namespace imu
 
     namespace sd {
-        char const *filename = "data_0.csv";
+        char const *log_filename = "data_0.csv";
     }
 } // namespace sfr

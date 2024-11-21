@@ -30,7 +30,7 @@ namespace sfr {
         extern float gyro_z;
     } // namespace imu
     namespace sd {
-        extern char const *filename;
+        extern char const *log_filename;
     }
 } // namespace sfr
 
