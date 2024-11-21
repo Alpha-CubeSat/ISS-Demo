@@ -19,8 +19,8 @@
 #define IR_PIN 11
 #define SD_PIN 4
 
-#define LATCH_PIN A4
-#define SWITCH_PIN 5
+#define GATE_PIN A4
+#define BUTTON_PIN 5
 
 #define RED_LED_PIN 2
 #define GREEN_LED_PIN 8
@@ -44,26 +44,32 @@
 
 // LED colors
 
-inline void setWhite() {
+inline void set_white() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+inline void set_blue() {
     digitalWrite(RED_LED_PIN, HIGH);
     digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+inline void set_green() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, LOW);
     digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
-inline void setBlue() {
+inline void set_yellow() {
     digitalWrite(RED_LED_PIN, LOW);
     digitalWrite(GREEN_LED_PIN, LOW);
     digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
-inline void setGreen() {
+inline void set_purple() {
     digitalWrite(RED_LED_PIN, LOW);
-    digitalWrite(GREEN_LED_PIN, HIGH);
-    digitalWrite(BLUE_LED_PIN, LOW);
-}
-
-inline void setYellow() {
-    digitalWrite(RED_LED_PIN, HIGH);
     digitalWrite(GREEN_LED_PIN, HIGH);
     digitalWrite(BLUE_LED_PIN, LOW);
 }
@@ -78,7 +84,7 @@ namespace constants {
     }
 
     namespace sd {
-        constexpr char const *filename = "data.csv";
+        constexpr char const *boot_filename = "boot.txt";
     }
 } // namespace constants
 

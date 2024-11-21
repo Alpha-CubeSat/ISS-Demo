@@ -2,6 +2,9 @@
 #define SFR_HPP
 
 namespace sfr {
+    namespace test {
+        extern volatile bool automated;
+    } // namespace test
     namespace ir {
         extern bool is_armed;
         extern unsigned long armed_start;
@@ -29,7 +32,7 @@ namespace sfr {
         extern float gyro_z;
     } // namespace imu
     namespace sd {
-        extern char const *filename;
+        extern char const *log_filename;
     }
 
     namespace controller {

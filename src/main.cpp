@@ -13,6 +13,11 @@ IRControlTask ir_control_task;
 MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
+void set_automated() {
+    sfr::test::automated = true;
+    set_purple();
+}
+
 void setup() {
     Serial.begin(9600);
 
@@ -20,7 +25,10 @@ void setup() {
     pinMode(GREEN_LED_PIN, OUTPUT);
     pinMode(BLUE_LED_PIN, OUTPUT);
 
-    setWhite();
+    pinMode(BUTTON_PIN, INPUT);
+    attachInterrupt(BUTTON_PIN, set_automated, FALLING);
+
+    set_white();
 
     imu_monitor.begin();
     ir_control_task.begin();

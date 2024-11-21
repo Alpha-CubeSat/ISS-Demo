@@ -11,7 +11,7 @@ public:
 private:
     String name;
     File file;
-    int file_count;
+    uint8_t file_count = 0;
 };
 
 #endif

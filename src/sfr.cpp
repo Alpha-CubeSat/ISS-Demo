@@ -1,6 +1,9 @@
 #include "sfr.hpp"
 
 namespace sfr {
+    namespace test {
+        volatile bool automated = false;
+    } // namespace test
     namespace ir {
         bool is_armed = false;
         unsigned long armed_start = 0;
@@ -28,7 +31,7 @@ namespace sfr {
     } // namespace imu
 
     namespace sd {
-        char const *filename = "data_0.csv";
+        char const *log_filename = "data_0.csv";
     }
 
     namespace controller {
