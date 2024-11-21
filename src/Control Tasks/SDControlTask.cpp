@@ -33,7 +33,7 @@ void SDControlTask::execute() {
     file = SD.open(sfr::sd::log_filename, FILE_WRITE);
 
     String data = String(millis()) + "," +
-                  String(sfr::motor::pulse_width_angle) + "," +
+                  String(sfr::motor::pulse_width) + "," +
                   String(sfr::imu::accel_x) + "," +
                   String(sfr::imu::accel_y) + "," +
                   String(sfr::imu::accel_z) + "," +
