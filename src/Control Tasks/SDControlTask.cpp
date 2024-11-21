@@ -15,6 +15,7 @@ void SDControlTask::begin() {
         file_count = read_out.toInt();
         boot.seek(0);
         file_count++;
+        boot.println(file_count);
         boot.close();
     }
 
