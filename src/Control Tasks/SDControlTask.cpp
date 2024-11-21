@@ -9,23 +9,17 @@ void SDControlTask::begin() {
         return;
     }
 
-    File root = SD.open("/");
-
-    if (root) {
-        while (true) {
-            File entry = root.openNextFile();
-            if (entry) {
-                file_count++;
-                entry.close();
-            } else {
-                break;
-            }
-        }
-        root.close();
+    File boot = SD.open("boot.txt", O_RDWR);
+    if (boot) {
+        String read_out = boot.readStringUntil('\n');
+        file_count = read_out.toInt();
+        boot.seek(0);
+        file_count++;
+        boot.close();
     }
 
     static char buffer[20];
-    sprintf(buffer, "data%d.csv", file_count + 1);
+    sprintf(buffer, "data_%d.csv", file_count);
 
     sfr::sd::filename = buffer;
 }
