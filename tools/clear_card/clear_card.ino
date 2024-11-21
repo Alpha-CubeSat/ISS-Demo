@@ -14,20 +14,21 @@ void setup() {
         }
     }
 
-    File root = SD.open("/");
+    File root = SD.open("/", FILE_WRITE);
+    root.rewindDirectory();
     if (root) {
         while (true) {
             File entry = root.openNextFile();
-            Serial.print("Deleting ");
-            Serial.println(entry.name());
-
             if (!entry) {
                 break;
             }
 
+            Serial.print("Deleting ");
+            Serial.println(entry.name());
+
             if (!SD.remove(entry.name())) {
                 Serial.print("Error: Could not delete ");
-                Serial.print(entry.name());
+                Serial.println(entry.name());
             }
         }
         root.close();
