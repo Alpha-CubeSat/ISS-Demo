@@ -14,7 +14,7 @@ MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void set_automated() {
-    sfr::test::automated = true;
+    sfr::flight::automated = true;
     set_purple();
 }
 
@@ -28,7 +28,7 @@ void setup() {
     pinMode(BUTTON_PIN, INPUT);
     attachInterrupt(BUTTON_PIN, set_automated, FALLING);
 
-    set_white();
+    set_blue();
 
     imu_monitor.begin();
     ir_control_task.begin();
@@ -40,7 +40,9 @@ void loop() {
     vlogln(F("-------------------- START LOOP --------------------"));
 
     imu_monitor.execute();
-    ir_control_task.execute();
+    if (!sfr::flight::automated) {
+        ir_control_task.execute();
+    }
     motor_control_task.execute();
     sd_control_task.execute();
 

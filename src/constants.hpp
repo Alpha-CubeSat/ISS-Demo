@@ -75,6 +75,10 @@ inline void set_purple() {
 }
 
 namespace constants {
+    namespace flight {
+        constexpr unsigned long initial_hold_time = 5000;
+        constexpr unsigned long initial_spin_time = 10000; // TODO: This is kinda hacky but I'm lazy rn
+    } // namespace flight
     namespace ir {
         constexpr unsigned long arm_timeout = 2000;
         constexpr unsigned long deploy_led_timeout = 3000;
