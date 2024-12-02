@@ -10,6 +10,17 @@ void MotorControlTask::begin() {
 }
 
 void MotorControlTask::execute() {
+    if (sfr::flight::initial_hold && (millis() > constants::flight::initial_hold_time)) {
+        sfr::flight::initial_hold = false;
+        sfr::flight::initial_spin = true;
+        esc.write(map(1180, 1000, 2000, 0, 180));
+    }
+
+    if (sfr::flight::initial_spin && (millis() > constants::flight::initial_spin_time)) {
+        sfr::flight::initial_spin = false;
+        set_white();
+    }
+
     if (sfr::motor::spinning_up) {
         spinup();
     }

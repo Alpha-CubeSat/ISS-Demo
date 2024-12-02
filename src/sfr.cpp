@@ -1,9 +1,11 @@
 #include "sfr.hpp"
 
 namespace sfr {
-    namespace test {
+    namespace flight {
+        bool initial_hold = true;
+        bool initial_spin = false;
         volatile bool automated = false;
-    } // namespace test
+    } // namespace flight
     namespace ir {
         bool is_armed = false;
         unsigned long armed_start = 0;

@@ -2,9 +2,11 @@
 #define SFR_HPP
 
 namespace sfr {
-    namespace test {
+    namespace flight {
+        extern bool initial_hold;
+        extern bool initial_spin;
         extern volatile bool automated;
-    } // namespace test
+    } // namespace flight
     namespace ir {
         extern bool is_armed;
         extern unsigned long armed_start;
