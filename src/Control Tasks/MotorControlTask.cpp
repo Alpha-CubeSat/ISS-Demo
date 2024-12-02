@@ -88,8 +88,8 @@ void MotorControlTask::control() {
 
     if (duty_cycle < 1180.00) {
         duty_cycle = 1180.00;
-    } else if (duty_cycle > 1920.00) {
-        duty_cycle = 1920.00;
+    } else if (duty_cycle > 2000.00) {
+        duty_cycle = 2000.00;
     }
     // convert duty cycle to angle for esc
     angle = map(duty_cycle, 1000, 2000, 0, 180);
