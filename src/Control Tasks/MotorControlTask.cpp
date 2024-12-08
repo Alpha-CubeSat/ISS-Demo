@@ -72,6 +72,7 @@ void MotorControlTask::control() {
         proportional = Kp * error_curr;
         derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
 
+<<<<<<< HEAD
         // send electic pulse based on PID (range from 0 to 1000)
         vlogln(esc_prev);
         T = proportional + derivative;
@@ -88,6 +89,12 @@ void MotorControlTask::control() {
         
     }else{ // open loop
         duty_cycle = 1800;
+=======
+    if (duty_cycle < 1180.00) {
+        duty_cycle = 1180.00;
+    } else if (duty_cycle > 2000.00) {
+        duty_cycle = 2000.00;
+>>>>>>> ff922fe11ee0ba458cf63a01923f26b85b6bd2c3
     }
 
     angle = map(duty_cycle, 1000, 2000, 0, 180);

@@ -40,9 +40,9 @@ void loop() {
     vlogln(F("-------------------- START LOOP --------------------"));
 
     imu_monitor.execute();
-    if (!sfr::flight::automated) {
-        ir_control_task.execute();
-    }
+    // if (!sfr::flight::automated) {
+    ir_control_task.execute();
+    // }
     motor_control_task.execute();
     sd_control_task.execute();
 
