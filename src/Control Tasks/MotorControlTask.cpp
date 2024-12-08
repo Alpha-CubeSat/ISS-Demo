@@ -14,7 +14,7 @@ void MotorControlTask::execute() {
     if (sfr::flight::initial_hold && (millis() > constants::flight::initial_hold_time)) {
         sfr::flight::initial_hold = false;
         sfr::flight::initial_spin = true;
-        esc.write(map(1180, 1000, 2000, 0, 180));
+        esc.write(map(1300, 1000, 2000, 0, 180));
     }
 
     if (sfr::flight::initial_spin && (millis() > constants::flight::initial_spin_time)) {
@@ -22,12 +22,12 @@ void MotorControlTask::execute() {
         set_white();
     }
 
-    if (sfr::motor::spinning_up) {
+    if (sfr::motor::spinning_up ) {
         vlogln("asking it to spin up: ");
         spinup();
     }
 
-    if (sfr::motor::controller_on) {
+    if (sfr::motor::controller_on && sfr::imu::failed_init != false) {
        // sfr::controller::record_data = true;
         control();
     }
@@ -60,42 +60,41 @@ void MotorControlTask::spinup() {
 }
 
 void MotorControlTask::control() {
-    // //Test to find RPM vs ESC input relation
-    // vlogln("Start Test");
-    // for(int i = 1000; i <=2000; i += 20){
-    //     vlogln(i);
-    //     esc.write(map(i, 1000, 2000, 0, 180));
-    //     delay(10000);
-    //     vlogln("steady state");
-    //     delay(5000);
-    // }
-
     vlogln("Controls called");
     // define current values
     error_curr = 4 - sfr::imu::gyro_z;
     time_curr = millis();
 
-    // calculate PID terms
-    proportional = Kp * error_curr;
-    derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
+    sfr::imu::failed_init = true;
+    if (sfr::imu::failed_init != true){
 
-    // send electic pulse based on PID (range from 0 to 1000)
-    vlogln(esc_prev);
-    T = proportional + derivative;
-    duty_cycle = (.043788 * T) + esc_prev;
-    vlogln("T: " + String(T));
-    vlogln("duty cycle: " + String(duty_cycle));
+            // calculate PID terms
+        proportional = Kp * error_curr;
+        derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
 
-    if (duty_cycle < 1180.00) {
-        duty_cycle = 1180.00;
-    } else if (duty_cycle > 1920.00) {
-        duty_cycle = 1920.00;
+        // send electic pulse based on PID (range from 0 to 1000)
+        vlogln(esc_prev);
+        T = proportional + derivative;
+        duty_cycle = (.043788 * T) + esc_prev;
+        vlogln("T: " + String(T));
+        vlogln("duty cycle: " + String(duty_cycle));
+
+        if (duty_cycle < 1180.00) {
+            duty_cycle = 1180.00;
+        } else if (duty_cycle > 1920.00) {
+            duty_cycle = 1920.00;
+        }
+        // convert duty cycle to angle for esc
+        
+    }else{ // open loop
+        duty_cycle = 1800;
     }
-    // convert duty cycle to angle for esc
+
     angle = map(duty_cycle, 1000, 2000, 0, 180);
     vlogln("ANGLE: " + String(angle));
     // write to esc
     esc.write(angle);
+    
 
         // store values to be recorded
     sfr::controller::record_error = error_curr;
@@ -113,5 +112,5 @@ void MotorControlTask::control() {
     time_prev = time_curr;
     error_prev = error_curr;
 
-    vlogln("control done");
+    // vlogln("control done");
 }

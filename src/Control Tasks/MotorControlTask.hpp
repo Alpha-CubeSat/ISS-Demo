@@ -22,8 +22,8 @@ private:
     double time_curr = 0.0;
     double time_prev = 0.0;
 
-    double Kd = 5;
-    double Kp = 5;
+    double Kd = 50;
+    double Kp = 100;
     double proportional = 0.0;
     double derivative = 0.0;
     double pulse_width = 0.0;
