@@ -5,7 +5,6 @@
 #include <Arduino.h>
 
 void MotorControlTask::begin() {
-   // vlogln("started motor control task");
     esc.attach(PWM_PIN, 1000, 2000);
     esc.write(0);
 }

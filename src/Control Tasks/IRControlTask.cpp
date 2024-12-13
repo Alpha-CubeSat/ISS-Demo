@@ -11,8 +11,9 @@ void IRControlTask::begin() {
 
 void IRControlTask::execute() {
     // Deploy
-    if (sfr::ir::is_deploying && (millis() - sfr::ir::deploy_start > constants::ir::deploy_led_timeout)) {
+    if (sfr::ir::is_deploying && deploy_led_timer.is_elapsed()) {
         sfr::ir::is_deploying = false;
+        deploy_led_timer.reset();
 
         digitalWrite(GATE_PIN, HIGH);
         delay(1);
@@ -22,9 +23,10 @@ void IRControlTask::execute() {
     }
 
     // Handle arming timeout
-    if (sfr::ir::is_armed && (millis() - sfr::ir::armed_start > constants::ir::arm_timeout)) {
+    if (sfr::ir::is_armed && arm_timer.is_elapsed()) {
         set_yellow();
         sfr::ir::is_armed = false;
+        arm_timer.reset();
     }
 
     // Parse any commands sent
@@ -53,7 +55,7 @@ void IRControlTask::parse_command() {
     case ARM_BUTTON:
         set_green();
         sfr::ir::is_armed = true;
-        sfr::ir::armed_start = millis();
+        arm_timer.start(constants::ir::arm_timeout);
 
         vlogln("Upper Right");
         break;
@@ -74,7 +76,7 @@ void IRControlTask::parse_command() {
             sfr::ir::is_armed = false;
 
             sfr::ir::is_deploying = true;
-            sfr::ir::deploy_start = millis();
+            deploy_led_timer.start(constants::ir::deploy_led_timeout);
         } else {
             set_yellow();
         }
