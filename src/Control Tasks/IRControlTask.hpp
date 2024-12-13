@@ -1,8 +1,8 @@
 #ifndef IR_CONTROL_TASK_HPP
 #define IR_CONTROL_TASK_HPP
 
-#include <stdint.h>
 #include "timer.hpp"
+#include <stdint.h>
 
 class IRControlTask {
 public:
