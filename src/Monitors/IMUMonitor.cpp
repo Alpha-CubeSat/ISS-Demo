@@ -25,8 +25,12 @@ void IMUMonitor::execute() {
         sfr::imu::gyro_x = gyro.gyro.x;
         sfr::imu::gyro_y = gyro.gyro.y;
         sfr::imu::gyro_z = gyro.gyro.z;
+
+        vlog("in IMU Monitor z val");
+        vlogln(sfr::imu::gyro_z);
     } else {
         vlogln("Error: IMU failed to read");
         // TODO: Log this failure.
+        sfr::imu::failed_init = true; //change to diff boolean
     }
 }

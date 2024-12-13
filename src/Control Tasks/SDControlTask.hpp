@@ -9,6 +9,7 @@ public:
     void execute();
 
 private:
+    String name;
     File file;
     uint8_t file_count = 0;
 };

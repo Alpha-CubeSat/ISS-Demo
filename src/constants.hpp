@@ -22,9 +22,9 @@
 #define GATE_PIN A4
 #define BUTTON_PIN 5
 
-#define RED_LED_PIN A0
-#define GREEN_LED_PIN A1
-#define BLUE_LED_PIN A2
+#define RED_LED_PIN 2
+#define GREEN_LED_PIN 8
+#define BLUE_LED_PIN 9
 
 // IR remote buttons
 
@@ -84,7 +84,7 @@ namespace constants {
         constexpr unsigned long deploy_led_timeout = 3000;
     } // namespace ir
     namespace motor {
-        constexpr int spinup_increment = 500;
+        constexpr int spinup_increment = 150;
     }
 
     namespace sd {

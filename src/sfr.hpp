@@ -17,7 +17,9 @@ namespace sfr {
     namespace motor {
         extern bool spinning_up;
         extern bool spin_down;
-        extern int pulse_width_angle;
+        extern bool controller_on;
+        extern int pulse_width;
+
     } // namespace motor
 
     namespace imu {
@@ -34,6 +36,19 @@ namespace sfr {
     namespace sd {
         extern char const *log_filename;
     }
+
+    namespace controller {
+        extern float record_angle;
+        extern float record_duty_cycle;
+        extern float record_error;
+        extern float record_delta_error;
+        extern float record_delta_time;
+        extern float record_prop;
+        extern float record_derivative;
+        extern float record_integral;
+
+        extern bool record_data;
+    } // namespace controller
 } // namespace sfr
 
 #endif
