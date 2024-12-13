@@ -22,7 +22,7 @@ void MotorControlTask::execute() {
         set_white();
     }
 
-    if (sfr::motor::spinning_up ) {
+    if (sfr::motor::spinning_up) {
         vlogln("asking it to spin up: ");
         spinup();
     }
@@ -66,7 +66,7 @@ void MotorControlTask::control() {
     time_curr = millis();
 
     sfr::imu::failed_init = true;
-    if (sfr::imu::failed_init == false){
+    if (sfr::imu::failed_init == false) {
 
             // calculate PID terms
         proportional = Kp * error_curr;
@@ -85,8 +85,8 @@ void MotorControlTask::control() {
             duty_cycle = 1920.00;
         }
         // convert duty cycle to angle for esc
-        
-    }else{ // open loop
+
+    } else { // open loop
         duty_cycle = 1800;
     }
 
@@ -94,9 +94,8 @@ void MotorControlTask::control() {
     vlogln("ANGLE: " + String(angle));
     // write to esc
     esc.write(angle);
-    
 
-        // store values to be recorded
+            // store values to be recorded
     sfr::controller::record_error = error_curr;
     sfr::controller::record_delta_error = error_curr - error_prev;
     sfr::controller::record_delta_time = time_curr - time_prev;
