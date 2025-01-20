@@ -4,7 +4,6 @@
 
 #include <Arduino.h>
 
-// TO DO: add inital spin up  -- lines 14-21
 void MotorControlTask::begin() {
     esc.attach(PWM_PIN, 1000, 2000);
     esc.write(0);
@@ -83,7 +82,7 @@ void MotorControlTask::control() {
         // convert duty cycle to angle for esc
 
     } else { // open loop
-        duty_cycle = 1800;
+        duty_cycle = 1600; // calc a reasonable value 
     }
 
     angle = map(duty_cycle, 1000, 2000, 0, 180);

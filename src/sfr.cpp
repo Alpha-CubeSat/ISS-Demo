@@ -23,6 +23,7 @@ namespace sfr {
     namespace imu {
         bool failed_init = false;
         bool failed_read = false;
+        
         float accel_x = 0;
         float accel_y = 0;
         float accel_z = 0;
