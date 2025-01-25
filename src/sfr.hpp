@@ -1,7 +1,26 @@
 #ifndef SFR_HPP
 #define SFR_HPP
 
+#include "MissionMode.hpp"
+
 namespace sfr {
+    namespace mission {
+        extern StandbyMode standby_class;
+        extern ArmedMode armed_class;
+        extern DeploymentMode deployment_class;
+        extern DespinMode despin_class;
+        extern ControllerSpinupMode controller_spinup_class;
+        extern OpenLoopMode open_loop_class;
+
+        extern MissionMode *standby;
+        extern MissionMode *armed;
+        extern MissionMode *deployment;
+        extern MissionMode *despin;
+        extern MissionMode *controller_spinup;
+        extern MissionMode *open_loop;
+
+        extern MissionMode *mode;
+    } // namespace mission
     namespace flight {
         extern bool initial_hold;
         extern bool initial_spin;

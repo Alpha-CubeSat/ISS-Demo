@@ -10,21 +10,6 @@ void IRControlTask::begin() {
 }
 
 void IRControlTask::execute() {
-    // Deploy
-    if (deploy_led_timer.is_elapsed()) {
-        digitalWrite(GATE_PIN, HIGH);
-        delay(1);
-        digitalWrite(GATE_PIN, LOW);
-
-        set_white();
-    }
-
-    // Handle arming timeout
-    if (arm_timer.is_elapsed()) {
-        set_yellow();
-        sfr::ir::is_armed = false;
-    }
-
     // Parse any commands sent
     if (IrReceiver.decode()) {
         if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_WAS_OVERFLOW) {
@@ -49,16 +34,13 @@ void IRControlTask::parse_command() {
 
     switch (button_selected) {
     case ARM_BUTTON:
-        set_green();
-        sfr::ir::is_armed = true;
-        arm_timer.start(constants::ir::arm_timeout);
+        to_mode(sfr::mission::armed);
 
         vlogln("Upper Right");
         break;
     case CONTROLLER_SPIN_BUTTON:
         if (sfr::ir::is_armed) {
-            set_blue();
-            sfr::motor::controller_on = true; // 
+            to_mode(sfr::mission::controller_spinup);
         } else {
             set_yellow();
         }
@@ -67,11 +49,7 @@ void IRControlTask::parse_command() {
         break;
     case DEPLOY_BUTTON:
         if (sfr::ir::is_armed) {
-            set_blue();
-
-            sfr::ir::is_armed = false;
-
-            deploy_led_timer.start(constants::ir::deploy_led_timeout);
+            to_mode(sfr::mission::deployment);
         } else {
             set_yellow();
         }
@@ -80,8 +58,7 @@ void IRControlTask::parse_command() {
         break;
     case DESPIN_BUTTON:
         if (sfr::ir::is_armed) {
-            set_blue();
-            sfr::motor::spin_down = true;
+            to_mode(sfr::mission::despin);
         } else {
             set_yellow();
         }

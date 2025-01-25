@@ -27,6 +27,6 @@ void IMUMonitor::execute() {
     } else {
         vlogln("Error: IMU failed to read");
         // TODO: Log this failure.
-        sfr::imu::failed_read = true; 
+        sfr::imu::failed_read = true;
     }
 }

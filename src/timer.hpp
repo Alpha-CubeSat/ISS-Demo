@@ -1,4 +1,6 @@
 
+#ifndef TIMER_HPP
+#define TIMER_HPP
 
 class Timer {
 public:
@@ -15,3 +17,5 @@ private:
     unsigned long duration;
     bool active;
 };
+
+#endif // TIMER_HPP

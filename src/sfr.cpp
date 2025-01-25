@@ -1,6 +1,23 @@
 #include "sfr.hpp"
 
 namespace sfr {
+    namespace mission {
+        StandbyMode standby_class;
+        ArmedMode armed_class;
+        DeploymentMode deployment_class;
+        DespinMode despin_class;
+        ControllerSpinupMode controller_spinup_class;
+        OpenLoopMode open_loop_class;
+
+        MissionMode *standby = &standby_class;
+        MissionMode *armed = &armed_class;
+        MissionMode *deployment = &deployment_class;
+        MissionMode *despin = &despin_class;
+        MissionMode *controller_spinup = &controller_spinup_class;
+        MissionMode *open_loop = &open_loop_class;
+
+        MissionMode *mode = &standby_class;
+    } // namespace mission
     namespace flight {
         bool initial_hold = true;
         bool initial_spin = false;
@@ -22,7 +39,7 @@ namespace sfr {
     namespace imu {
         bool failed_init = false;
         bool failed_read = false;
-        
+
         float accel_x = 0;
         float accel_y = 0;
         float accel_z = 0;

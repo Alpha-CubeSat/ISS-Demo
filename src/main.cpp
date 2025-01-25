@@ -5,6 +5,7 @@
 #include "Control Tasks/IRControlTask.hpp"
 #include "Control Tasks/MotorControlTask.hpp"
 #include "Control Tasks/SDControlTask.hpp"
+#include "MissionMode.hpp"
 #include "Monitors/IMUMonitor.hpp"
 #include "sfr.hpp"
 
@@ -34,15 +35,16 @@ void setup() {
     ir_control_task.begin();
     motor_control_task.begin();
     sd_control_task.begin();
+
+    sfr::mission::mode->enter();
 }
 
 void loop() {
     vlogln(F("-------------------- START LOOP --------------------"));
 
-    imu_monitor.execute();
-    // if (!sfr::flight::automated) {
+    sfr::mission::mode->execute();
+
     ir_control_task.execute();
-    // }
     motor_control_task.execute();
     sd_control_task.execute();
 
