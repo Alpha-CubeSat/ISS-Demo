@@ -58,7 +58,7 @@ void IRControlTask::parse_command() {
     case CONTROLLER_SPIN_BUTTON:
         if (sfr::ir::is_armed) {
             set_blue();
-            sfr::motor::spinning_up = true;
+            sfr::motor::controller_on = true; // 
         } else {
             set_yellow();
         }

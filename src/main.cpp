@@ -46,8 +46,8 @@ void loop() {
     motor_control_task.execute();
     sd_control_task.execute();
 
-    vlog(F("Gyro X: "));
-    vlogln(sfr::imu::gyro_x);
+    // vlog(F("Gyro X: "));
+    // vlogln(sfr::imu::gyro_x);
 
     // vlog(F("Gyro Y: "));
     // vlogln(sfr::imu::gyro_y);
@@ -64,5 +64,5 @@ void loop() {
     // vlog(F("Accel Z: "));
     // vlogln(sfr::imu::accel_z);
 
-    vlogln(F("--------------------- END LOOP ---------------------"));
+    // vlogln(F("--------------------- END LOOP ---------------------"));
 }

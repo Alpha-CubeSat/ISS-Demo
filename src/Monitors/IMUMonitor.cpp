@@ -27,9 +27,7 @@ void IMUMonitor::execute() {
         sfr::imu::gyro_z = gyro.gyro.z;
     } else {
         vlogln("Error: IMU failed to read");
-        failed_reads++;
-        if (failed_reads == constants::imu::max_failed_reads) {
-            sfr::imu::disabled = true;
-        }
+        // TODO: Log this failure.
+        sfr::imu::failed_read = true; 
     }
 }
