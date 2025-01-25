@@ -10,7 +10,6 @@ void IMUMonitor::begin() {
         imu.setAccelDataRate(LSM6DS_RATE_208_HZ);
         imu.setAccelRange(LSM6DS_ACCEL_RANGE_4_G);
     } else {
-        sfr::imu::disabled = true;
         vlogln("Error: IMU failed to initialize");
         // TODO: Open loop
     }
