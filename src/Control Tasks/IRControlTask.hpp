@@ -17,6 +17,7 @@ private:
 
     Timer arm_timer;
     Timer deploy_led_timer;
+    Timer filament_actuator_timer;
 };
 
 #endif

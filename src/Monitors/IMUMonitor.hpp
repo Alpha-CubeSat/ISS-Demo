@@ -13,6 +13,8 @@ private:
     sensors_event_t accel;
     sensors_event_t gyro;
     sensors_event_t temp;
+
+    uint8_t failed_reads = 0;
 };
 
 #endif

@@ -11,7 +11,11 @@ bool Timer::is_elapsed() {
     if (!active) {
         return false;
     }
-    return millis() - start_time >= duration;
+    if (millis() - start_time >= duration) {
+        active = false;
+        return true;
+    }
+    return false;
 }
 
 void Timer::reset() {

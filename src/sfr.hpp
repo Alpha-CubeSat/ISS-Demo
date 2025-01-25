@@ -11,7 +11,6 @@ namespace sfr {
         extern bool is_armed;
         extern unsigned long armed_start;
 
-        extern bool is_deploying;
         extern unsigned long deploy_start;
     } // namespace ir
     namespace motor {
@@ -23,7 +22,7 @@ namespace sfr {
     } // namespace motor
 
     namespace imu {
-        extern bool failed_init;
+        extern bool disabled;
 
         extern float accel_x;
         extern float accel_y;

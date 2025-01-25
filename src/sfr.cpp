@@ -10,7 +10,6 @@ namespace sfr {
         bool is_armed = false;
         unsigned long armed_start = 0;
 
-        bool is_deploying = false;
         unsigned long deploy_start = 0;
     } // namespace ir
     namespace motor {
@@ -21,7 +20,7 @@ namespace sfr {
     } // namespace motor
 
     namespace imu {
-        bool failed_init = false;
+        bool disabled = false;
 
         float accel_x = 0;
         float accel_y = 0;

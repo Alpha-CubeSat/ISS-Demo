@@ -38,7 +38,7 @@
 #define OK_BUTTON 0x18
 
 #define ARM_BUTTON UPPER_RIGHT
-#define SPIN_BUTTON UPPER_LEFT
+#define CONTROLLER_SPIN_BUTTON UPPER_LEFT
 #define DEPLOY_BUTTON LOWER_LEFT
 #define DESPIN_BUTTON LOWER_RIGHT
 
@@ -85,6 +85,9 @@ namespace constants {
     } // namespace ir
     namespace motor {
         constexpr int spinup_increment = 150;
+    }
+    namespace imu {
+        constexpr uint8_t max_failed_reads = 10;
     }
 
     namespace sd {

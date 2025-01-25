@@ -26,7 +26,7 @@ void MotorControlTask::execute() {
         spinup();
     }
 
-    if (sfr::motor::controller_on && sfr::imu::failed_init != false) {
+    if (sfr::motor::controller_on && sfr::imu::disabled != false) {
        // sfr::controller::record_data = true;
         control();
     }
@@ -64,8 +64,8 @@ void MotorControlTask::control() {
     error_curr = 4 - sfr::imu::gyro_z;
     time_curr = millis();
 
-    sfr::imu::failed_init = true;
-    if (sfr::imu::failed_init == false) {
+    sfr::imu::disabled = true;
+    if (sfr::imu::disabled == false) {
 
             // calculate PID terms
         proportional = Kp * error_curr;
