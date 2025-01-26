@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 #define RED_LED_PIN A0
-#define GREEN_LED_PIN A1
-#define BLUE_LED_PIN A2
+#define GREEN_LED_PIN A2
+#define BLUE_LED_PIN A1
 
 inline void setWhite() {
     digitalWrite(RED_LED_PIN, LOW);

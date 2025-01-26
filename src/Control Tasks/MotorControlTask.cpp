@@ -1,5 +1,6 @@
 #include "MotorControlTask.hpp"
 #include "constants.hpp"
+#include "pins.hpp"
 #include "sfr.hpp"
 
 #include <Arduino.h>
@@ -30,12 +31,16 @@ void MotorControlTask::execute() {
     //    // sfr::controller::record_data = true;
     //     control();
     // }
+}
 
-    if (sfr::motor::spin_down) {
-        esc.write(0);
-        sfr::motor::controller_on = false;
-        sfr::motor::spin_down = false;
-    }
+void MotorControlTask::spin_up() {
+
+}
+
+void MotorControlTask::spin_down() {
+    esc.write(0);
+    sfr::motor::controller_on = false;
+    sfr::motor::spin_down = false;
 }
 
 // ignore

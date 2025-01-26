@@ -3,6 +3,7 @@
 #include <IRremote.hpp>
 
 #include "constants.hpp"
+#include "pins.hpp"
 #include "sfr.hpp"
 
 void IRControlTask::begin() {

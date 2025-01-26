@@ -1,18 +1,11 @@
 #include <Arduino.h>
 
 #include "constants.hpp"
-
-#include "Control Tasks/IRControlTask.hpp"
-#include "Control Tasks/MotorControlTask.hpp"
-#include "Control Tasks/SDControlTask.hpp"
+#include "pins.hpp"
 #include "MissionMode.hpp"
-#include "Monitors/IMUMonitor.hpp"
 #include "sfr.hpp"
 
-IMUMonitor imu_monitor;
-IRControlTask ir_control_task;
-MotorControlTask motor_control_task;
-SDControlTask sd_control_task;
+
 
 void set_automated() {
     sfr::flight::automated = true;
@@ -31,22 +24,17 @@ void setup() {
 
     set_blue();
 
-    imu_monitor.begin();
-    ir_control_task.begin();
-    motor_control_task.begin();
-    sd_control_task.begin();
-
     sfr::mission::mode->enter();
+    delay(5000);
 }
 
 void loop() {
     vlogln(F("-------------------- START LOOP --------------------"));
 
-    sfr::mission::mode->execute();
+    vlog(F("Mode: "));
+    vlogln(sfr::mission::mode->get_name());
 
-    ir_control_task.execute();
-    motor_control_task.execute();
-    sd_control_task.execute();
+    sfr::mission::mode->execute();
 
     // vlog(F("Gyro X: "));
     // vlogln(sfr::imu::gyro_x);

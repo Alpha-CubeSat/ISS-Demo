@@ -2,17 +2,37 @@
 #include "MissionMode.hpp"
 #include "Monitors/IMUMonitor.hpp"
 #include "constants.hpp"
+#include "pins.hpp"
 #include "sfr.hpp"
 
+#include "Control Tasks/IRControlTask.hpp"
+#include "Control Tasks/MotorControlTask.hpp"
+#include "Control Tasks/SDControlTask.hpp"
+#include "Monitors/IMUMonitor.hpp"
+
+IMUMonitor imu_monitor;
+IRControlTask ir_control_task;
+MotorControlTask motor_control_task;
+SDControlTask sd_control_task;
+
 void MissionMode::execute() {
-    // imu_monitor.execute();
+    imu_monitor.execute();
+    motor_control_task.execute();
+    sd_control_task.execute();
+    ir_control_task.execute();
 }
 
 void StandbyMode::enter() {
     set_white();
+
+    imu_monitor.begin();
+    motor_control_task.begin();
+    sd_control_task.begin();
+    ir_control_task.begin();
 }
 
 void StandbyMode::execute() {
+    MissionMode::execute();
 }
 
 void StandbyMode::exit() {
@@ -25,9 +45,16 @@ void ArmedMode::enter() {
 }
 
 void ArmedMode::execute() {
+    MissionMode::execute();
+
+    if (arm_timer.is_elapsed()) {
+        set_yellow();
+        to_mode(sfr::mission::standby);
+    }
 }
 
 void ArmedMode::exit() {
+    arm_timer.reset();
 }
 
 void DeploymentMode::enter() {
@@ -36,9 +63,11 @@ void DeploymentMode::enter() {
 }
 
 void DeploymentMode::execute() {
+    MissionMode::execute();
 }
 
 void DeploymentMode::exit() {
+    deploy_timer.reset();
 }
 
 void DespinMode::enter() {
@@ -47,6 +76,7 @@ void DespinMode::enter() {
 }
 
 void DespinMode::execute() {
+    MissionMode::execute();
 }
 
 void DespinMode::exit() {
@@ -59,6 +89,7 @@ void ControllerSpinupMode::enter() {
 }
 
 void ControllerSpinupMode::execute() {
+    MissionMode::execute();
 }
 
 void ControllerSpinupMode::exit() {
@@ -70,12 +101,14 @@ void OpenLoopMode::enter() {
 }
 
 void OpenLoopMode::execute() {
+    MissionMode::execute();
 }
 
 void OpenLoopMode::exit() {
 }
 
 void to_mode(MissionMode *mode) {
+    sfr::mission::mode->exit();
     sfr::mission::mode = mode;
     sfr::mission::mode->enter();
 }

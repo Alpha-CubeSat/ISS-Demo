@@ -7,9 +7,10 @@ class MotorControlTask {
 public:
     void begin();
     void execute();
+    void spin_up();
+    void spin_down();
 
 private:
-    void spinup();
     void control();
     Servo esc;
     unsigned long last_write;

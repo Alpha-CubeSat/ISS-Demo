@@ -1,5 +1,6 @@
 #include "SDControlTask.hpp"
 #include "constants.hpp"
+#include "pins.hpp"
 #include "sfr.hpp"
 
 void SDControlTask::begin() {
