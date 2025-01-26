@@ -10,7 +10,7 @@ class MissionMode {
 public:
     virtual void enter() = 0;
     virtual void execute();
-    virtual void exit() = 0;
+    virtual void exit();
 
     virtual String get_name() = 0;
 };
@@ -19,7 +19,6 @@ class InitialSpinupMode : public MissionMode {
 public:
     void enter();
     void execute();
-    void exit();
 
     String get_name() { return "Initial Spinup"; };
 
@@ -31,7 +30,6 @@ class StandbyMode : public MissionMode {
 public:
     void enter();
     void execute();
-    void exit();
 
     String get_name() { return "Standby"; };
 };
@@ -64,7 +62,6 @@ class DespinMode : public MissionMode {
 public:
     void enter();
     void execute();
-    void exit();
 
     String get_name() { return "Despin"; };
 
@@ -76,7 +73,6 @@ class ControllerSpinupMode : public MissionMode {
 public:
     void enter();
     void execute();
-    void exit();
 
     String get_name() { return "Controller Spinup"; };
 
@@ -88,7 +84,6 @@ class OpenLoopMode : public MissionMode {
 public:
     void enter();
     void execute();
-    void exit();
 
     String get_name() { return "Open Loop"; };
 

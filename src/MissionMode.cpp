@@ -22,6 +22,9 @@ void MissionMode::execute() {
     ir_control_task.execute();
 }
 
+void MissionMode::exit() {
+}
+
 void InitialSpinupMode::enter() {
     set_blue();
 
@@ -46,18 +49,12 @@ void InitialSpinupMode::execute() {
     }
 }
 
-void InitialSpinupMode::exit() {
-}
-
 void StandbyMode::enter() {
     set_white();
 }
 
 void StandbyMode::execute() {
     MissionMode::execute();
-}
-
-void StandbyMode::exit() {
 }
 
 void ArmedMode::enter() {
@@ -120,9 +117,6 @@ void DespinMode::execute() {
     }
 }
 
-void DespinMode::exit() {
-}
-
 void ControllerSpinupMode::enter() {
     set_blue();
     controller_timeout_timer.start(constants::mission::controller_timeout_length);
@@ -137,9 +131,6 @@ void ControllerSpinupMode::execute() {
     }
 }
 
-void ControllerSpinupMode::exit() {
-}
-
 void OpenLoopMode::enter() {
     set_purple();
     open_loop_timer.start(constants::mission::open_loop_length);
@@ -151,9 +142,6 @@ void OpenLoopMode::execute() {
     if (open_loop_timer.is_elapsed()) {
         to_mode(sfr::mission::standby);
     }
-}
-
-void OpenLoopMode::exit() {
 }
 
 void to_mode(MissionMode *mode) {
