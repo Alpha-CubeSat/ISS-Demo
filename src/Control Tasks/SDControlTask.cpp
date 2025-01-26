@@ -34,6 +34,7 @@ void SDControlTask::execute() {
     file = SD.open(sfr::sd::log_filename, FILE_WRITE);
 
     String data = String(millis()) + "," +
+                  String(sfr::mission::mode->get_id()) + "," +
                   String(sfr::controller::record_duty_cycle) + "," +
                   String(sfr::imu::accel_x) + "," +
                   String(sfr::imu::accel_y) + "," +
