@@ -42,7 +42,6 @@ void InitialSpinupMode::execute() {
 }
 
 void InitialSpinupMode::exit() {
-
 }
 
 void StandbyMode::enter() {

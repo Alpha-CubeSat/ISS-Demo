@@ -34,7 +34,6 @@ void MotorControlTask::execute() {
 }
 
 void MotorControlTask::spin_up() {
-
 }
 
 void MotorControlTask::spin_down() {

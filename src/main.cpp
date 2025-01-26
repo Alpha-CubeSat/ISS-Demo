@@ -1,11 +1,9 @@
 #include <Arduino.h>
 
+#include "MissionMode.hpp"
 #include "constants.hpp"
 #include "pins.hpp"
-#include "MissionMode.hpp"
 #include "sfr.hpp"
-
-
 
 void set_automated() {
     sfr::flight::automated = true;
