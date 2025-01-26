@@ -2,6 +2,7 @@
 
 namespace sfr {
     namespace mission {
+        InitialSpinupMode initial_spinup_class;
         StandbyMode standby_class;
         ArmedMode armed_class;
         DeploymentMode deployment_class;
@@ -9,6 +10,7 @@ namespace sfr {
         ControllerSpinupMode controller_spinup_class;
         OpenLoopMode open_loop_class;
 
+        MissionMode *initial_spinup = &initial_spinup_class;
         MissionMode *standby = &standby_class;
         MissionMode *armed = &armed_class;
         MissionMode *deployment = &deployment_class;
@@ -16,7 +18,11 @@ namespace sfr {
         MissionMode *controller_spinup = &controller_spinup_class;
         MissionMode *open_loop = &open_loop_class;
 
-        MissionMode *mode = &standby_class;
+        MissionMode *mode = &initial_spinup_class;
+
+        bool began_deployment = false;
+        bool deployed = false;
+
     } // namespace mission
     namespace flight {
         bool initial_hold = true;

@@ -10,6 +10,8 @@ public:
 
     bool is_elapsed();
 
+    bool is_past(unsigned long interval);
+
     void reset();
 
 private:

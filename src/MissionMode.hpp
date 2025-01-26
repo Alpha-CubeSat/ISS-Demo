@@ -15,6 +15,18 @@ public:
     virtual String get_name() = 0;
 };
 
+class InitialSpinupMode : public MissionMode {
+public:
+    void enter();
+    void execute();
+    void exit();
+
+    String get_name() { return "Initial Spinup"; };
+
+private:
+    Timer initial_spinup_timer;
+};
+
 class StandbyMode : public MissionMode {
 public:
     void enter();

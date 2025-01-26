@@ -18,6 +18,16 @@ bool Timer::is_elapsed() {
     return false;
 }
 
+bool Timer::is_past(unsigned long interval) {
+    if (!active) {
+        return false;
+    }
+    if (millis() - start_time >= interval) {
+        return true;
+    }
+    return false;
+}
+
 void Timer::reset() {
     active = false;
 }

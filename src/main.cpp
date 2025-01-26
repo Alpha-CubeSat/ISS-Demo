@@ -22,8 +22,6 @@ void setup() {
     pinMode(BUTTON_PIN, INPUT);
     attachInterrupt(BUTTON_PIN, set_automated, FALLING);
 
-    set_blue();
-
     sfr::mission::mode->enter();
     delay(5000);
 }

@@ -5,6 +5,7 @@
 
 namespace sfr {
     namespace mission {
+        extern InitialSpinupMode initial_spinup_class;
         extern StandbyMode standby_class;
         extern ArmedMode armed_class;
         extern DeploymentMode deployment_class;
@@ -12,6 +13,7 @@ namespace sfr {
         extern ControllerSpinupMode controller_spinup_class;
         extern OpenLoopMode open_loop_class;
 
+        extern MissionMode *initial_spinup;
         extern MissionMode *standby;
         extern MissionMode *armed;
         extern MissionMode *deployment;
@@ -20,6 +22,9 @@ namespace sfr {
         extern MissionMode *open_loop;
 
         extern MissionMode *mode;
+
+        extern bool began_deployment;
+        extern bool deployed;
     } // namespace mission
     namespace flight {
         extern bool initial_hold;

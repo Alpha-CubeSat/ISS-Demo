@@ -22,13 +22,31 @@ void MissionMode::execute() {
     ir_control_task.execute();
 }
 
-void StandbyMode::enter() {
-    set_white();
+void InitialSpinupMode::enter() {
+    set_blue();
 
     imu_monitor.begin();
     motor_control_task.begin();
     sd_control_task.begin();
     ir_control_task.begin();
+
+    initial_spinup_timer.start(constants::flight::initial_spin_time);
+}
+
+void InitialSpinupMode::execute() {
+    MissionMode::execute();
+
+    if (initial_spinup_timer.is_elapsed()) {
+        to_mode(sfr::mission::standby);
+    }
+}
+
+void InitialSpinupMode::exit() {
+
+}
+
+void StandbyMode::enter() {
+    set_white();
 }
 
 void StandbyMode::execute() {
@@ -55,6 +73,7 @@ void ArmedMode::execute() {
 
 void ArmedMode::exit() {
     arm_timer.reset();
+    sfr::ir::is_armed = false;
 }
 
 void DeploymentMode::enter() {
@@ -64,6 +83,20 @@ void DeploymentMode::enter() {
 
 void DeploymentMode::execute() {
     MissionMode::execute();
+
+    if (!sfr::mission::began_deployment && deploy_timer.is_past(3000)) {
+        digitalWrite(GATE_PIN, HIGH);
+        sfr::mission::began_deployment = true;
+    }
+
+    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(3100)) {
+        digitalWrite(GATE_PIN, LOW);
+        sfr::mission::deployed = true;
+    }
+
+    if (deploy_timer.is_elapsed()) {
+        to_mode(sfr::mission::standby);
+    }
 }
 
 void DeploymentMode::exit() {
@@ -77,6 +110,10 @@ void DespinMode::enter() {
 
 void DespinMode::execute() {
     MissionMode::execute();
+
+    if (despin_timer.is_elapsed()) {
+        to_mode(sfr::mission::standby);
+    }
 }
 
 void DespinMode::exit() {
@@ -90,6 +127,10 @@ void ControllerSpinupMode::enter() {
 
 void ControllerSpinupMode::execute() {
     MissionMode::execute();
+
+    if (controller_timeout_timer.is_elapsed()) {
+        to_mode(sfr::mission::open_loop);
+    }
 }
 
 void ControllerSpinupMode::exit() {
@@ -102,6 +143,10 @@ void OpenLoopMode::enter() {
 
 void OpenLoopMode::execute() {
     MissionMode::execute();
+
+    if (open_loop_timer.is_elapsed()) {
+        to_mode(sfr::mission::standby);
+    }
 }
 
 void OpenLoopMode::exit() {
