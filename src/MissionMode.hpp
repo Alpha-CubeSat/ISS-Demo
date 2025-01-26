@@ -12,6 +12,7 @@ public:
     virtual void execute();
     virtual void exit();
 
+    virtual uint8_t get_id() = 0;
     virtual String get_name() = 0;
 };
 
@@ -20,6 +21,7 @@ public:
     void enter();
     void execute();
 
+    uint8_t get_id() { return 0; };
     String get_name() { return "Initial Spinup"; };
 
 private:
@@ -31,6 +33,7 @@ public:
     void enter();
     void execute();
 
+    uint8_t get_id() { return 1; };
     String get_name() { return "Standby"; };
 };
 
@@ -40,6 +43,7 @@ public:
     void execute();
     void exit();
 
+    uint8_t get_id() { return 2; };
     String get_name() { return "Armed"; };
 
 private:
@@ -52,6 +56,7 @@ public:
     void execute();
     void exit();
 
+    uint8_t get_id() { return 3; };
     String get_name() { return "Deployment"; };
 
 private:
@@ -63,6 +68,7 @@ public:
     void enter();
     void execute();
 
+    uint8_t get_id() { return 4; };
     String get_name() { return "Despin"; };
 
 private:
@@ -74,6 +80,7 @@ public:
     void enter();
     void execute();
 
+    uint8_t get_id() { return 5; };
     String get_name() { return "Controller Spinup"; };
 
 private:
@@ -85,6 +92,7 @@ public:
     void enter();
     void execute();
 
+    uint8_t get_id() { return 6; };
     String get_name() { return "Open Loop"; };
 
 private:
