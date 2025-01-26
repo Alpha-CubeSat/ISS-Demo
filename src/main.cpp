@@ -21,7 +21,6 @@ void setup() {
     attachInterrupt(BUTTON_PIN, set_automated, FALLING);
 
     sfr::mission::mode->enter();
-    delay(5000);
 }
 
 void loop() {

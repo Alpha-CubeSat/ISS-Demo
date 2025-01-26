@@ -36,6 +36,11 @@ void InitialSpinupMode::enter() {
 void InitialSpinupMode::execute() {
     MissionMode::execute();
 
+    if (!sfr::motor::began_initial_spin && initial_spinup_timer.is_past(3000)) {
+        motor_control_task.spin_up();
+        sfr::motor::began_initial_spin = true;
+    }
+
     if (initial_spinup_timer.is_elapsed()) {
         to_mode(sfr::mission::standby);
     }

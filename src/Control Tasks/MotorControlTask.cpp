@@ -11,17 +11,6 @@ void MotorControlTask::begin() {
 }
 
 void MotorControlTask::execute() {
-    if (sfr::flight::initial_hold && (millis() > constants::flight::initial_hold_time)) {
-        sfr::flight::initial_hold = false;
-        sfr::flight::initial_spin = true;
-        esc.write(map(1300, 1000, 2000, 0, 180)); // inital spin
-    }
-
-    if (sfr::flight::initial_spin && (millis() > constants::flight::initial_spin_time)) {
-        sfr::flight::initial_spin = false;
-        set_white();
-    }
-
     if (sfr::motor::controller_on) { // maybe another condition to check if inital spin is over
         control();
         // led color?
@@ -34,6 +23,7 @@ void MotorControlTask::execute() {
 }
 
 void MotorControlTask::spin_up() {
+    esc.write(map(1300, 1000, 2000, 0, 180)); // Initial spin
 }
 
 void MotorControlTask::spin_down() {

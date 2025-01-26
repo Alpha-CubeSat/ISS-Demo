@@ -36,6 +36,7 @@ namespace sfr {
         unsigned long deploy_start = 0;
     } // namespace ir
     namespace motor {
+        bool began_initial_spin = false;
         bool spinning_up = false;
         bool spin_down = false;
         bool controller_on = false;

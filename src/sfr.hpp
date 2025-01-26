@@ -38,6 +38,7 @@ namespace sfr {
         extern unsigned long deploy_start;
     } // namespace ir
     namespace motor {
+        extern bool began_initial_spin;
         extern bool spinning_up;
         extern bool spin_down;
         extern bool controller_on;
