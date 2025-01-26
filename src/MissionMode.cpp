@@ -11,13 +11,12 @@
 #include "Monitors/IMUMonitor.hpp"
 
 IMUMonitor imu_monitor;
-IRControlTask ir_control_task;
 MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
+IRControlTask ir_control_task;
 
 void MissionMode::execute() {
     imu_monitor.execute();
-    motor_control_task.execute();
     sd_control_task.execute();
     ir_control_task.execute();
 }
@@ -107,6 +106,7 @@ void DeploymentMode::exit() {
 void DespinMode::enter() {
     set_blue();
     despin_timer.start(constants::mission::despin_length);
+    motor_control_task.spin_down();
 }
 
 void DespinMode::execute() {
@@ -125,6 +125,7 @@ void ControllerSpinupMode::enter() {
 
 void ControllerSpinupMode::execute() {
     MissionMode::execute();
+    motor_control_task.execute_controller();
 
     if (controller_timeout_timer.is_elapsed()) {
         to_mode(sfr::mission::open_loop);

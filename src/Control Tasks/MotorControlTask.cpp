@@ -10,18 +10,6 @@ void MotorControlTask::begin() {
     esc.write(0);
 }
 
-void MotorControlTask::execute() {
-    if (sfr::motor::controller_on) { // maybe another condition to check if inital spin is over
-        control();
-        // led color?
-    }
-
-    // if (sfr::motor::controller_on && sfr::imu::failed_init != false) {
-    //    // sfr::controller::record_data = true;
-    //     control();
-    // }
-}
-
 void MotorControlTask::spin_up() {
     esc.write(map(1300, 1000, 2000, 0, 180)); // Initial spin
 }
@@ -32,25 +20,7 @@ void MotorControlTask::spin_down() {
     sfr::motor::spin_down = false;
 }
 
-// ignore
- //  void MotorControlTask::spinup() {
-//      vlogln("spin up called");
-//      if (millis() - last_write > constants::motor::spinup_increment) {
-//          vlog("increasing pulse width");
-//          int val = map(sfr::motor::pulse_width, 0, 1000, 0, 180);
-//          esc.write(val);
-//          sfr::motor::pulse_width++;
-//          last_write = millis();
-//          vlogln(sfr::motor::pulse_width);
-//      }
-//  //     if (sfr::motor::pulse_width == 1) {
-//  //         esc.write(100);
-//  //         sfr::motor::spinning_up = false;
-//  //         sfr::motor::controller_on = true;
-//  //     }
-//  }
-
-void MotorControlTask::control() {
+void MotorControlTask::execute_controller() {
     // vlogln("Controls called");
     //  define current values
     error_curr = 4 - sfr::imu::gyro_z;
