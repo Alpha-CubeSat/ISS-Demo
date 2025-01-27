@@ -24,21 +24,11 @@ namespace sfr {
         bool deployed = false;
 
     } // namespace mission
-    namespace flight {
-        bool initial_hold = true;
-        bool initial_spin = false;
-        volatile bool automated = false;
-    } // namespace flight
     namespace ir {
         bool is_armed = false;
-        unsigned long armed_start = 0;
-
-        unsigned long deploy_start = 0;
     } // namespace ir
     namespace motor {
         bool began_initial_spin = false;
-        bool spinning_up = false;
-        bool spin_down = false;
         bool controller_on = false;
         int pulse_width = 0;
     } // namespace motor

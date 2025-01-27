@@ -6,7 +6,6 @@
 #include "sfr.hpp"
 
 void set_automated() {
-    sfr::flight::automated = true;
     set_purple();
 }
 

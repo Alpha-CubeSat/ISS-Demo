@@ -26,21 +26,11 @@ namespace sfr {
         extern bool began_deployment;
         extern bool deployed;
     } // namespace mission
-    namespace flight {
-        extern bool initial_hold;
-        extern bool initial_spin;
-        extern volatile bool automated;
-    } // namespace flight
     namespace ir {
         extern bool is_armed;
-        extern unsigned long armed_start;
-
-        extern unsigned long deploy_start;
     } // namespace ir
     namespace motor {
         extern bool began_initial_spin;
-        extern bool spinning_up;
-        extern bool spin_down;
         extern bool controller_on;
         extern int pulse_width;
 

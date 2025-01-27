@@ -66,6 +66,15 @@ void IRControlTask::parse_command() {
 
         vlogln("Lower Right");
         break;
+    case OPEN_LOOP_BUTTON:
+        if (sfr::ir::is_armed) {
+            to_mode(sfr::mission::open_loop);
+        } else {
+            set_yellow();
+        }
+
+        vlogln("CC Button");
+        break;
     default:
         vlogln(IrReceiver.decodedIRData.command);
         break;

@@ -32,7 +32,7 @@ void InitialSpinupMode::enter() {
     sd_control_task.begin();
     ir_control_task.begin();
 
-    initial_spinup_timer.start(constants::flight::initial_spin_time);
+    initial_spinup_timer.start(constants::timer::initial_spinup_duration);
 }
 
 void InitialSpinupMode::execute() {
@@ -58,7 +58,7 @@ void StandbyMode::execute() {
 
 void ArmedMode::enter() {
     set_green();
-    arm_timer.start(constants::ir::arm_timeout);
+    arm_timer.start(constants::timer::arm_timeout);
     sfr::ir::is_armed = true;
 }
 
@@ -78,7 +78,7 @@ void ArmedMode::exit() {
 
 void DeploymentMode::enter() {
     set_blue();
-    deploy_timer.start(constants::mission::deployment_length);
+    deploy_timer.start(constants::timer::deployment_total_duration);
 }
 
 void DeploymentMode::execute() {
@@ -105,7 +105,7 @@ void DeploymentMode::exit() {
 
 void DespinMode::enter() {
     set_blue();
-    despin_timer.start(constants::mission::despin_length);
+    despin_timer.start(constants::timer::despin_duration);
     motor_control_task.spin_down();
 }
 
@@ -119,7 +119,7 @@ void DespinMode::execute() {
 
 void ControllerSpinupMode::enter() {
     set_blue();
-    controller_timeout_timer.start(constants::mission::controller_timeout_length);
+    controller_timeout_timer.start(constants::timer::controller_timeout);
     sfr::motor::controller_on = true;
 }
 
@@ -134,7 +134,7 @@ void ControllerSpinupMode::execute() {
 
 void OpenLoopMode::enter() {
     set_purple();
-    open_loop_timer.start(constants::mission::open_loop_length);
+    open_loop_timer.start(constants::timer::open_loop_duration);
 }
 
 void OpenLoopMode::execute() {
