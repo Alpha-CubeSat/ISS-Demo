@@ -30,7 +30,6 @@ namespace sfr {
     namespace motor {
         bool began_initial_spin = false;
         bool controller_on = false;
-        int pulse_width = 0;
     } // namespace motor
 
     namespace imu {

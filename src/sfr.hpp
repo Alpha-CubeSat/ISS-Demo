@@ -32,7 +32,6 @@ namespace sfr {
     namespace motor {
         extern bool began_initial_spin;
         extern bool controller_on;
-        extern int pulse_width;
 
     } // namespace motor
 
