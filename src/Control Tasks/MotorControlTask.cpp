@@ -11,7 +11,7 @@ void MotorControlTask::begin() {
 }
 
 void MotorControlTask::spin_up(int dc) {
-    esc.write(map(1300, 1000, 2000, 0, 180)); // Initial spin
+    esc.write(map(dc, 1000, 2000, 0, 180));
 }
 
 void MotorControlTask::spin_down() {
