@@ -99,6 +99,15 @@ private:
     Timer open_loop_timer;
 };
 
+class AutomatedSequenceMode : public MissionMode {
+public:
+    void enter();
+    void execute();
+
+    uint8_t get_id() { return 7; };
+    String get_name() { return "Automated Sequence"; };
+};
+
 void to_mode(MissionMode *mode);
 
 #endif // MISSION_MODE_HPP

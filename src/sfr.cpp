@@ -9,6 +9,7 @@ namespace sfr {
         DespinMode despin_class;
         ControllerSpinupMode controller_spinup_class;
         OpenLoopMode open_loop_class;
+        AutomatedSequenceMode automated_sequence_class;
 
         MissionMode *initial_spinup = &initial_spinup_class;
         MissionMode *standby = &standby_class;
@@ -17,6 +18,7 @@ namespace sfr {
         MissionMode *despin = &despin_class;
         MissionMode *controller_spinup = &controller_spinup_class;
         MissionMode *open_loop = &open_loop_class;
+        MissionMode *automated_sequence = &automated_sequence_class;
 
         MissionMode *mode = &initial_spinup_class;
 

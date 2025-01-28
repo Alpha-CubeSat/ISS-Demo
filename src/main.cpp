@@ -6,7 +6,7 @@
 #include "sfr.hpp"
 
 void set_automated() {
-    set_purple();
+    to_mode(sfr::mission::automated_sequence);
 }
 
 uint32_t cycle_start, cycle_duration;
@@ -19,7 +19,7 @@ void setup() {
     pinMode(BLUE_LED_PIN, OUTPUT);
 
     pinMode(BUTTON_PIN, INPUT);
-    attachInterrupt(BUTTON_PIN, set_automated, FALLING);
+    // attachInterrupt(BUTTON_PIN, set_automated, FALLING);
 
     sfr::mission::mode->enter();
 }
@@ -27,7 +27,7 @@ void setup() {
 void loop() {
     vlogln("-------------------- START LOOP --------------------");
 
-    vlogln("Mode: " + sfr::mission::mode->get_name());
+    vlogln("Mode: " + sfr::mission::mode->get_name() + "\n");
 
     vlogln("Gyro X: " + String(sfr::imu::gyro_x));
     vlogln("Gyro Y: " + String(sfr::imu::gyro_y));

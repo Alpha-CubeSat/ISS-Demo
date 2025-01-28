@@ -12,6 +12,7 @@ namespace sfr {
         extern DespinMode despin_class;
         extern ControllerSpinupMode controller_spinup_class;
         extern OpenLoopMode open_loop_class;
+        extern AutomatedSequenceMode automated_sequence_class;
 
         extern MissionMode *initial_spinup;
         extern MissionMode *standby;
@@ -20,6 +21,7 @@ namespace sfr {
         extern MissionMode *despin;
         extern MissionMode *controller_spinup;
         extern MissionMode *open_loop;
+        extern MissionMode *automated_sequence;
 
         extern MissionMode *mode;
 

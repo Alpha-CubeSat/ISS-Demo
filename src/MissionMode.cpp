@@ -146,6 +146,14 @@ void OpenLoopMode::execute() {
     }
 }
 
+void AutomatedSequenceMode::enter() {
+    set_blue();
+    sfr::motor::controller_on = false;
+}
+
+void AutomatedSequenceMode::execute() {
+}
+
 void to_mode(MissionMode *mode) {
     sfr::mission::mode->exit();
     sfr::mission::mode = mode;
