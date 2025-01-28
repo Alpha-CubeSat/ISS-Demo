@@ -38,6 +38,7 @@ namespace sfr {
     namespace imu {
         extern bool failed_init;
         extern bool failed_read;
+
         extern float accel_x;
         extern float accel_y;
         extern float accel_z;
