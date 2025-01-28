@@ -6,11 +6,11 @@
 class MotorControlTask {
 public:
     void begin();
-    void execute();
+    void execute_controller();
+    void spin_up(int dc);
+    void spin_down();
 
 private:
-    void spinup();
-    void control();
     Servo esc;
     unsigned long last_write;
 

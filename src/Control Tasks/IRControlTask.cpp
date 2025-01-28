@@ -3,6 +3,7 @@
 #include <IRremote.hpp>
 
 #include "constants.hpp"
+#include "pins.hpp"
 #include "sfr.hpp"
 
 void IRControlTask::begin() {
@@ -10,25 +11,6 @@ void IRControlTask::begin() {
 }
 
 void IRControlTask::execute() {
-    // Deploy
-    if (sfr::ir::is_deploying && deploy_led_timer.is_elapsed()) {
-        sfr::ir::is_deploying = false;
-        deploy_led_timer.reset();
-
-        digitalWrite(GATE_PIN, HIGH);
-        delay(1);
-        digitalWrite(GATE_PIN, LOW);
-
-        set_white();
-    }
-
-    // Handle arming timeout
-    if (sfr::ir::is_armed && arm_timer.is_elapsed()) {
-        set_yellow();
-        sfr::ir::is_armed = false;
-        arm_timer.reset();
-    }
-
     // Parse any commands sent
     if (IrReceiver.decode()) {
         if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_WAS_OVERFLOW) {
@@ -53,16 +35,13 @@ void IRControlTask::parse_command() {
 
     switch (button_selected) {
     case ARM_BUTTON:
-        set_green();
-        sfr::ir::is_armed = true;
-        arm_timer.start(constants::ir::arm_timeout);
+        to_mode(sfr::mission::armed);
 
         vlogln("Upper Right");
         break;
-    case SPIN_BUTTON:
+    case CONTROLLER_SPIN_BUTTON:
         if (sfr::ir::is_armed) {
-            set_blue();
-            sfr::motor::controller_on = true; // 
+            to_mode(sfr::mission::controller_spinup);
         } else {
             set_yellow();
         }
@@ -71,12 +50,7 @@ void IRControlTask::parse_command() {
         break;
     case DEPLOY_BUTTON:
         if (sfr::ir::is_armed) {
-            set_blue();
-
-            sfr::ir::is_armed = false;
-
-            sfr::ir::is_deploying = true;
-            deploy_led_timer.start(constants::ir::deploy_led_timeout);
+            to_mode(sfr::mission::deployment);
         } else {
             set_yellow();
         }
@@ -85,13 +59,21 @@ void IRControlTask::parse_command() {
         break;
     case DESPIN_BUTTON:
         if (sfr::ir::is_armed) {
-            set_blue();
-            sfr::motor::spin_down = true;
+            to_mode(sfr::mission::despin);
         } else {
             set_yellow();
         }
 
         vlogln("Lower Right");
+        break;
+    case OPEN_LOOP_BUTTON:
+        if (sfr::ir::is_armed) {
+            to_mode(sfr::mission::open_loop);
+        } else {
+            set_yellow();
+        }
+
+        vlogln("CC Button");
         break;
     default:
         vlogln(IrReceiver.decodedIRData.command);

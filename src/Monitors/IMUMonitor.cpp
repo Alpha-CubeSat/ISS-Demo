@@ -11,12 +11,15 @@ void IMUMonitor::begin() {
         imu.setAccelRange(LSM6DS_ACCEL_RANGE_4_G);
     } else {
         sfr::imu::failed_init = true;
-        vlogln("Error: IMU failed to initialize");
-        // TODO: Open loop
     }
 }
 
 void IMUMonitor::execute() {
+    // Reset failed read indicator
+    if (sfr::imu::failed_read) {
+        sfr::imu::failed_read = false;
+    }
+
     if (imu.getEvent(&accel, &gyro, &temp)) {
         sfr::imu::accel_x = accel.acceleration.x;
         sfr::imu::accel_y = accel.acceleration.y;
@@ -25,12 +28,7 @@ void IMUMonitor::execute() {
         sfr::imu::gyro_x = gyro.gyro.x;
         sfr::imu::gyro_y = gyro.gyro.y;
         sfr::imu::gyro_z = gyro.gyro.z;
-
-        vlog("in IMU Monitor z val");
-        vlogln(sfr::imu::gyro_z);
     } else {
-        vlogln("Error: IMU failed to read");
-        // TODO: Log this failure.
-        sfr::imu::failed_read = true; 
+        sfr::imu::failed_read = true;
     }
 }

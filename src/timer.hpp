@@ -1,4 +1,6 @@
 
+#ifndef TIMER_HPP
+#define TIMER_HPP
 
 class Timer {
 public:
@@ -8,6 +10,8 @@ public:
 
     bool is_elapsed();
 
+    bool is_past(unsigned long interval);
+
     void reset();
 
 private:
@@ -15,3 +19,5 @@ private:
     unsigned long duration;
     bool active;
 };
+
+#endif // TIMER_HPP

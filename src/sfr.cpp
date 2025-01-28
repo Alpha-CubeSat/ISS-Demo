@@ -1,29 +1,44 @@
 #include "sfr.hpp"
 
 namespace sfr {
-    namespace flight {
-        bool initial_hold = true;
-        bool initial_spin = false;
-        volatile bool automated = false;
-    } // namespace flight
+    namespace mission {
+        InitialSpinupMode initial_spinup_class;
+        StandbyMode standby_class;
+        ArmedMode armed_class;
+        DeploymentMode deployment_class;
+        DespinMode despin_class;
+        ControllerSpinupMode controller_spinup_class;
+        OpenLoopMode open_loop_class;
+        AutomatedSequenceMode automated_sequence_class;
+
+        MissionMode *initial_spinup = &initial_spinup_class;
+        MissionMode *standby = &standby_class;
+        MissionMode *armed = &armed_class;
+        MissionMode *deployment = &deployment_class;
+        MissionMode *despin = &despin_class;
+        MissionMode *controller_spinup = &controller_spinup_class;
+        MissionMode *open_loop = &open_loop_class;
+        MissionMode *automated_sequence = &automated_sequence_class;
+
+        MissionMode *mode = &initial_spinup_class;
+
+        uint32_t timestamp = 0;
+        bool began_deployment = false;
+        bool deployed = false;
+
+    } // namespace mission
     namespace ir {
         bool is_armed = false;
-        unsigned long armed_start = 0;
-
-        bool is_deploying = false;
-        unsigned long deploy_start = 0;
     } // namespace ir
     namespace motor {
-        bool spinning_up = false;
-        bool spin_down = false;
+        bool began_initial_spin = false;
         bool controller_on = false;
-        int pulse_width = 0;
     } // namespace motor
 
     namespace imu {
         bool failed_init = false;
         bool failed_read = false;
-        
+
         float accel_x = 0;
         float accel_y = 0;
         float accel_z = 0;
@@ -34,8 +49,9 @@ namespace sfr {
     } // namespace imu
 
     namespace sd {
+        bool failed_init = false;
         char const *log_filename = "data_0.csv";
-    }
+    } // namespace sd
 
     namespace controller {
         float record_angle = 0;

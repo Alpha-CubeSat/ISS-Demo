@@ -1,0 +1,66 @@
+
+
+#ifndef PINS_HPP
+#define PINS_HPP
+
+#define PWM_PIN 10
+#define IR_PIN 11
+#define SD_PIN 4
+
+#define GATE_PIN A4
+#define BUTTON_PIN 5
+
+#define RED_LED_PIN A0
+#define GREEN_LED_PIN A2
+#define BLUE_LED_PIN A1
+
+// IR remote buttons
+
+#define UPPER_RIGHT 0xA
+#define LOWER_RIGHT 0xB
+#define UPPER_LEFT 0xC
+#define LOWER_LEFT 0xD
+#define MUTE_BUTTON 0XE
+#define POWER_BUTTON 0xF
+#define CC_BUTTON 0xCC
+#define OK_BUTTON 0x18
+
+#define ARM_BUTTON UPPER_RIGHT
+#define CONTROLLER_SPIN_BUTTON UPPER_LEFT
+#define DEPLOY_BUTTON LOWER_LEFT
+#define DESPIN_BUTTON LOWER_RIGHT
+#define OPEN_LOOP_BUTTON CC_BUTTON
+
+// LED colors
+
+inline void set_white() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+inline void set_blue() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+inline void set_green() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+}
+
+inline void set_yellow() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+}
+
+inline void set_purple() {
+    digitalWrite(RED_LED_PIN, LOW);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, LOW);
+}
+
+#endif // PINS_HPP

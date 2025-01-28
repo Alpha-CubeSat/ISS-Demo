@@ -14,9 +14,6 @@ private:
     void handle_overflow();
 
     uint16_t button_selected = -1;
-
-    Timer arm_timer;
-    Timer deploy_led_timer;
 };
 
 #endif
