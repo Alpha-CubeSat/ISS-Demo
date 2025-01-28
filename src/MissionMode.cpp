@@ -39,7 +39,7 @@ void InitialSpinupMode::execute() {
     MissionMode::execute();
 
     if (!sfr::motor::began_initial_spin && initial_spinup_timer.is_past(3000)) {
-        motor_control_task.spin_up();
+        motor_control_task.spin_up(constants::motor::initial_spin_dc);
         sfr::motor::began_initial_spin = true;
     }
 
@@ -134,6 +134,7 @@ void ControllerSpinupMode::execute() {
 
 void OpenLoopMode::enter() {
     set_purple();
+    motor_control_task.spin_up(constants::motor::open_loop_spin_dc);
     open_loop_timer.start(constants::timer::open_loop_duration);
 }
 

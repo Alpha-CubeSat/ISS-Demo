@@ -7,7 +7,7 @@ class MotorControlTask {
 public:
     void begin();
     void execute_controller();
-    void spin_up();
+    void spin_up(int dc);
     void spin_down();
 
 private:

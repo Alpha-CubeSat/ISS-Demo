@@ -46,8 +46,9 @@ namespace sfr {
     } // namespace imu
 
     namespace sd {
+        bool failed_init = false;
         char const *log_filename = "data_0.csv";
-    }
+    } // namespace sd
 
     namespace controller {
         float record_angle = 0;

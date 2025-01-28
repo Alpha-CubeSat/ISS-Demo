@@ -28,6 +28,11 @@ void loop() {
     vlog(F("Mode: "));
     vlogln(sfr::mission::mode->get_name());
 
+    // vlog("SD: ");
+    // vlogln(sfr)
+
+    // uint32_t cycle_start = millis();
+
     sfr::mission::mode->execute();
 
     // vlog(F("Gyro X: "));
@@ -47,6 +52,10 @@ void loop() {
 
     // vlog(F("Accel Z: "));
     // vlogln(sfr::imu::accel_z);
+    delay(5);
+    // if (millis() - cycle_start < 50) {
+    //     delay();
+    // }
 
     // vlogln(F("--------------------- END LOOP ---------------------"));
 }

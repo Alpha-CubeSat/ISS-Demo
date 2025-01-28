@@ -10,7 +10,7 @@ void MotorControlTask::begin() {
     esc.write(0);
 }
 
-void MotorControlTask::spin_up() {
+void MotorControlTask::spin_up(int dc) {
     esc.write(map(1300, 1000, 2000, 0, 180)); // Initial spin
 }
 

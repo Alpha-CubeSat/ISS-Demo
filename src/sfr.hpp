@@ -47,8 +47,9 @@ namespace sfr {
         extern float gyro_z;
     } // namespace imu
     namespace sd {
+        extern bool failed_init;
         extern char const *log_filename;
-    }
+    } // namespace sd
 
     namespace controller {
         extern float record_angle;
