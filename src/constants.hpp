@@ -14,6 +14,9 @@
 #endif
 
 namespace constants {
+    namespace mission {
+        constexpr uint32_t cycle_time = 50;
+    } // namespace mission
     namespace timer {
         constexpr unsigned long initial_spinup_duration = 5000;
         constexpr unsigned long deployment_total_duration = 7000;

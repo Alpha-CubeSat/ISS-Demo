@@ -9,6 +9,8 @@ void set_automated() {
     set_purple();
 }
 
+uint32_t cycle_start, cycle_duration;
+
 void setup() {
     Serial.begin(9600);
 
@@ -23,39 +25,25 @@ void setup() {
 }
 
 void loop() {
-    vlogln(F("-------------------- START LOOP --------------------"));
+    vlogln("-------------------- START LOOP --------------------");
 
-    vlog(F("Mode: "));
-    vlogln(sfr::mission::mode->get_name());
+    vlogln("Mode: " + sfr::mission::mode->get_name());
 
-    // vlog("SD: ");
-    // vlogln(sfr)
+    vlogln("Gyro X: " + String(sfr::imu::gyro_x));
+    vlogln("Gyro Y: " + String(sfr::imu::gyro_y));
+    vlogln("Gyro Z: " + String(sfr::imu::gyro_z));
 
-    // uint32_t cycle_start = millis();
+    vlogln("Accel X: " + String(sfr::imu::accel_x));
+    vlogln("Accel Y: " + String(sfr::imu::accel_y));
+    vlogln("Accel Z: " + String(sfr::imu::accel_z));
 
+    cycle_start = millis();
     sfr::mission::mode->execute();
+    cycle_duration = millis() - cycle_start;
 
-    // vlog(F("Gyro X: "));
-    // vlogln(sfr::imu::gyro_x);
+    if (cycle_duration < constants::mission::cycle_time) {
+        delay(constants::mission::cycle_time - cycle_duration);
+    }
 
-    // vlog(F("Gyro Y: "));
-    // vlogln(sfr::imu::gyro_y);
-
-    // vlog(F("Gyro Z: "));
-    // vlogln(sfr::imu::gyro_z);
-
-    // vlog(F("Accel X: "));
-    // vlogln(sfr::imu::accel_x);
-
-    // vlog(F("Accel Y: "));
-    // vlogln(sfr::imu::accel_y);
-
-    // vlog(F("Accel Z: "));
-    // vlogln(sfr::imu::accel_z);
-    delay(5);
-    // if (millis() - cycle_start < 50) {
-    //     delay();
-    // }
-
-    // vlogln(F("--------------------- END LOOP ---------------------"));
+    vlogln("--------------------- END LOOP ---------------------");
 }
