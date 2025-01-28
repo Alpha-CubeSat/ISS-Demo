@@ -22,6 +22,7 @@ namespace sfr {
 
         MissionMode *mode = &initial_spinup_class;
 
+        uint32_t timestamp = 0;
         bool began_deployment = false;
         bool deployed = false;
 

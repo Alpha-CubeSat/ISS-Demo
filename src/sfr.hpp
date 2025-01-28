@@ -25,6 +25,8 @@ namespace sfr {
 
         extern MissionMode *mode;
 
+        extern uint32_t timestamp;
+
         extern bool began_deployment;
         extern bool deployed;
     } // namespace mission

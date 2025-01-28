@@ -27,7 +27,8 @@ void setup() {
 void loop() {
     vlogln("-------------------- START LOOP --------------------");
 
-    vlogln("Mode: " + sfr::mission::mode->get_name() + "\n");
+    vlogln("Mode: " + sfr::mission::mode->get_name());
+    vlogln("Timestamp: " + String(sfr::mission::timestamp) + "\n");
 
     vlogln("Gyro X: " + String(sfr::imu::gyro_x));
     vlogln("Gyro Y: " + String(sfr::imu::gyro_y));
@@ -39,7 +40,8 @@ void loop() {
 
     cycle_start = millis();
     sfr::mission::mode->execute();
-    cycle_duration = millis() - cycle_start;
+    sfr::mission::timestamp = millis();
+    cycle_duration = sfr::mission::timestamp - cycle_start;
 
     if (cycle_duration < constants::mission::cycle_time) {
         delay(constants::mission::cycle_time - cycle_duration);
