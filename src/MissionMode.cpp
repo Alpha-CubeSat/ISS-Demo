@@ -145,11 +145,6 @@ void ControllerSpinupMode::execute() {
     }
 }
 
-bool ControllerSpinupMode::is_stable_spin() {
-
-    return true;
-}
-
 void OpenLoopMode::enter() {
     set_purple();
     motor_control_task.spin_up(constants::motor::open_loop_spin_dc);

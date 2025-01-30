@@ -84,7 +84,6 @@ public:
     String get_name() { return "Controller Spinup"; };
 
 private:
-    bool is_stable_spin();
     Timer controller_timeout_timer;
 };
 
