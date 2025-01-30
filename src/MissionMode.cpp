@@ -19,6 +19,10 @@ void MissionMode::execute() {
     imu_monitor.execute();
     sd_control_task.execute();
     ir_control_task.execute();
+
+    if (sfr::motor::controller_on) {
+        motor_control_task.execute_controller();
+    }
 }
 
 void MissionMode::exit() {
@@ -133,7 +137,6 @@ void ControllerSpinupMode::enter() {
 
 void ControllerSpinupMode::execute() {
     MissionMode::execute();
-    motor_control_task.execute_controller();
 
     if (controller_timeout_timer.is_elapsed()) {
         to_mode(sfr::mission::open_loop);

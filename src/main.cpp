@@ -32,6 +32,7 @@ void loop() {
     vlogln("Mode: " + sfr::mission::mode->get_name());
     vlogln("Timestamp (ms): " + String(sfr::mission::timestamp) + "\n");
 
+    vlogln("CONTROLLER: " + String(sfr::motor::controller_on));
     vlogln("Duty cycle: " + String(sfr::controller::record_duty_cycle) + "\n");
 
     vlogln("IMU: " + String(!sfr::imu::failed_init) + "\n");
