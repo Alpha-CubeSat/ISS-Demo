@@ -32,7 +32,7 @@ void loop() {
     vlogln("Mode: " + sfr::mission::mode->get_name());
     vlogln("Timestamp (ms): " + String(sfr::mission::timestamp) + "\n");
 
-    vlogln("Angle: " + String(sfr::controller::record_angle) + "\n");
+    vlogln("Duty cycle: " + String(sfr::controller::record_duty_cycle) + "\n");
 
     vlogln("Gyro X (rad/s): " + String(sfr::imu::gyro_x));
     vlogln("Gyro Y (rad/s): " + String(sfr::imu::gyro_y));
