@@ -90,12 +90,14 @@ void ArmedMode::exit() {
 void DeploymentMode::enter() {
     set_blue();
     deploy_timer.start(constants::timer::deployment_total_duration);
+    sfr::motor::controller_on = false;
 }
 
 void DeploymentMode::execute() {
     MissionMode::execute();
 
     if (!sfr::mission::began_deployment && deploy_timer.is_past(3000)) {
+        digitalWrite(GUIDE_LASER_PIN, LOW);
         digitalWrite(GATE_PIN, HIGH);
         sfr::mission::began_deployment = true;
     }
@@ -111,7 +113,6 @@ void DeploymentMode::execute() {
 }
 
 void DeploymentMode::exit() {
-    digitalWrite(GUIDE_LASER_PIN, LOW);
     deploy_timer.reset();
 }
 
@@ -139,12 +140,8 @@ void ControllerSpinupMode::enter() {
 void ControllerSpinupMode::execute() {
     MissionMode::execute();
 
-    if (is_stable_spin()) {
-        to_mode(sfr::mission::standby);
-    }
-
     if (controller_timeout_timer.is_elapsed()) {
-        to_mode(sfr::mission::open_loop);
+        to_mode(sfr::mission::standby);
     }
 }
 
