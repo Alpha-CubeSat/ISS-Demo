@@ -17,6 +17,10 @@ void IMUMonitor::begin() {
 }
 
 void IMUMonitor::execute() {
+    if (sfr::imu::failed_init) {
+        return;
+    }
+
     // Reset failed read indicator
     if (sfr::imu::failed_read) {
         sfr::imu::failed_read = false;
