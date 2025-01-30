@@ -5,7 +5,7 @@
 
 void SDControlTask::begin() {
     if (!SD.begin(SD_PIN)) {
-        vlogln("Error: SD interface failed to initialize");
+        sfr::sd::failed_init = true;
         return;
     }
 
@@ -15,11 +15,18 @@ void SDControlTask::begin() {
         file_count = read_out.toInt();
         boot.seek(0);
         file_count++;
-        boot.println(file_count);
+        if (boot.println(file_count) == 0) {
+            vlogln("Error: SD boot write failed (existing)");
+        }
         boot.close();
     } else {
         boot = SD.open(constants::sd::boot_filename, FILE_WRITE);
-        boot.println(file_count);
+        if (!boot) {
+            vlogln("Error: SD boot open failed");
+        }
+        if (boot.println(file_count) == 0) {
+            vlogln("Error: SD boot write failed (new)");
+        }
         boot.flush();
         boot.close();
     }
@@ -31,7 +38,15 @@ void SDControlTask::begin() {
 }
 
 void SDControlTask::execute() {
+    if (sfr::sd::failed_init) {
+        return;
+    }
+
     file = SD.open(sfr::sd::log_filename, FILE_WRITE);
+    if (!file) {
+        vlogln("Error: SD file open failed");
+        return;
+    }
 
     String data = String(sfr::mission::timestamp) + "," +
                   String(sfr::mission::mode->get_id()) + "," +
@@ -43,7 +58,9 @@ void SDControlTask::execute() {
                   String(sfr::imu::gyro_y) + "," +
                   String(sfr::imu::gyro_z);
 
-    file.println(data);
+    if (file.println(data) == 0) {
+        vlogln("Error: SD write failed");
+    }
 
     file.flush();
     file.close();

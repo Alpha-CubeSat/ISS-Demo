@@ -34,13 +34,17 @@ void loop() {
 
     vlogln("Duty cycle: " + String(sfr::controller::record_duty_cycle) + "\n");
 
+    vlogln("IMU: " + String(!sfr::imu::failed_init) + "\n");
     vlogln("Gyro X (rad/s): " + String(sfr::imu::gyro_x));
     vlogln("Gyro Y (rad/s): " + String(sfr::imu::gyro_y));
     vlogln("Gyro Z (rad/s): " + String(sfr::imu::gyro_z) + "\n");
 
     vlogln("Accel X (m/s^2): " + String(sfr::imu::accel_x));
     vlogln("Accel Y (m/s^2): " + String(sfr::imu::accel_y));
-    vlogln("Accel Z (m/s^2): " + String(sfr::imu::accel_z));
+    vlogln("Accel Z (m/s^2): " + String(sfr::imu::accel_z) + "\n");
+
+    vlogln("SD: " + String(!sfr::sd::failed_init) + "\n");
+    vlogln("Log file: " + String(sfr::sd::log_filename));
 
     cycle_start = millis();
     sfr::mission::mode->execute();
