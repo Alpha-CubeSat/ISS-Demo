@@ -118,6 +118,7 @@ void DeploymentMode::exit() {
 void DespinMode::enter() {
     set_blue();
     despin_timer.start(constants::timer::despin_duration);
+    sfr::motor::controller_on = false;
     motor_control_task.spin_down();
 }
 

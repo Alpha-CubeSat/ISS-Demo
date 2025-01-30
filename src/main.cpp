@@ -18,6 +18,7 @@ void setup() {
     pinMode(GREEN_LED_PIN, OUTPUT);
     pinMode(BLUE_LED_PIN, OUTPUT);
 
+    pinMode(GATE_PIN, OUTPUT);
     pinMode(GUIDE_LASER_PIN, OUTPUT);
 
     pinMode(BUTTON_PIN, INPUT);
