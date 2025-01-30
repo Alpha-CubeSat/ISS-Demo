@@ -139,9 +139,18 @@ void ControllerSpinupMode::enter() {
 void ControllerSpinupMode::execute() {
     MissionMode::execute();
 
+    if (is_stable_spin()) {
+        to_mode(sfr::mission::standby);
+    }
+
     if (controller_timeout_timer.is_elapsed()) {
         to_mode(sfr::mission::open_loop);
     }
+}
+
+bool ControllerSpinupMode::is_stable_spin() {
+
+    return true;
 }
 
 void OpenLoopMode::enter() {

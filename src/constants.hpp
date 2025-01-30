@@ -24,7 +24,7 @@ namespace constants {
         constexpr unsigned long open_loop_duration = 5000;
 
         constexpr unsigned long arm_timeout = 2000;
-        constexpr unsigned long controller_timeout = 5000;
+        constexpr unsigned long controller_timeout = 60000;
 
     } // namespace timer
     namespace motor {

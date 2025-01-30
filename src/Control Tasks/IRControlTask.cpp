@@ -36,8 +36,6 @@ void IRControlTask::parse_command() {
     switch (button_selected) {
     case ARM_BUTTON:
         to_mode(sfr::mission::armed);
-
-        vlogln("Upper Right");
         break;
     case CONTROLLER_SPIN_BUTTON:
         if (sfr::ir::is_armed) {
@@ -45,8 +43,6 @@ void IRControlTask::parse_command() {
         } else {
             set_yellow();
         }
-
-        vlogln("Lower Right");
         break;
     case DEPLOY_BUTTON:
         if (sfr::ir::is_armed) {
@@ -54,8 +50,6 @@ void IRControlTask::parse_command() {
         } else {
             set_yellow();
         }
-
-        vlogln("Lower Left");
         break;
     case DESPIN_BUTTON:
         if (sfr::ir::is_armed) {
@@ -63,8 +57,6 @@ void IRControlTask::parse_command() {
         } else {
             set_yellow();
         }
-
-        vlogln("Lower Right");
         break;
     case OPEN_LOOP_BUTTON:
         if (sfr::ir::is_armed) {
@@ -72,8 +64,6 @@ void IRControlTask::parse_command() {
         } else {
             set_yellow();
         }
-
-        vlogln("CC Button");
         break;
     default:
         vlogln(IrReceiver.decodedIRData.command);
