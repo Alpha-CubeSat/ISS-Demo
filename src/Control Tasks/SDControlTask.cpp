@@ -7,6 +7,8 @@ void SDControlTask::begin() {
     if (!SD.begin(SD_PIN)) {
         sfr::sd::failed_init = true;
         return;
+    } else {
+        sfr::sd::failed_init = false;
     }
 
     File boot = SD.open(constants::sd::boot_filename, O_RDWR);

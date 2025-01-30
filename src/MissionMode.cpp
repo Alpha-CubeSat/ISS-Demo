@@ -37,6 +37,12 @@ void InitialSpinupMode::enter() {
 }
 
 void InitialSpinupMode::execute() {
+    if (sfr::imu::failed_init) {
+        imu_monitor.begin();
+    }
+    if (sfr::sd::failed_init) {
+        sd_control_task.begin();
+    }
     MissionMode::execute();
 
     if (!sfr::motor::began_initial_spin && initial_spinup_timer.is_past(3000)) {
