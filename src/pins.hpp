@@ -9,6 +9,7 @@
 
 #define GATE_PIN A4
 #define BUTTON_PIN 5
+#define GUIDE_LASER_PIN A5
 
 #define RED_LED_PIN A0
 #define GREEN_LED_PIN A2

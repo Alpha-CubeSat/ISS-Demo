@@ -26,6 +26,7 @@ void MissionMode::exit() {
 
 void InitialSpinupMode::enter() {
     set_blue();
+    digitalWrite(GUIDE_LASER_PIN, HIGH);
 
     imu_monitor.begin();
     motor_control_task.begin();
@@ -100,6 +101,7 @@ void DeploymentMode::execute() {
 }
 
 void DeploymentMode::exit() {
+    digitalWrite(GUIDE_LASER_PIN, LOW);
     deploy_timer.reset();
 }
 
