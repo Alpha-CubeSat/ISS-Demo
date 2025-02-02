@@ -19,7 +19,11 @@ namespace constants {
     } // namespace mission
     namespace timer {
         constexpr unsigned long initial_spinup_duration = 5000;
+
         constexpr unsigned long deployment_total_duration = 7000;
+        constexpr unsigned long deployment_standby_duration = 3000;
+        constexpr unsigned long deployment_actuate_duration = 500;
+
         constexpr unsigned long despin_duration = 5000;
         constexpr unsigned long open_loop_duration = 5000;
 

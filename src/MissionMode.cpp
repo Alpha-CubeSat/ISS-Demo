@@ -18,7 +18,9 @@ IRControlTask ir_control_task;
 void MissionMode::execute() {
     imu_monitor.execute();
     sd_control_task.execute();
-    ir_control_task.execute();
+    if (sfr::mission::mode->get_id() != 7) {
+        ir_control_task.execute();
+    }
 
     if (sfr::motor::controller_on) {
         motor_control_task.execute_controller();
@@ -96,13 +98,13 @@ void DeploymentMode::enter() {
 void DeploymentMode::execute() {
     MissionMode::execute();
 
-    if (!sfr::mission::began_deployment && deploy_timer.is_past(3000)) {
+    if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
         digitalWrite(GUIDE_LASER_PIN, LOW);
         digitalWrite(GATE_PIN, HIGH);
         sfr::mission::began_deployment = true;
     }
 
-    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(3100)) {
+    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration + constants::timer::deployment_actuate_duration)) {
         digitalWrite(GATE_PIN, LOW);
         sfr::mission::deployed = true;
     }
@@ -165,6 +167,61 @@ void AutomatedSequenceMode::enter() {
 }
 
 void AutomatedSequenceMode::execute() {
+    MissionMode::execute();
+
+    switch (current_action) {
+    case SPINUP:
+        as_open_loop_spinup();
+        break;
+    case DEPLOY:
+        as_deploy();
+        break;
+    case DESPIN:
+        as_despin();
+        break;
+    }
+}
+
+void AutomatedSequenceMode::as_open_loop_spinup() {
+    if (!as_open_loop_init) {
+        motor_control_task.spin_up(constants::motor::open_loop_spin_dc);
+        open_loop_timer.start(constants::timer::open_loop_duration);
+        as_open_loop_init = true;
+    }
+
+    if (open_loop_timer.is_elapsed()) {
+        current_action = DEPLOY;
+    }
+}
+
+void AutomatedSequenceMode::as_deploy() {
+    if (!as_deploy_init) {
+        deploy_timer.start(constants::timer::deployment_total_duration);
+        as_deploy_init = true;
+    }
+
+    if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
+        digitalWrite(GUIDE_LASER_PIN, LOW);
+        digitalWrite(GATE_PIN, HIGH);
+        sfr::mission::began_deployment = true;
+    }
+
+    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration + constants::timer::deployment_actuate_duration)) {
+        digitalWrite(GATE_PIN, LOW);
+        sfr::mission::deployed = true;
+    }
+
+    if (deploy_timer.is_elapsed()) {
+        current_action = DESPIN;
+    }
+}
+
+void AutomatedSequenceMode::as_despin() {
+    if (!as_despin_init) {
+        despin_timer.start(constants::timer::despin_duration);
+        motor_control_task.spin_down();
+        as_despin_init = true;
+    }
 }
 
 void to_mode(MissionMode *mode) {

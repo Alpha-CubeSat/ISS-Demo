@@ -99,6 +99,12 @@ private:
     Timer open_loop_timer;
 };
 
+enum as_action {
+    SPINUP = 0,
+    DEPLOY = 1,
+    DESPIN = 2
+};
+
 class AutomatedSequenceMode : public MissionMode {
 public:
     void enter();
@@ -106,6 +112,22 @@ public:
 
     uint8_t get_id() { return 7; };
     String get_name() { return "Automated Sequence"; };
+
+private:
+    as_action current_action = SPINUP;
+
+    bool as_open_loop_init = false;
+    void as_open_loop_spinup();
+
+    bool as_deploy_init = false;
+    void as_deploy();
+
+    bool as_despin_init = false;
+    void as_despin();
+
+    Timer open_loop_timer;
+    Timer deploy_timer;
+    Timer despin_timer;
 };
 
 void to_mode(MissionMode *mode);
