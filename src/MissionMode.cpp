@@ -101,6 +101,7 @@ void DeploymentMode::execute() {
         digitalWrite(GUIDE_LASER_PIN, LOW);
         digitalWrite(GATE_PIN, HIGH);
         sfr::mission::began_deployment = true;
+        sfr::mission::events.enqueue(Event::first_burn_started);
         burn_timer.start(constants::timer::deployment_actuate_duration);
     }
 
@@ -112,6 +113,7 @@ void DeploymentMode::execute() {
 
     if (deploy_timer.is_past(constants::timer::deployment_break)) {
         digitalWrite(GATE_PIN, HIGH);
+        sfr::mission::events.enqueue(Event::second_burn_started);
         burn_timer.start(constants::timer::deployment_actuate_duration);
     }
 
@@ -230,6 +232,7 @@ void AutomatedSequenceMode::as_deploy() {
     if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
         digitalWrite(GUIDE_LASER_PIN, LOW);
         digitalWrite(GATE_PIN, HIGH);
+        sfr::mission::events.enqueue(Event::first_burn_started);
         sfr::mission::began_deployment = true;
     }
 
@@ -242,12 +245,13 @@ void AutomatedSequenceMode::as_deploy() {
 
     if (deploy_timer.is_past(constants::timer::deployment_break)) {
         digitalWrite(GATE_PIN, HIGH);
+        sfr::mission::events.enqueue(Event::second_burn_started);
         burn_timer.start(constants::timer::deployment_actuate_duration);
     }
 
     if (!sfr::mission::burned_second && burn_timer.is_elapsed()) {
         digitalWrite(GATE_PIN, LOW);
-        sfr::mission::burned_first = true;
+        sfr::mission::burned_second = true;
     }
 
     if (deploy_timer.is_elapsed()) {

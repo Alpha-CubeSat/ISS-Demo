@@ -12,6 +12,7 @@ void IMUMonitor::begin() {
 
         sfr::imu::failed_init = false;
     } else {
+        sfr::mission::events.enqueue(Event::imu_init_failure);
         sfr::imu::failed_init = true;
     }
 }
@@ -35,6 +36,7 @@ void IMUMonitor::execute() {
         sfr::imu::gyro_y = gyro.gyro.y;
         sfr::imu::gyro_z = gyro.gyro.z;
     } else {
+        sfr::mission::events.enqueue(Event::imu_read_failure);
         sfr::imu::failed_read = true;
     }
 }

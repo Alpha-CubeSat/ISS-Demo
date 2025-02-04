@@ -20,8 +20,13 @@ enum class Event : uint8_t {
     despin_button_received = 3,
     open_loop_button_received = 4,
     unknown_button_received = 5,
-
     ir_overflow_detected = 6,
+
+    imu_init_failure = 7,
+    imu_read_failure = 8,
+
+    first_burn_started = 9,
+    second_burn_started = 10
 };
 
 namespace constants {
