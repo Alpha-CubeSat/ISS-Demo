@@ -24,7 +24,8 @@ namespace sfr {
 
         uint32_t timestamp = 0;
         bool began_deployment = false;
-        bool deployed = false;
+        bool burned_first = false;
+        bool burned_second = false;
 
     } // namespace mission
     namespace ir {

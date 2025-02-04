@@ -15,8 +15,8 @@ void MotorControlTask::spin_up(int dc) {
 }
 
 void MotorControlTask::spin_down() {
-    esc.write(0);
     sfr::motor::controller_on = false;
+    esc.write(0);
 }
 
 void MotorControlTask::execute_controller() {

@@ -21,7 +21,6 @@ void MissionMode::execute() {
     if (sfr::mission::mode->get_id() != 7) {
         ir_control_task.execute();
     }
-
     if (sfr::motor::controller_on) {
         motor_control_task.execute_controller();
     }
@@ -102,11 +101,23 @@ void DeploymentMode::execute() {
         digitalWrite(GUIDE_LASER_PIN, LOW);
         digitalWrite(GATE_PIN, HIGH);
         sfr::mission::began_deployment = true;
+        burn_timer.start(constants::timer::deployment_actuate_duration);
     }
 
-    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration + constants::timer::deployment_actuate_duration)) {
+    if (!sfr::mission::burned_first && burn_timer.is_elapsed()) {
         digitalWrite(GATE_PIN, LOW);
-        sfr::mission::deployed = true;
+        sfr::mission::burned_first = true;
+        burn_timer.reset();
+    }
+
+    if (deploy_timer.is_past(constants::timer::deployment_break)) {
+        digitalWrite(GATE_PIN, HIGH);
+        burn_timer.start(constants::timer::deployment_actuate_duration);
+    }
+
+    if (!sfr::mission::burned_second && burn_timer.is_elapsed()) {
+        digitalWrite(GATE_PIN, LOW);
+        sfr::mission::burned_first = true;
     }
 
     if (deploy_timer.is_elapsed()) {
@@ -116,12 +127,14 @@ void DeploymentMode::execute() {
 
 void DeploymentMode::exit() {
     deploy_timer.reset();
+    sfr::mission::began_deployment = false;
+    sfr::mission::burned_first = false;
+    sfr::mission::burned_second = false;
 }
 
 void DespinMode::enter() {
     set_blue();
     despin_timer.start(constants::timer::despin_duration);
-    sfr::motor::controller_on = false;
     motor_control_task.spin_down();
 }
 
@@ -135,7 +148,7 @@ void DespinMode::execute() {
 
 void ControllerSpinupMode::enter() {
     set_blue();
-    controller_timeout_timer.start(constants::timer::controller_timeout);
+    controller_timeout_timer.start(constants::timer::controller_spinup_duration);
     sfr::motor::controller_on = true;
 }
 
@@ -164,12 +177,16 @@ void OpenLoopMode::execute() {
 void AutomatedSequenceMode::enter() {
     set_blue();
     sfr::motor::controller_on = false;
+    hold_timer.start(constants::timer::as_hold_duration);
 }
 
 void AutomatedSequenceMode::execute() {
     MissionMode::execute();
 
     switch (current_action) {
+    case HOLD:
+        as_hold();
+        break;
     case SPINUP:
         as_open_loop_spinup();
         break;
@@ -179,6 +196,16 @@ void AutomatedSequenceMode::execute() {
     case DESPIN:
         as_despin();
         break;
+    }
+}
+
+void AutomatedSequenceMode::as_hold() {
+    // if (hold_timer.is_past(constants::timer::as_start_blink)) {
+
+    // }
+
+    if (hold_timer.is_elapsed()) {
+        current_action = SPINUP;
     }
 }
 
@@ -206,9 +233,21 @@ void AutomatedSequenceMode::as_deploy() {
         sfr::mission::began_deployment = true;
     }
 
-    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration + constants::timer::deployment_actuate_duration)) {
+    if (!sfr::mission::burned_first && burn_timer.is_elapsed()) {
         digitalWrite(GATE_PIN, LOW);
-        sfr::mission::deployed = true;
+        sfr::mission::burned_first = true;
+        burn_timer.reset();
+        burn_timer.start(constants::timer::deployment_actuate_duration);
+    }
+
+    if (deploy_timer.is_past(constants::timer::deployment_break)) {
+        digitalWrite(GATE_PIN, HIGH);
+        burn_timer.start(constants::timer::deployment_actuate_duration);
+    }
+
+    if (!sfr::mission::burned_second && burn_timer.is_elapsed()) {
+        digitalWrite(GATE_PIN, LOW);
+        sfr::mission::burned_first = true;
     }
 
     if (deploy_timer.is_elapsed()) {
@@ -221,6 +260,10 @@ void AutomatedSequenceMode::as_despin() {
         despin_timer.start(constants::timer::despin_duration);
         motor_control_task.spin_down();
         as_despin_init = true;
+    }
+
+    if (despin_timer.is_elapsed()) {
+        set_white();
     }
 }
 

@@ -61,6 +61,7 @@ public:
 
 private:
     Timer deploy_timer;
+    Timer burn_timer;
 };
 
 class DespinMode : public MissionMode {
@@ -100,9 +101,10 @@ private:
 };
 
 enum as_action {
-    SPINUP = 0,
-    DEPLOY = 1,
-    DESPIN = 2
+    HOLD = 0,
+    SPINUP = 1,
+    DEPLOY = 2,
+    DESPIN = 3
 };
 
 class AutomatedSequenceMode : public MissionMode {
@@ -114,7 +116,9 @@ public:
     String get_name() { return "Automated Sequence"; };
 
 private:
-    as_action current_action = SPINUP;
+    as_action current_action = HOLD;
+
+    void as_hold();
 
     bool as_open_loop_init = false;
     void as_open_loop_spinup();
@@ -125,8 +129,10 @@ private:
     bool as_despin_init = false;
     void as_despin();
 
+    Timer hold_timer;
     Timer open_loop_timer;
     Timer deploy_timer;
+    Timer burn_timer;
     Timer despin_timer;
 };
 

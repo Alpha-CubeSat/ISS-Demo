@@ -28,7 +28,9 @@ namespace sfr {
         extern uint32_t timestamp;
 
         extern bool began_deployment;
-        extern bool deployed;
+        extern bool burned_first;
+        extern bool burned_second;
+
     } // namespace mission
     namespace ir {
         extern bool is_armed;
