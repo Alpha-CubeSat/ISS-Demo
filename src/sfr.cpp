@@ -23,7 +23,10 @@ namespace sfr {
         MissionMode *mode = &initial_spinup_class;
 
         uint32_t timestamp = 0;
-        bool began_deployment = false;
+
+        bool began_first_burn = false;
+        bool began_second_burn = false;
+
         bool burned_first = false;
         bool burned_second = false;
 

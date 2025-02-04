@@ -23,7 +23,7 @@
 #define LOWER_LEFT 0xD
 #define MUTE_BUTTON 0XE
 #define POWER_BUTTON 0xF
-#define CC_BUTTON 0xCC
+#define CC_BUTTON 0x1C
 #define OK_BUTTON 0x18
 
 #define ARM_BUTTON UPPER_RIGHT
