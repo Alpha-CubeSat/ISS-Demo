@@ -2,6 +2,7 @@
 #define SFR_HPP
 
 #include "MissionMode.hpp"
+#include "queue.hpp"
 
 namespace sfr {
     namespace mission {
@@ -30,6 +31,8 @@ namespace sfr {
         extern bool began_deployment;
         extern bool burned_first;
         extern bool burned_second;
+
+        extern Queue events;
 
     } // namespace mission
     namespace ir {

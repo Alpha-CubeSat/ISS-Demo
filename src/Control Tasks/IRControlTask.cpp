@@ -4,7 +4,6 @@
 
 #include "constants.hpp"
 #include "pins.hpp"
-#include "sfr.hpp"
 
 void IRControlTask::begin() {
     IrReceiver.begin(IR_PIN, ENABLE_LED_FEEDBACK);
@@ -14,6 +13,7 @@ void IRControlTask::execute() {
     // Parse any commands sent
     if (IrReceiver.decode()) {
         if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_WAS_OVERFLOW) {
+            sfr::mission::events.enqueue(Event::ir_overflow_detected);
             handle_overflow();
         } else {
             IrReceiver.resume();
@@ -23,6 +23,8 @@ void IRControlTask::execute() {
 }
 
 void IRControlTask::parse_command() {
+    sfr::mission::events.enqueue(get_event(IrReceiver.decodedIRData.command));
+
     // Ignore repeat commands (except for Arm)
     if (button_selected == IrReceiver.decodedIRData.command && button_selected != ARM_BUTTON) {
         return;
@@ -68,6 +70,23 @@ void IRControlTask::parse_command() {
     default:
         vlogln(IrReceiver.decodedIRData.command);
         break;
+    }
+}
+
+Event IRControlTask::get_event(uint8_t button) {
+    switch (button) {
+    case ARM_BUTTON:
+        return Event::arm_button_received;
+    case CONTROLLER_SPIN_BUTTON:
+        return Event::cs_button_received;
+    case DEPLOY_BUTTON:
+        return Event::deploy_button_received;
+    case DESPIN_BUTTON:
+        return Event::despin_button_received;
+    case OPEN_LOOP_BUTTON:
+        return Event::open_loop_button_received;
+    default:
+        return Event::unknown_button_received;
     }
 }
 

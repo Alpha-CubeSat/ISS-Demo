@@ -60,6 +60,10 @@ void SDControlTask::execute() {
                   String(sfr::imu::gyro_y) + "," +
                   String(sfr::imu::gyro_z);
 
+    while (!sfr::mission::events.is_empty()) {
+        data += String(sfr::mission::events.dequeue());
+    }
+
     if (file.println(data) == 0) {
         vlogln("Error: SD write failed");
     }

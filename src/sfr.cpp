@@ -27,6 +27,8 @@ namespace sfr {
         bool burned_first = false;
         bool burned_second = false;
 
+        Queue events;
+
     } // namespace mission
     namespace ir {
         bool is_armed = false;

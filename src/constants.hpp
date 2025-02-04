@@ -13,6 +13,17 @@
 #define vlogf(...)
 #endif
 
+enum class Event : uint8_t {
+    arm_button_received = 0,
+    cs_button_received = 1,
+    deploy_button_received = 2,
+    despin_button_received = 3,
+    open_loop_button_received = 4,
+    unknown_button_received = 5,
+
+    ir_overflow_detected = 6,
+};
+
 namespace constants {
     namespace mission {
         constexpr uint32_t cycle_time = 50;
