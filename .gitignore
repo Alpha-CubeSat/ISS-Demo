@@ -4,8 +4,8 @@
 # VS Code config folder
 .vscode/
 
-# Data file from SD card
-**/data.csv
+# Data files from SD card
+**/*.csv
 
 # DS Store
 .DS_Store
