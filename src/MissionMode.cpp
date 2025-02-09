@@ -294,6 +294,26 @@ void AutomatedSequenceMode::as_despin() {
     }
 }
 
+void SafeHoldMode::enter() {
+    set_white();
+    sfr::motor::controller_on = false;
+    blink_timer.start(constants::timer::blink_duration);
+}
+
+void SafeHoldMode::execute() {
+    MissionMode::execute();
+
+    if (blink_timer.is_elapsed()) {
+        if (blink_on) {
+            set_off();
+        } else {
+            set_white();
+        }
+        blink_on = !blink_on;
+        blink_timer.start(constants::timer::blink_duration);
+    }
+}
+
 void to_mode(MissionMode *mode) {
     sfr::mission::mode->exit();
     sfr::mission::mode = mode;

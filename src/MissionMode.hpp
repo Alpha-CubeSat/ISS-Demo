@@ -132,7 +132,7 @@ private:
     bool as_despin_init = false;
     void as_despin();
 
-    bool blink_on;
+    bool blink_on = true;
 
     Timer blink_timer;
     Timer hold_timer;
@@ -140,6 +140,19 @@ private:
     Timer deploy_timer;
     Timer burn_timer;
     Timer despin_timer;
+};
+
+class SafeHoldMode : public MissionMode {
+public:
+    void enter();
+    void execute();
+
+    uint8_t get_id() { return 8; };
+    String get_name() { return "Safe Hold"; };
+
+private:
+    bool blink_on = true;
+    Timer blink_timer;
 };
 
 void to_mode(MissionMode *mode);
