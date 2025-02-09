@@ -193,6 +193,7 @@ void AutomatedSequenceMode::execute() {
         } else {
             set_blue();
         }
+        blink_on = !blink_on;
         blink_timer.start(constants::timer::blink_duration);
     }
 
