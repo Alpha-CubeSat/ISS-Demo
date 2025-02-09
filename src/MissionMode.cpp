@@ -187,6 +187,15 @@ void AutomatedSequenceMode::enter() {
 void AutomatedSequenceMode::execute() {
     MissionMode::execute();
 
+    if (blink_timer.is_elapsed()) {
+        if (blink_on) {
+            set_off();
+        } else {
+            set_blue();
+        }
+        blink_timer.start(constants::timer::blink_duration);
+    }
+
     switch (current_action) {
     case HOLD:
         as_hold();
@@ -204,9 +213,9 @@ void AutomatedSequenceMode::execute() {
 }
 
 void AutomatedSequenceMode::as_hold() {
-    // if (hold_timer.is_past(constants::timer::as_start_blink)) {
-
-    // }
+    if (hold_timer.is_past(constants::timer::as_start_blink)) {
+        blink_timer.start(constants::timer::blink_duration);
+    }
 
     if (hold_timer.is_elapsed()) {
         current_action = SPINUP;

@@ -64,4 +64,10 @@ inline void set_purple() {
     digitalWrite(BLUE_LED_PIN, LOW);
 }
 
+inline void set_off() {
+    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    digitalWrite(BLUE_LED_PIN, HIGH);
+}
+
 #endif // PINS_HPP

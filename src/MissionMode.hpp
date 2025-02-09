@@ -129,6 +129,9 @@ private:
     bool as_despin_init = false;
     void as_despin();
 
+    bool blink_on;
+
+    Timer blink_timer;
     Timer hold_timer;
     Timer open_loop_timer;
     Timer deploy_timer;
