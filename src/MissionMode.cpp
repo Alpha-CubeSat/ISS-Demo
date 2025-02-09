@@ -197,7 +197,7 @@ void AutomatedSequenceMode::enter() {
 void AutomatedSequenceMode::execute() {
     MissionMode::execute();
 
-    if (blink_timer.is_elapsed()) {
+    if (current_action != DEPLOY && blink_timer.is_elapsed()) {
         if (blink_on) {
             set_off();
         } else {
