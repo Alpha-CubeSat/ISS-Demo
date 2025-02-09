@@ -43,31 +43,32 @@ void IRControlTask::parse_command() {
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::controller_spinup);
         } else {
-            set_yellow();
+            sfr::ir::was_invalid = true;
         }
         break;
     case DEPLOY_BUTTON:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::deployment);
         } else {
-            set_yellow();
+            sfr::ir::was_invalid = true;
         }
         break;
     case DESPIN_BUTTON:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::despin);
         } else {
-            set_yellow();
+            sfr::ir::was_invalid = true;
         }
         break;
     case OPEN_LOOP_BUTTON:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::open_loop);
         } else {
-            set_yellow();
+            sfr::ir::was_invalid = true;
         }
         break;
     default:
+        sfr::ir::was_invalid = true;
         vlogln(IrReceiver.decodedIRData.command);
         break;
     }

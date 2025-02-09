@@ -48,6 +48,8 @@ namespace constants {
         constexpr unsigned long as_start_blink = 10000;
         constexpr unsigned long as_break_duration = 3000;
 
+        constexpr unsigned long ir_invalid_led_duration = 3000;
+
         constexpr unsigned long arm_timeout = 2000;
         constexpr unsigned long controller_spinup_duration = 60000;
 

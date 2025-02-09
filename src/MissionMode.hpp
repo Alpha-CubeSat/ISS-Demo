@@ -35,6 +35,9 @@ public:
 
     uint8_t get_id() { return 1; };
     String get_name() { return "Standby"; };
+
+private:
+    Timer ir_invalid_led_timer;
 };
 
 class ArmedMode : public MissionMode {

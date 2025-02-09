@@ -35,10 +35,13 @@ namespace sfr {
     } // namespace mission
     namespace ir {
         bool is_armed = false;
+        bool was_invalid = false;
+
     } // namespace ir
     namespace motor {
         bool began_initial_spin = false;
         bool controller_on = false;
+
     } // namespace motor
 
     namespace imu {
@@ -52,11 +55,13 @@ namespace sfr {
         float gyro_x = 0;
         float gyro_y = 0;
         float gyro_z = 0;
+
     } // namespace imu
 
     namespace sd {
         bool failed_init = false;
         char const *log_filename = "data_0.csv";
+
     } // namespace sd
 
     namespace controller {
@@ -70,5 +75,6 @@ namespace sfr {
         float record_integral = 0;
 
         bool record_data = false;
+
     } // namespace controller
 } // namespace sfr

@@ -66,6 +66,16 @@ void StandbyMode::enter() {
 
 void StandbyMode::execute() {
     MissionMode::execute();
+
+    if (sfr::ir::was_invalid) {
+        set_yellow();
+        sfr::ir::was_invalid = false;
+        ir_invalid_led_timer.start(constants::timer::ir_invalid_led_duration);
+    }
+
+    if (ir_invalid_led_timer.is_elapsed()) {
+        set_white();
+    }
 }
 
 void ArmedMode::enter() {
@@ -78,7 +88,7 @@ void ArmedMode::execute() {
     MissionMode::execute();
 
     if (arm_timer.is_elapsed()) {
-        set_yellow();
+        sfr::ir::was_invalid = true;
         to_mode(sfr::mission::standby);
     }
 }

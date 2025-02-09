@@ -39,6 +39,8 @@ namespace sfr {
     } // namespace mission
     namespace ir {
         extern bool is_armed;
+        extern bool was_invalid;
+
     } // namespace ir
     namespace motor {
         extern bool began_initial_spin;
@@ -57,10 +59,12 @@ namespace sfr {
         extern float gyro_x;
         extern float gyro_y;
         extern float gyro_z;
+
     } // namespace imu
     namespace sd {
         extern bool failed_init;
         extern char const *log_filename;
+
     } // namespace sd
 
     namespace controller {
@@ -74,6 +78,7 @@ namespace sfr {
         extern float record_integral;
 
         extern bool record_data;
+
     } // namespace controller
 } // namespace sfr
 
