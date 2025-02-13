@@ -4,7 +4,10 @@
 #include "sfr.hpp"
 
 void IMUMonitor::begin() {
-    if (imu.begin_I2C()) {
+    TwoWire myWire(&sercom3, 20, 21);
+    myWire.begin();
+
+    if (imu.begin_I2C(0x6A, &myWire)) {
         imu.setGyroDataRate(LSM6DS_RATE_208_HZ);
         imu.setGyroRange(LSM6DS_GYRO_RANGE_1000_DPS);
         imu.setAccelDataRate(LSM6DS_RATE_208_HZ);

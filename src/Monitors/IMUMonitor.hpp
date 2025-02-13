@@ -1,6 +1,7 @@
 #ifndef IMU_MONITOR_HPP
 #define IMU_MONITOR_HPP
 
+#include "Wire.h"
 #include <Adafruit_LSM6DS3TRC.h>
 
 class IMUMonitor {
@@ -9,6 +10,8 @@ public:
     void execute();
 
 private:
+    // TwoWire myWire(&sercom3, 20, 21);
+
     Adafruit_LSM6DS3TRC imu;
     sensors_event_t accel;
     sensors_event_t gyro;
