@@ -8,6 +8,8 @@ sensors_event_t gyro;
 sensors_event_t temp;
 
 void setup() {
+    Serial.begin(9600);
+    
     if (imu.begin_I2C()) {
         imu.setGyroDataRate(LSM6DS_RATE_208_HZ);
         imu.setGyroRange(LSM6DS_GYRO_RANGE_1000_DPS);
