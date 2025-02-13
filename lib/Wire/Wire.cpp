@@ -1,20 +1,5 @@
 /*
- * TWI/I2C library for Arduino Zero
- * Copyright (c) 2015 Arduino LLC. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * TWI/I2C library for Arduino Zero - Modified for Timeout Handling
  */
 
 extern "C" {
@@ -30,6 +15,8 @@ extern "C" {
 #endif
 
 #include "Wire.h"
+
+#define I2C_TIMEOUT 100000  // Timeout in microseconds (100ms)
 
 TwoWire::TwoWire(SERCOM * s, uint8_t pinSDA, uint8_t pinSCL)
 {
@@ -78,25 +65,34 @@ uint8_t TwoWire::requestFrom(uint8_t address, size_t quantity, bool stopBit)
 
   rxBuffer.clear();
 
-  if(sercom->startTransmissionWIRE(address, WIRE_READ_FLAG))
-  {
-    // Read first data
+  uint32_t start = micros();
+  if (!sercom->startTransmissionWIRE(address, WIRE_READ_FLAG)) {
+    return 0; // Device did not respond
+  }
+
+  // Read first data
+  start = micros();
+  while (!sercom->isDataReadyWIRE()) {
+    if ((micros() - start) > I2C_TIMEOUT) return 0; // Timeout
+  }
+  rxBuffer.store_char(sercom->readDataWIRE());
+
+  // Read remaining data
+  for (byteRead = 1; byteRead < quantity; ++byteRead) {
+    sercom->prepareAckBitWIRE();
+    sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_READ);
+
+    start = micros();
+    while (!sercom->isDataReadyWIRE()) {
+      if ((micros() - start) > I2C_TIMEOUT) return byteRead; // Timeout, return what was read
+    }
+
     rxBuffer.store_char(sercom->readDataWIRE());
+  }
 
-    // Connected to slave
-    for (byteRead = 1; byteRead < quantity; ++byteRead)
-    {
-      sercom->prepareAckBitWIRE();                          // Prepare Acknowledge
-      sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_READ); // Prepare the ACK command for the slave
-      rxBuffer.store_char(sercom->readDataWIRE());          // Read data and send the ACK
-    }
-    sercom->prepareNackBitWIRE();                           // Prepare NACK to stop slave transmission
-    //sercom->readDataWIRE();                               // Clear data register to send NACK
-
-    if (stopBit)
-    {
-      sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_STOP);   // Send Stop
-    }
+  sercom->prepareNackBitWIRE();
+  if (stopBit) {
+    sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_STOP);
   }
 
   return byteRead;
@@ -125,30 +121,28 @@ uint8_t TwoWire::endTransmission(bool stopBit)
 {
   transmissionBegun = false ;
 
-  // Start I2C transmission
-  if ( !sercom->startTransmissionWIRE( txAddress, WIRE_WRITE_FLAG ) )
-  {
-    sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_STOP);
-    return 2 ;  // Address error
+  uint32_t start = micros();
+  if (!sercom->startTransmissionWIRE(txAddress, WIRE_WRITE_FLAG)) {
+    return 2; // Address NACK
   }
-  int timeoutCounter = millis();
+
   // Send all buffer
-  while( txBuffer.available() )
-  {
-    // Trying to send data
-    if(millis() >= (timeoutCounter + 80))
-    {
-      return 4 ;
-    }
-    if ( !sercom->sendDataMasterWIRE( txBuffer.read_char() ) )
-    {
+  while (txBuffer.available()) {
+    if (!sercom->sendDataMasterWIRE(txBuffer.read_char())) {
       sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_STOP);
-      return 3 ;  // Nack or error
+      return 3; // NACK on data
     }
   }
-  
-  if (stopBit)
-  {
+
+  // Ensure master writes complete before stopping
+  start = micros();
+  while (!sercom->isStopDetectedWIRE()) {
+    if ((micros() - start) > I2C_TIMEOUT) {
+      return 4; // Timeout occurred
+    }
+  }
+
+  if (stopBit) {
     sercom->prepareCommandBitsWire(WIRE_MASTER_ACT_STOP);
   }   
 
