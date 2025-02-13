@@ -34,9 +34,9 @@ void InitialSpinupMode::enter() {
     digitalWrite(GUIDE_LASER_PIN, HIGH);
 
     imu_monitor.begin();
-    motor_control_task.begin();
     sd_control_task.begin();
     ir_control_task.begin();
+    motor_control_task.begin();
 
     initial_spinup_timer.start(constants::timer::initial_spinup_duration);
 }
