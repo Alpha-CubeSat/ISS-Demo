@@ -11,28 +11,31 @@ void MotorControlTask::begin() {
 }
 
 void MotorControlTask::spin_up(int dc) {
+    sfr::controller::record_duty_cycle = dc; 
     esc.write(map(dc, 1000, 2000, 0, 180));
 }
 
 void MotorControlTask::spin_down() {
     sfr::motor::controller_on = false;
-    esc.write(0);
+    duty_cycle = 0;
+    sfr::controller::record_duty_cycle = duty_cycle;
+    esc.write(duty_cycle);
 }
 
 void MotorControlTask::execute_controller() {
     // vlogln("Controls called");
     //  define current values
-    error_curr = 4 - sfr::imu::gyro_z;
+    error_curr = 4 - abs(sfr::imu::gyro_z);
     time_curr = millis();
 
     if (sfr::imu::failed_init == false || sfr::imu::failed_read == false) {
         // calculate PD terms
         proportional = Kp * error_curr;
-        derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
+        //derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
 
         // send electic pulse based on PID (range from 0 to 1000)
         // vlogln(esc_prev);
-        T = proportional + derivative;
+        T = proportional;// + derivative;
         duty_cycle = (.043788 * T) + esc_prev;
         // vlogln("T: " + String(T));
         // vlogln("duty cycle: " + String(duty_cycle));
