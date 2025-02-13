@@ -15,7 +15,8 @@ mode_names = {
     4: "Despin",
     5: "Controller Spinup",
     6: "Open Loop",
-    7: "Automated Sequence"
+    7: "Automated Sequence",
+    8: "Safe Hold"
 }
 
 def plot_data(file_name: str) -> None:
@@ -41,6 +42,13 @@ def plot_data(file_name: str) -> None:
         mode_name = mode_names.get(mode, f"Mode {mode}")
         ax1.axvspan(mode_df['Timestamp'].min(), mode_df['Timestamp'].max(), 
                     alpha=0.3, color=colors(i), label=mode_name)
+
+    # event_df = df.dropna(subset=['Events'])
+    # event_df = event_df[event_df['Events'].astype(str).str.strip() != '']
+
+    # for _, row in event_df.iterrows():
+    #     ax1.axvline(x=row['Timestamp'], color='red', linestyle='--', linewidth=1)
+    #     ax1.text(row['Timestamp'], max(df['Gyro Z']), str(int(row['Events'])), color='red', fontsize=10, ha='right')
 
     fig.legend(loc='upper right', bbox_to_anchor=(1, 1))
     plt.title(f"Mission data from {file_name}")
