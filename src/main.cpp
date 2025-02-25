@@ -22,7 +22,7 @@ void setup() {
     pinMode(GUIDE_LASER_PIN, OUTPUT);
 
     pinMode(BUTTON_PIN, INPUT_PULLUP);
-    // attachInterrupt(BUTTON_PIN, set_automated, FALLING);
+    attachInterrupt(BUTTON_PIN, set_automated, FALLING);
 
     sfr::mission::mode->enter();
 }

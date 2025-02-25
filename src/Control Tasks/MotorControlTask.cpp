@@ -11,7 +11,7 @@ void MotorControlTask::begin() {
 }
 
 void MotorControlTask::spin_up(int dc) {
-    sfr::controller::record_duty_cycle = dc; 
+    sfr::controller::record_duty_cycle = dc;
     esc.write(map(dc, 1000, 2000, 0, 180));
 }
 
@@ -31,7 +31,7 @@ void MotorControlTask::execute_controller() {
     if (sfr::imu::failed_init == false || sfr::imu::failed_read == false) {
         // calculate PD terms
         proportional = Kp * error_curr;
-        //derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
+        // derivative = Kd * (error_curr - error_prev) / (time_curr - time_prev);
 
         // send electic pulse based on PID (range from 0 to 1000)
         // vlogln(esc_prev);

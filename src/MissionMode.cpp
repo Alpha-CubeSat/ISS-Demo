@@ -191,7 +191,7 @@ void OpenLoopMode::execute() {
 void AutomatedSequenceMode::enter() {
     set_blue();
     sfr::motor::controller_on = false;
-    hold_timer.start(constants::timer::as_hold_duration);
+    initial_hold_timer.start(constants::timer::as_hold_duration);
 }
 
 void AutomatedSequenceMode::execute() {
@@ -205,10 +205,14 @@ void AutomatedSequenceMode::execute() {
         }
         blink_on = !blink_on;
         blink_timer.start(constants::timer::blink_duration);
+    } else if (current_action == DEPLOY) {
+        set_blue();
+    } else if (current_action == FINAL_HOLD) {
+        set_white();
     }
 
     switch (current_action) {
-    case HOLD:
+    case INITIAL_HOLD:
         as_hold();
         break;
     case SPINUP:
@@ -220,15 +224,17 @@ void AutomatedSequenceMode::execute() {
     case DESPIN:
         as_despin();
         break;
+    case FINAL_HOLD:
+        break;
     }
 }
 
 void AutomatedSequenceMode::as_hold() {
-    if (hold_timer.is_past(constants::timer::as_start_blink)) {
+    if (initial_hold_timer.is_past(constants::timer::as_start_blink)) {
         blink_timer.start(constants::timer::blink_duration);
     }
 
-    if (hold_timer.is_elapsed()) {
+    if (initial_hold_timer.is_elapsed()) {
         current_action = SPINUP;
     }
 }
@@ -290,7 +296,7 @@ void AutomatedSequenceMode::as_despin() {
     }
 
     if (despin_timer.is_elapsed()) {
-        set_white();
+        current_action = FINAL_HOLD;
     }
 }
 

@@ -104,10 +104,11 @@ private:
 };
 
 enum as_action {
-    HOLD = 0,
+    INITIAL_HOLD = 0,
     SPINUP = 1,
     DEPLOY = 2,
-    DESPIN = 3
+    DESPIN = 3,
+    FINAL_HOLD = 4
 };
 
 class AutomatedSequenceMode : public MissionMode {
@@ -119,7 +120,7 @@ public:
     String get_name() { return "Automated Sequence"; };
 
 private:
-    as_action current_action = HOLD;
+    as_action current_action = INITIAL_HOLD;
 
     void as_hold();
 
@@ -135,7 +136,7 @@ private:
     bool blink_on = true;
 
     Timer blink_timer;
-    Timer hold_timer;
+    Timer initial_hold_timer;
     Timer open_loop_timer;
     Timer deploy_timer;
     Timer burn_timer;
