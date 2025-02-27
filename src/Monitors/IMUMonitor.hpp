@@ -6,11 +6,12 @@
 
 class IMUMonitor {
 public:
+    IMUMonitor();
     void begin();
     void execute();
 
 private:
-    // TwoWire myWire(&sercom3, 20, 21);
+    TwoWire myWire;
 
     Adafruit_LSM6DS3TRC imu;
     sensors_event_t accel;

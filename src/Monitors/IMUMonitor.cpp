@@ -3,8 +3,11 @@
 #include "constants.hpp"
 #include "sfr.hpp"
 
+IMUMonitor::IMUMonitor() : myWire(&sercom3, SDA, SCL) {
+}
+
 void IMUMonitor::begin() {
-    TwoWire myWire(&sercom3, 20, 21);
+
     myWire.begin();
 
     if (imu.begin_I2C(0x6A, &myWire)) {
