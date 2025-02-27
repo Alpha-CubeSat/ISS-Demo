@@ -11,6 +11,7 @@ void MotorControlTask::begin() {
 }
 
 void MotorControlTask::spin_up(int dc) {
+    esc.write(0);
     sfr::controller::record_duty_cycle = dc;
     esc.write(map(dc, 1000, 2000, 0, 180));
 }
