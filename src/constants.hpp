@@ -41,8 +41,8 @@ namespace constants {
         constexpr unsigned long deployment_actuate_duration = 400;
         constexpr unsigned long deployment_break = deployment_standby_duration + deployment_actuate_duration + 500;
 
-        constexpr unsigned long despin_duration = 5000;
-        constexpr unsigned long open_loop_duration = 5000;
+        constexpr unsigned long despin_duration = 7000;
+        constexpr unsigned long open_loop_duration = 7000;
 
         constexpr unsigned long as_hold_duration = 15000;
         constexpr unsigned long as_start_blink = 10000;
@@ -53,7 +53,7 @@ namespace constants {
         constexpr unsigned long arm_timeout = 2000;
         constexpr unsigned long controller_spinup_duration = 60000;
 
-        constexpr unsigned long blink_duration = 500;
+        constexpr unsigned long blink_duration = 200;
 
     } // namespace timer
     namespace motor {
