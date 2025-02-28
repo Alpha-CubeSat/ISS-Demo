@@ -31,7 +31,6 @@ void MissionMode::exit() {
 
 void InitialSpinupMode::enter() {
     set_blue();
-    digitalWrite(GUIDE_LASER_PIN, HIGH);
 
     imu_monitor.begin();
     sd_control_task.begin();
@@ -148,6 +147,8 @@ void DeploymentMode::exit() {
 
 void DespinMode::enter() {
     set_blue();
+    digitalWrite(GUIDE_LASER_PIN, LOW);
+    
     despin_timer.start(constants::timer::despin_duration);
     motor_control_task.spin_down();
 }
@@ -162,6 +163,8 @@ void DespinMode::execute() {
 
 void ControllerSpinupMode::enter() {
     set_blue();
+    digitalWrite(GUIDE_LASER_PIN, HIGH);
+
     controller_timeout_timer.start(constants::timer::controller_spinup_duration);
     sfr::motor::controller_on = true;
 }
