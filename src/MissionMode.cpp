@@ -148,7 +148,7 @@ void DeploymentMode::exit() {
 void DespinMode::enter() {
     set_blue();
     digitalWrite(GUIDE_LASER_PIN, LOW);
-    
+
     despin_timer.start(constants::timer::despin_duration);
     motor_control_task.spin_down();
 }
