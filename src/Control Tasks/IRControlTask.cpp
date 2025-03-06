@@ -37,9 +37,11 @@ void IRControlTask::parse_command() {
 
     switch (button_selected) {
     case ARM_BUTTON:
+    case ARM_BUTTON_ALT:
         to_mode(sfr::mission::armed);
         break;
     case CONTROLLER_SPIN_BUTTON:
+    case CONTROLLER_SPIN_BUTTON_ALT:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::controller_spinup);
         } else {
@@ -47,6 +49,7 @@ void IRControlTask::parse_command() {
         }
         break;
     case DEPLOY_BUTTON:
+    case DEPLOY_BUTTON_ALT:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::deployment);
         } else {
@@ -54,6 +57,7 @@ void IRControlTask::parse_command() {
         }
         break;
     case DESPIN_BUTTON:
+    case DESPIN_BUTTON_ALT:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::despin);
         } else {
@@ -61,6 +65,7 @@ void IRControlTask::parse_command() {
         }
         break;
     case OPEN_LOOP_BUTTON:
+    case OPEN_LOOP_BUTTON_ALT:
         if (sfr::ir::is_armed) {
             to_mode(sfr::mission::open_loop);
         } else {
@@ -77,14 +82,19 @@ void IRControlTask::parse_command() {
 Event IRControlTask::get_event(uint8_t button) {
     switch (button) {
     case ARM_BUTTON:
+    case ARM_BUTTON_ALT:
         return Event::arm_button_received;
     case CONTROLLER_SPIN_BUTTON:
+    case CONTROLLER_SPIN_BUTTON_ALT:
         return Event::cs_button_received;
     case DEPLOY_BUTTON:
+    case DEPLOY_BUTTON_ALT:
         return Event::deploy_button_received;
     case DESPIN_BUTTON:
+    case DESPIN_BUTTON_ALT:
         return Event::despin_button_received;
     case OPEN_LOOP_BUTTON:
+    case OPEN_LOOP_BUTTON_ALT:
         return Event::open_loop_button_received;
     default:
         return Event::unknown_button_received;
