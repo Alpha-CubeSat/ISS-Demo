@@ -1,3 +1,9 @@
+/**
+ * @file main.cpp
+ * @author csg83
+ *
+ * @brief The entry point for FSW
+ */
 #include <Arduino.h>
 
 #include "MissionMode.hpp"

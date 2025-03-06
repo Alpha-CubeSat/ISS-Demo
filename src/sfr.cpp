@@ -1,3 +1,10 @@
+/**
+ * @file sfr.cpp
+ * @author csg83, vsc32
+ *
+ * @brief State field registry for global state management
+ */
+
 #include "sfr.hpp"
 
 namespace sfr {

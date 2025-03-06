@@ -1,4 +1,9 @@
-
+/**
+ * @file queue.hpp
+ * @author csg83
+ *
+ * @brief A simple queue abstraction for mission events
+ */
 
 #ifndef QUEUE_HPP
 #define QUEUE_HPP

@@ -1,4 +1,9 @@
-
+/**
+ * @file pins.hpp
+ * @author csg83
+ *
+ * @brief Pin definitions and functions
+ */
 
 #ifndef PINS_HPP
 #define PINS_HPP

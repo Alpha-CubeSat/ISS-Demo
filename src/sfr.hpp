@@ -1,3 +1,10 @@
+/**
+ * @file sfr.hpp
+ * @author csg83, vsc32
+ *
+ * @brief State field registry for global state management
+ */
+
 #ifndef SFR_HPP
 #define SFR_HPP
 

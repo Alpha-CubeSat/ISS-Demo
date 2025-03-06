@@ -1,3 +1,9 @@
+/**
+ * @file timer.hpp
+ * @author csg83
+ *
+ * @brief A simple timer abstraction
+ */
 
 #ifndef TIMER_HPP
 #define TIMER_HPP

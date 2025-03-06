@@ -1,4 +1,9 @@
-
+/**
+ * @file queue.cpp
+ * @author csg83
+ *
+ * @brief A simple queue abstraction for mission events
+ */
 
 #include "queue.hpp"
 

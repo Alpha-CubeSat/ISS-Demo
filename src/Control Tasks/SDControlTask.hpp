@@ -1,3 +1,10 @@
+/**
+ * @file SDControlTask.hpp
+ * @author csg83
+ *
+ * @brief Writes data from the SFR to the SD card
+ */
+
 #ifndef SD_CONTROL_TASK_HPP
 #define SD_CONTROL_TASK_HPP
 
@@ -14,4 +21,4 @@ private:
     uint8_t file_count = 0;
 };
 
-#endif
+#endif // SD_CONTROL_TASK_HPP

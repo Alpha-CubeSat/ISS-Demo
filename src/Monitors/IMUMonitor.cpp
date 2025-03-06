@@ -1,3 +1,10 @@
+/**
+ * @file IMUMonitor.cpp
+ * @author csg83
+ *
+ * @brief Reads IMU data and updates the SFR
+ */
+
 #include "IMUMonitor.hpp"
 
 #include "constants.hpp"

@@ -1,3 +1,10 @@
+/**
+ * @file MotorControlTask.cpp
+ * @author csg83, vsc32
+ *
+ * @brief Handles controller logic based on SFR data
+ */
+
 #include "MotorControlTask.hpp"
 #include "constants.hpp"
 #include "pins.hpp"

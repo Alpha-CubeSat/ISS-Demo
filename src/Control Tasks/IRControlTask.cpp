@@ -1,3 +1,10 @@
+/**
+ * @file IRControlTask.cpp
+ * @author csg83
+ *
+ * @brief Reads IR data and updates the SFR
+ */
+
 #include "IRControlTask.hpp"
 
 #include <IRremote.hpp>

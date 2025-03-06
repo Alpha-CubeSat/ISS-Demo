@@ -1,3 +1,10 @@
+/**
+ * @file SDControlTask.cpp
+ * @author csg83
+ *
+ * @brief Writes data from the SFR to the SD card
+ */
+
 #include "SDControlTask.hpp"
 #include "constants.hpp"
 #include "pins.hpp"

@@ -1,3 +1,10 @@
+/**
+ * @file MotorControlTask.hpp
+ * @author csg83, vsc32
+ *
+ * @brief Handles controller logic based on SFR data
+ */
+
 #ifndef MOTOR_CONTROL_TASK_HPP
 #define MOTOR_CONTROL_TASK_HPP
 
@@ -31,4 +38,4 @@ private:
     double esc_prev = 0.0;
 };
 
-#endif
+#endif // MOTOR_CONTROL_TASK_HPP

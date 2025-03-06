@@ -1,3 +1,10 @@
+/**
+ * @file IRControlTask.hpp
+ * @author csg83
+ *
+ * @brief Reads IR data and updates the SFR
+ */
+
 #ifndef IR_CONTROL_TASK_HPP
 #define IR_CONTROL_TASK_HPP
 
@@ -18,4 +25,4 @@ private:
     uint16_t button_selected = -1;
 };
 
-#endif
+#endif // IR_CONTROL_TASK_HPP

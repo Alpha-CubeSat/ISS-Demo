@@ -1,3 +1,9 @@
+/**
+ * @file MissionMode.cpp
+ * @author csg83
+ *
+ * @brief Mission mode logic and transitions
+ */
 
 #include "MissionMode.hpp"
 #include "Monitors/IMUMonitor.hpp"

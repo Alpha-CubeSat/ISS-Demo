@@ -1,4 +1,9 @@
-
+/**
+ * @file MissionMode.hpp
+ * @author csg83
+ *
+ * @brief Mission mode logic and transitions
+ */
 
 #ifndef MISSION_MODE_HPP
 #define MISSION_MODE_HPP

@@ -1,3 +1,10 @@
+/**
+ * @file timer.cpp
+ * @author csg83
+ *
+ * @brief A simple timer abstraction
+ */
+
 #include "timer.hpp"
 #include <Arduino.h>
 

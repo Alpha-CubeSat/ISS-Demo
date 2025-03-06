@@ -1,3 +1,10 @@
+/**
+ * @file IMUMonitor.hpp
+ * @author csg83
+ *
+ * @brief Reads IMU data and updates the SFR
+ */
+
 #ifndef IMU_MONITOR_HPP
 #define IMU_MONITOR_HPP
 
@@ -15,4 +22,4 @@ private:
     sensors_event_t temp;
 };
 
-#endif
+#endif // IMU_MONITOR_HPP
