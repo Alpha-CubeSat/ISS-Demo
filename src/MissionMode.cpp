@@ -11,20 +11,21 @@
 #include "pins.hpp"
 #include "sfr.hpp"
 
-#include "Control Tasks/IRControlTask.hpp"
 #include "Control Tasks/MotorControlTask.hpp"
 #include "Control Tasks/SDControlTask.hpp"
+
 #include "Monitors/IMUMonitor.hpp"
+#include "Monitors/IRMonitor.hpp"
 
 IMUMonitor imu_monitor;
 MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
-IRControlTask ir_control_task;
+IRMonitor ir_monitor;
 
 void MissionMode::execute() {
     imu_monitor.execute();
     if (sfr::mission::mode->get_id() != 7) {
-        ir_control_task.execute();
+        ir_monitor.execute();
     }
     if (sfr::motor::controller_on) {
         motor_control_task.execute_controller();
@@ -39,8 +40,8 @@ void InitialSpinupMode::enter() {
     set_blue();
 
     imu_monitor.begin();
+    ir_monitor.begin();
     sd_control_task.begin();
-    ir_control_task.begin();
     motor_control_task.begin();
 
     initial_spinup_timer.start(constants::timer::initial_spinup_duration);

@@ -1,5 +1,5 @@
 /**
- * @file IRControlTask.hpp
+ * @file IRMonitor.hpp
  * @author csg83
  *
  * @brief Reads IR data and updates the SFR
@@ -12,7 +12,7 @@
 #include "timer.hpp"
 #include <stdint.h>
 
-class IRControlTask {
+class IRMonitor {
 public:
     void begin();
     void execute();

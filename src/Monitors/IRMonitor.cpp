@@ -1,22 +1,22 @@
 /**
- * @file IRControlTask.cpp
+ * @file IRMonitor.cpp
  * @author csg83
  *
  * @brief Reads IR data and updates the SFR
  */
 
-#include "IRControlTask.hpp"
+#include "IRMonitor.hpp"
 
 #include <IRremote.hpp>
 
 #include "constants.hpp"
 #include "pins.hpp"
 
-void IRControlTask::begin() {
+void IRMonitor::begin() {
     IrReceiver.begin(IR_PIN, ENABLE_LED_FEEDBACK);
 }
 
-void IRControlTask::execute() {
+void IRMonitor::execute() {
     // Parse any commands sent
     if (IrReceiver.decode()) {
         if (IrReceiver.decodedIRData.flags & IRDATA_FLAGS_WAS_OVERFLOW) {
@@ -29,7 +29,7 @@ void IRControlTask::execute() {
     }
 }
 
-void IRControlTask::parse_command() {
+void IRMonitor::parse_command() {
     sfr::mission::events.enqueue(get_event(IrReceiver.decodedIRData.command));
 
     // Ignore repeat commands (except for Arm)
@@ -86,7 +86,7 @@ void IRControlTask::parse_command() {
     }
 }
 
-Event IRControlTask::get_event(uint8_t button) {
+Event IRMonitor::get_event(uint8_t button) {
     switch (button) {
     case ARM_BUTTON:
     case ARM_BUTTON_ALT:
@@ -108,7 +108,7 @@ Event IRControlTask::get_event(uint8_t button) {
     }
 }
 
-void IRControlTask::handle_overflow() {
+void IRMonitor::handle_overflow() {
     IrReceiver.stopTimer();
     IrReceiver.restartTimer(100000);
 }
