@@ -18,9 +18,9 @@
 #include "Monitors/IRMonitor.hpp"
 
 IMUMonitor imu_monitor;
+IRMonitor ir_monitor;
 MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
-IRMonitor ir_monitor;
 
 void MissionMode::execute() {
     imu_monitor.execute();

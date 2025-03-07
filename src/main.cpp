@@ -4,6 +4,7 @@
  *
  * @brief The entry point for FSW
  */
+
 #include <Arduino.h>
 
 #include "MissionMode.hpp"
