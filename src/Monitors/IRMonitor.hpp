@@ -5,8 +5,8 @@
  * @brief Reads IR data and updates the SFR
  */
 
-#ifndef IR_CONTROL_TASK_HPP
-#define IR_CONTROL_TASK_HPP
+#ifndef IR_MONITOR_HPP
+#define IR_MONITOR_HPP
 
 #include "sfr.hpp"
 #include "timer.hpp"
@@ -25,4 +25,4 @@ private:
     uint16_t button_selected = -1;
 };
 
-#endif // IR_CONTROL_TASK_HPP
+#endif // IR_MONITOR_HPP
