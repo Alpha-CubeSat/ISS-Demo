@@ -57,7 +57,7 @@ void InitialSpinupMode::execute() {
     MissionMode::execute();
 
     if (!sfr::motor::began_initial_spin && initial_spinup_timer.is_past(3000)) {
-        motor_control_task.spin_up(constants::motor::initial_spin_dc);
+        motor_control_task.spin_up(constants::motor::initial_spin_dc); // TODO: Change
         sfr::motor::began_initial_spin = true;
     }
 
@@ -114,8 +114,8 @@ void DeploymentMode::execute() {
     MissionMode::execute();
 
     if (!sfr::mission::began_first_burn && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
-        digitalWrite(GUIDE_LASER_PIN, LOW);
-        digitalWrite(GATE_PIN, HIGH);
+        digitalWrite(GUIDE_LASER_PIN, LOW); // TODO analog pin - also look at referencing its GPIO pin instead of analog (D19?)
+        digitalWrite(GATE_PIN, HIGH); // (D14?)
         sfr::mission::began_first_burn = true;
         sfr::mission::events.enqueue(Event::first_burn_started);
         burn_timer.start(constants::timer::deployment_actuate_duration);
@@ -253,6 +253,7 @@ void AutomatedSequenceMode::as_open_loop_spinup() {
     if (!as_open_loop_init) {
         motor_control_task.spin_up(constants::motor::open_loop_spin_dc);
         open_loop_timer.start(constants::timer::open_loop_duration);
+        digitalWrite(GUIDE_LASER_PIN, HIGH); // Turn on for a few seconds?
         as_open_loop_init = true;
     }
 
@@ -263,7 +264,7 @@ void AutomatedSequenceMode::as_open_loop_spinup() {
 
 void AutomatedSequenceMode::as_deploy() {
     if (!as_deploy_init) {
-        deploy_timer.start(constants::timer::deployment_total_duration);
+        deploy_timer.start(constants::timer::deployment_total_duration); // TODO test the timing of this before despin
         as_deploy_init = true;
     }
 
@@ -309,10 +310,11 @@ void AutomatedSequenceMode::as_despin() {
         current_action = FINAL_HOLD;
     }
 }
-
+// 9 rad/s ? - Average of the last 3 seconds
 void SafeHoldMode::enter() {
     set_white();
     sfr::motor::controller_on = false;
+    // TODO spin down hard drive
     blink_timer.start(constants::timer::blink_duration);
 }
 

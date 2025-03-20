@@ -39,12 +39,12 @@
 
 // Alternative IR remote buttons
 
-#define UPPER_RIGHT_ALT 8
-#define LOWER_RIGHT_ALT 2
-#define UPPER_LEFT_ALT 0
+#define UPPER_RIGHT_ALT 0
+#define LOWER_RIGHT_ALT 1
+#define UPPER_LEFT_ALT 2
 #define LOWER_LEFT_ALT 3
-#define MUTE_BUTTON_ALT 1
-#define POWER_BUTTON_ALT 9
+#define MUTE_BUTTON_ALT 9
+#define POWER_BUTTON_ALT 8
 #define CC_BUTTON_ALT 57
 #define OK_BUTTON_ALT 68
 

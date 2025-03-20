@@ -44,7 +44,7 @@ void MotorControlTask::execute_controller() {
         // send electic pulse based on PID (range from 0 to 1000)
         // vlogln(esc_prev);
         T = proportional;// + derivative;
-        duty_cycle = (.043788 * T) + esc_prev;
+        duty_cycle = (.043788 * T) + esc_prev; // TODO Shashank look at
         // vlogln("T: " + String(T));
         // vlogln("duty cycle: " + String(duty_cycle));
 
