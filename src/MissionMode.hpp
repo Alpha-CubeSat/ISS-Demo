@@ -69,7 +69,6 @@ public:
 
 private:
     Timer deploy_timer;
-    Timer burn_timer;
 };
 
 class DespinMode : public MissionMode {

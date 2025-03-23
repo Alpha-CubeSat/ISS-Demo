@@ -31,11 +31,8 @@ namespace sfr {
 
         uint32_t timestamp = 0;
 
-        bool began_first_burn = false;
-        bool began_second_burn = false;
-
-        bool burned_first = false;
-        bool burned_second = false;
+        bool began_deployment = false;
+        bool deployed = false;
 
         Queue events;
 

@@ -35,11 +35,8 @@ namespace sfr {
 
         extern uint32_t timestamp;
 
-        extern bool began_first_burn;
-        extern bool began_second_burn;
-
-        extern bool burned_first;
-        extern bool burned_second;
+        extern bool began_deployment;
+        extern bool deployed;
 
         extern Queue events;
 

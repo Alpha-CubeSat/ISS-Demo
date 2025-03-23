@@ -32,8 +32,7 @@ enum class Event : uint8_t {
     imu_init_failure = 7,
     imu_read_failure = 8,
 
-    first_burn_started = 9,
-    second_burn_started = 10 // TODO: Look at 2 burns?
+    deployed = 9,
 };
 
 namespace constants {
@@ -45,8 +44,7 @@ namespace constants {
 
         constexpr unsigned long deployment_total_duration = 7000;
         constexpr unsigned long deployment_standby_duration = 3000;
-        constexpr unsigned long deployment_actuate_duration = 400; // TODO: Increase for 1 burn
-        constexpr unsigned long deployment_break = deployment_standby_duration + deployment_actuate_duration + 500;
+        constexpr unsigned long deployment_actuate_duration = 500;
 
         constexpr unsigned long despin_duration = 7000;
         constexpr unsigned long open_loop_duration = 7000;

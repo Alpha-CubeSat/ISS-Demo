@@ -113,30 +113,16 @@ void DeploymentMode::enter() {
 void DeploymentMode::execute() {
     MissionMode::execute();
 
-    if (!sfr::mission::began_first_burn && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
+    if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
         digitalWrite(GUIDE_LASER_PIN, LOW); // TODO analog pin - also look at referencing its GPIO pin instead of analog (D19?)
         digitalWrite(GATE_PIN, HIGH); // (D14?)
-        sfr::mission::began_first_burn = true;
-        sfr::mission::events.enqueue(Event::first_burn_started);
-        burn_timer.start(constants::timer::deployment_actuate_duration);
+        sfr::mission::began_deployment = true;
     }
 
-    if (!sfr::mission::burned_first && burn_timer.is_elapsed()) {
+    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration + constants::timer::deployment_actuate_duration)) {
         digitalWrite(GATE_PIN, LOW);
-        sfr::mission::burned_first = true;
-        burn_timer.reset();
-    }
-
-    if (!sfr::mission::began_second_burn && deploy_timer.is_past(constants::timer::deployment_break)) {
-        digitalWrite(GATE_PIN, HIGH);
-        sfr::mission::events.enqueue(Event::second_burn_started);
-        burn_timer.start(constants::timer::deployment_actuate_duration);
-        sfr::mission::began_second_burn = true;
-    }
-
-    if (!sfr::mission::burned_second && burn_timer.is_elapsed()) {
-        digitalWrite(GATE_PIN, LOW);
-        sfr::mission::burned_second = true;
+        sfr::mission::deployed = true;
+        sfr::mission::events.enqueue(Event::deployed);
     }
 
     if (deploy_timer.is_elapsed()) {
@@ -146,10 +132,8 @@ void DeploymentMode::execute() {
 
 void DeploymentMode::exit() {
     deploy_timer.reset();
-    sfr::mission::began_first_burn = false;
-    sfr::mission::began_second_burn = false;
-    sfr::mission::burned_first = false;
-    sfr::mission::burned_second = false;
+    sfr::mission::began_deployment = false;
+    sfr::mission::deployed = false;
 }
 
 void DespinMode::enter() {
@@ -268,30 +252,16 @@ void AutomatedSequenceMode::as_deploy() {
         as_deploy_init = true;
     }
 
-    if (!sfr::mission::began_first_burn && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
-        digitalWrite(GUIDE_LASER_PIN, LOW);
-        digitalWrite(GATE_PIN, HIGH);
-        sfr::mission::events.enqueue(Event::first_burn_started);
-        sfr::mission::began_first_burn = true;
+    if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
+        digitalWrite(GUIDE_LASER_PIN, LOW); // TODO analog pin - also look at referencing its GPIO pin instead of analog (D19?)
+        digitalWrite(GATE_PIN, HIGH); // (D14?)
+        sfr::mission::began_deployment = true;
     }
 
-    if (!sfr::mission::burned_first && burn_timer.is_elapsed()) {
+    if (!sfr::mission::deployed && sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration + constants::timer::deployment_actuate_duration)) {
         digitalWrite(GATE_PIN, LOW);
-        sfr::mission::burned_first = true;
-        burn_timer.reset();
-        burn_timer.start(constants::timer::deployment_actuate_duration);
-    }
-
-    if (!sfr::mission::began_second_burn && deploy_timer.is_past(constants::timer::deployment_break)) {
-        digitalWrite(GATE_PIN, HIGH);
-        sfr::mission::events.enqueue(Event::second_burn_started);
-        sfr::mission::began_second_burn = true;
-        burn_timer.start(constants::timer::deployment_actuate_duration);
-    }
-
-    if (!sfr::mission::burned_second && burn_timer.is_elapsed()) {
-        digitalWrite(GATE_PIN, LOW);
-        sfr::mission::burned_second = true;
+        sfr::mission::deployed = true;
+        sfr::mission::events.enqueue(Event::deployed);
     }
 
     if (deploy_timer.is_elapsed()) {
