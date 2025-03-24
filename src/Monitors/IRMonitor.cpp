@@ -30,17 +30,22 @@ void IRMonitor::execute() {
 }
 
 void IRMonitor::parse_command() {
-    sfr::mission::events.enqueue(get_event(IrReceiver.decodedIRData.command));
+    uint16_t raw_command = IrReceiver.decodedIRData.command;
+    sfr::mission::events.enqueue(get_event(raw_command));
+
+    if (raw_command == ARM_BUTTON_ALT) {
+        raw_command = ARM_BUTTON;
+    }
 
     // Ignore repeat commands (except for Arm)
-    if (button_selected == IrReceiver.decodedIRData.command && button_selected != ARM_BUTTON) {
+    if (button_selected == raw_command && button_selected != ARM_BUTTON) {
         return;
     }
     // Ignore >2 action commands after an Arm
-    if (sfr::ir::is_armed && button_selected != ARM_BUTTON && IrReceiver.decodedIRData.command != ARM_BUTTON) {
+    if (sfr::ir::is_armed && button_selected != ARM_BUTTON && raw_command != ARM_BUTTON) {
         return;
     }
-    button_selected = IrReceiver.decodedIRData.command;
+    button_selected = raw_command;
 
     switch (button_selected) {
     case ARM_BUTTON:
