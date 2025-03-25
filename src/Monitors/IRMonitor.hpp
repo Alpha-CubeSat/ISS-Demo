@@ -19,7 +19,7 @@ public:
 
 private:
     void parse_command();
-    Event get_event(uint8_t button);
+    Event get_event(uint16_t button);
     void handle_overflow();
 
     uint16_t button_selected = -1;

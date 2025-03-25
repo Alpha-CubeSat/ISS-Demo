@@ -91,7 +91,7 @@ void IRMonitor::parse_command() {
     }
 }
 
-Event IRMonitor::get_event(uint8_t button) {
+Event IRMonitor::get_event(uint16_t button) {
     switch (button) {
     case ARM_BUTTON:
     case ARM_BUTTON_ALT:
