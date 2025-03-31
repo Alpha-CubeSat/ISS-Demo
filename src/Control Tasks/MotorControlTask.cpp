@@ -15,6 +15,8 @@
 void MotorControlTask::begin() {
     esc.attach(PWM_PIN, 1000, 2000);
     esc.write(0);
+    delay(1000);
+    esc.write(0);
 }
 
 void MotorControlTask::spin_up(int dc) {
