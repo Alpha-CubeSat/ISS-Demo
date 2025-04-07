@@ -172,6 +172,7 @@ void OpenLoopMode::enter() {
     set_purple();
     motor_control_task.spin_up(constants::motor::open_loop_spin_dc);
     open_loop_timer.start(constants::timer::open_loop_duration);
+    digitalWrite(GUIDE_LASER_PIN, HIGH);
 }
 
 void OpenLoopMode::execute() {
