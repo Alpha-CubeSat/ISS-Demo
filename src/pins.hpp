@@ -12,13 +12,13 @@
 #define IR_PIN 11
 #define SD_PIN 4
 
-#define GATE_PIN A4
+#define GATE_PIN 18
 #define BUTTON_PIN 5
-#define GUIDE_LASER_PIN A5
+#define GUIDE_LASER_PIN 19
 
-#define RED_LED_PIN A0
-#define GREEN_LED_PIN A1
-#define BLUE_LED_PIN A2
+#define RED_LED_PIN 14
+#define GREEN_LED_PIN 15
+#define BLUE_LED_PIN 16
 
 // IR remote buttons
 

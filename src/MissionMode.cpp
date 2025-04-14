@@ -57,7 +57,7 @@ void InitialSpinupMode::execute() {
     MissionMode::execute();
 
     if (!sfr::motor::began_initial_spin && initial_spinup_timer.is_past(3000)) {
-        motor_control_task.spin_up(constants::motor::initial_spin_dc); // TODO: Change
+        motor_control_task.spin_up(constants::motor::initial_spin_dc);
         sfr::motor::began_initial_spin = true;
     }
 
@@ -114,8 +114,8 @@ void DeploymentMode::execute() {
     MissionMode::execute();
 
     if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
-        digitalWrite(GUIDE_LASER_PIN, LOW); // TODO analog pin - also look at referencing its GPIO pin instead of analog (D19?)
-        digitalWrite(GATE_PIN, HIGH); // (D14?)
+        digitalWrite(GUIDE_LASER_PIN, LOW);
+        digitalWrite(GATE_PIN, HIGH);
         sfr::mission::began_deployment = true;
     }
 
@@ -249,13 +249,13 @@ void AutomatedSequenceMode::as_open_loop_spinup() {
 
 void AutomatedSequenceMode::as_deploy() {
     if (!as_deploy_init) {
-        deploy_timer.start(constants::timer::deployment_total_duration); // TODO test the timing of this before despin
+        deploy_timer.start(constants::timer::deployment_total_duration);
         as_deploy_init = true;
     }
 
     if (!sfr::mission::began_deployment && deploy_timer.is_past(constants::timer::deployment_standby_duration)) {
-        digitalWrite(GUIDE_LASER_PIN, LOW); // TODO analog pin - also look at referencing its GPIO pin instead of analog (D19?)
-        digitalWrite(GATE_PIN, HIGH); // (D14?)
+        digitalWrite(GUIDE_LASER_PIN, LOW);
+        digitalWrite(GATE_PIN, HIGH);
         sfr::mission::began_deployment = true;
     }
 
@@ -285,7 +285,7 @@ void AutomatedSequenceMode::as_despin() {
 void SafeHoldMode::enter() {
     set_white();
     sfr::motor::controller_on = false;
-    // TODO spin down hard drive
+    motor_control_task.spin_down();
     blink_timer.start(constants::timer::blink_duration);
 }
 
