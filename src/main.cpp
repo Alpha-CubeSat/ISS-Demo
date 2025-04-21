@@ -27,6 +27,7 @@ void setup() {
 
     pinMode(GATE_PIN, OUTPUT);
     pinMode(GUIDE_LASER_PIN, OUTPUT);
+    digitalWrite(GUIDE_LASER_PIN, LOW);
 
     pinMode(BUTTON_PIN, INPUT_PULLUP);
     attachInterrupt(BUTTON_PIN, set_automated, FALLING);
