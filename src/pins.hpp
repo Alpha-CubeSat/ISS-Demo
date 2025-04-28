@@ -8,9 +8,12 @@
 #ifndef PINS_HPP
 #define PINS_HPP
 
+#include <Arduino.h>
+
 #define PWM_PIN 10
 #define IR_PIN 11
 #define SD_PIN 4
+#define VOLTAGE_PIN A3
 
 #define GATE_PIN 18
 #define BUTTON_PIN 5

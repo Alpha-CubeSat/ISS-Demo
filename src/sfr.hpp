@@ -65,6 +65,11 @@ namespace sfr {
         extern float gyro_z;
 
     } // namespace imu
+
+    namespace voltage {
+        extern float battery;
+    } // namespace voltage
+
     namespace sd {
         extern bool failed_init;
         extern char const *log_filename;

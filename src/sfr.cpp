@@ -62,6 +62,10 @@ namespace sfr {
 
     } // namespace imu
 
+    namespace voltage {
+        float battery = 0;
+    } // namespace voltage
+
     namespace sd {
         bool failed_init = false;
         char const *log_filename = "data_0.csv";

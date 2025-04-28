@@ -16,13 +16,16 @@
 
 #include "Monitors/IMUMonitor.hpp"
 #include "Monitors/IRMonitor.hpp"
+#include "Monitors/VoltageMonitor.hpp"
 
+VoltageMonitor voltage_monitor;
 IMUMonitor imu_monitor;
 IRMonitor ir_monitor;
 MotorControlTask motor_control_task;
 SDControlTask sd_control_task;
 
 void MissionMode::execute() {
+    voltage_monitor.execute();
     imu_monitor.execute();
     if (sfr::mission::mode->get_id() != 7) {
         ir_monitor.execute();
