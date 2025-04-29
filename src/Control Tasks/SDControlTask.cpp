@@ -59,6 +59,7 @@ void SDControlTask::execute() {
 
     String data = String(sfr::mission::timestamp) + "," +
                   String(sfr::mission::mode->get_id()) + "," +
+                  String(sfr::voltage::battery) + "," +
                   String(sfr::controller::record_duty_cycle) + "," +
                   String(sfr::imu::accel_x) + "," +
                   String(sfr::imu::accel_y) + "," +
