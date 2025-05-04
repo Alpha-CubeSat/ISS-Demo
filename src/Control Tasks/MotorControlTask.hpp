@@ -30,7 +30,7 @@ private:
     double time_prev = 0.0;
 
     double Kd = 50;
-    double Kp = 1000;
+    double Kp = 10000;
     double proportional = 0.0;
     double derivative = 0.0;
     double pulse_width = 0.0;
