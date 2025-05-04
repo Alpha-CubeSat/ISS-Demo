@@ -42,6 +42,8 @@ void MissionMode::exit() {
 void InitialSpinupMode::enter() {
     set_blue();
 
+    delay(2000);
+
     imu_monitor.begin();
     ir_monitor.begin();
     sd_control_task.begin();
