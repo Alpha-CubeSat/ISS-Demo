@@ -56,7 +56,7 @@ namespace constants {
         constexpr unsigned long ir_invalid_led_duration = 3000;
 
         constexpr unsigned long arm_timeout = 2000;
-        constexpr unsigned long controller_spinup_duration = 60000; // TODO Shashank
+        constexpr unsigned long controller_spinup_duration = 20000;
 
         constexpr unsigned long blink_duration = 200;
 

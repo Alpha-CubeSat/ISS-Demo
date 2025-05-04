@@ -135,6 +135,7 @@ void DeploymentMode::execute() {
 
 void DeploymentMode::exit() {
     deploy_timer.reset();
+    digitalWrite(GATE_PIN, LOW);
     sfr::mission::began_deployment = false;
     sfr::mission::deployed = false;
 }
