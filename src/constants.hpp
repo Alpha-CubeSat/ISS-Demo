@@ -62,7 +62,7 @@ namespace constants {
 
     } // namespace timer
     namespace motor {
-        constexpr int initial_spin_dc = 1180;
+        constexpr int initial_spin_dc = 1220;
         constexpr int open_loop_spin_dc = 1600;
     } // namespace motor
     namespace imu {
