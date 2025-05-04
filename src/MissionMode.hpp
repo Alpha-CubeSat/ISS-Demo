@@ -131,6 +131,9 @@ private:
     bool as_open_loop_init = false;
     void as_open_loop_spinup();
 
+    bool as_controller_init = false;
+    void as_controller_spinup();
+
     bool as_deploy_init = false;
     void as_deploy();
 
@@ -141,9 +144,13 @@ private:
 
     Timer blink_timer;
     Timer initial_hold_timer;
+
     Timer open_loop_timer;
+    Timer controller_timeout_timer;
+
     Timer deploy_timer;
     Timer burn_timer;
+
     Timer despin_timer;
 };
 

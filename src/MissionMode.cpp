@@ -215,7 +215,11 @@ void AutomatedSequenceMode::execute() {
         as_hold();
         break;
     case SPINUP:
+#ifdef AUTOMATED_SEQUENCE_OPEN_LOOP
         as_open_loop_spinup();
+#else
+        as_controller_spinup();
+#endif
         break;
     case DEPLOY:
         as_deploy();
@@ -235,6 +239,19 @@ void AutomatedSequenceMode::as_hold() {
 
     if (initial_hold_timer.is_elapsed()) {
         current_action = SPINUP;
+    }
+}
+
+void AutomatedSequenceMode::as_controller_spinup() {
+    if (!as_controller_init) {
+        sfr::motor::controller_on = true;
+        controller_timeout_timer.start(constants::timer::controller_spinup_duration);
+        as_controller_init = true;
+    }
+
+    if (controller_timeout_timer.is_elapsed()) {
+        sfr::motor::controller_on = false;
+        current_action = DEPLOY;
     }
 }
 

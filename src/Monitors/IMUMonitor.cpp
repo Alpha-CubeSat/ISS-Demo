@@ -11,6 +11,12 @@
 #include "sfr.hpp"
 
 void IMUMonitor::begin() {
+#ifdef AUTOMATED_SEQUENCE_NO_IMU
+    if (sfr::mission::mode->get_id() == 7) {
+        return;
+    }
+#endif
+
     if (imu.begin_I2C()) {
         imu.setGyroDataRate(LSM6DS_RATE_208_HZ);
         imu.setGyroRange(LSM6DS_GYRO_RANGE_1000_DPS);
@@ -25,6 +31,12 @@ void IMUMonitor::begin() {
 }
 
 void IMUMonitor::execute() {
+#ifdef AUTOMATED_SEQUENCE_NO_IMU
+    if (sfr::mission::mode->get_id() == 7) {
+        return;
+    }
+#endif
+
     if (sfr::imu::failed_init) {
         return;
     }
